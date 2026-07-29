@@ -4,14 +4,14 @@ import { howItWorks } from "../content/site";
 
 <section id="como-funciona" class="border-b border-borde bg-hueso">
   <div class="container-page py-16 sm:py-20">
-    <h2 class="font-display text-2xl font-semibold text-tinta sm:text-3xl">{howItWorks.title}</h2>
+    <h2 class="font-display text-2xl font-bold text-tinta sm:text-3xl">{howItWorks.title}</h2>
 
-    <ol class="mt-10 grid gap-10 sm:grid-cols-3 sm:gap-8">
+    <ol class="mt-10 grid gap-10 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-borde">
       {
         howItWorks.steps.map((step) => (
-          <li>
+          <li class="sm:px-8 first:sm:pl-0 last:sm:pr-0">
             <p class="font-mono text-sm text-senal">{step.number}</p>
-            <h3 class="mt-2 font-display text-xl font-semibold text-tinta">{step.title}</h3>
+            <h3 class="mt-2 font-display text-xl font-bold text-tinta">{step.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-tinta-suave">{step.description}</p>
           </li>
         ))

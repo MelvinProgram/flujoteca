@@ -2,14 +2,26 @@
 import { hero } from "../content/site";
 ---
 
-<section id="inicio" class="border-b border-borde bg-hueso">
-  <div class="container-page py-20 sm:py-28 lg:py-32">
+<section id="inicio" class="relative border-b border-borde bg-hueso">
+  <!-- Sello de registro: firma visual del sitio, evoca un sello de entrada administrativo -->
+  <div
+    class="absolute top-5 right-4 z-10 sm:top-8 sm:right-8 lg:right-12"
+    aria-hidden="true"
+  >
+    <div class="registro-stamp text-tinta">
+      <span class="registro-stamp-ring"></span>
+      <span class="text-[10px] sm:text-xs">FLUJOTECA</span>
+      <span class="text-[8px] sm:text-[9px]">DIAGNÓSTICO&nbsp;GRATUITO</span>
+    </div>
+  </div>
+
+  <div class="container-page py-24 sm:py-32 lg:py-40">
     <div class="mx-auto max-w-3xl text-center">
       <p class="font-mono text-xs font-medium tracking-widest text-senal uppercase">
         {hero.kicker}
       </p>
 
-      <h1 class="mt-5 font-display text-4xl font-semibold text-tinta sm:text-5xl lg:text-6xl">
+      <h1 class="mt-5 font-display text-4xl font-bold text-tinta sm:text-5xl lg:text-6xl">
         {hero.title}
       </h1>
 
