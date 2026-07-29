@@ -1,0 +1,70 @@
+---
+// Aviso legal — estructura estándar (LSSI-CE) con contenido de marcador.
+// TODO: sustituir todos los [Pendiente: ...] por el texto revisado por un
+// asesor legal antes de publicar el sitio.
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../content/site";
+---
+
+<Layout title="Aviso legal">
+  <Header />
+  <main>
+    <section class="bg-hueso">
+      <div class="container-page max-w-3xl py-16 sm:py-20">
+        <h1 class="font-display text-3xl font-semibold text-tinta">Aviso legal</h1>
+
+        <div class="mt-8 space-y-8 text-tinta-suave">
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">1. Datos identificativos</h2>
+            <p class="mt-2 leading-relaxed">
+              En cumplimiento del deber de información de la Ley 34/2002, de Servicios de la
+              Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de que
+              el titular de este sitio web es {site.legalName}.
+            </p>
+            <p class="mt-2 leading-relaxed">
+              [Pendiente: NIF/CIF, domicilio social y datos de inscripción registral si aplica]
+            </p>
+            <p class="mt-2 leading-relaxed">
+              Email de contacto: <a href={`mailto:${site.contact.email}`} class="text-senal underline underline-offset-2">{site.contact.email}</a>
+            </p>
+          </div>
+
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">2. Objeto</h2>
+            <p class="mt-2 leading-relaxed">
+              Este sitio web tiene por objeto informar sobre los servicios de consultoría de
+              automatización de procesos de {site.name} y facilitar la solicitud de una sesión de
+              diagnóstico gratuita.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">3. Condiciones de uso</h2>
+            <p class="mt-2 leading-relaxed">
+              [Pendiente: condiciones de acceso y uso del sitio, responsabilidad sobre los
+              contenidos y enlaces]
+            </p>
+          </div>
+
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">4. Propiedad intelectual e industrial</h2>
+            <p class="mt-2 leading-relaxed">
+              [Pendiente: titularidad de los contenidos, marca y diseño del sitio]
+            </p>
+          </div>
+
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">5. Legislación aplicable</h2>
+            <p class="mt-2 leading-relaxed">
+              Las presentes condiciones se rigen por la legislación española. [Pendiente: fuero
+              o jurisdicción aplicable en caso de conflicto]
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

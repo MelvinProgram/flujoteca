@@ -1,0 +1,32 @@
+---
+import { problem } from "../content/site";
+---
+
+<section id="problema" class="border-b border-borde bg-hueso">
+  <div class="container-page py-16 sm:py-20">
+    <h2 class="max-w-2xl font-display text-2xl font-semibold text-tinta sm:text-3xl">
+      {problem.title}
+    </h2>
+
+    <dl class="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-6">
+      {
+        problem.stats.map((stat) => (
+          <div class="border-t-2 border-tinta pt-4">
+            <dt class="sr-only">{stat.description}</dt>
+            <dd>
+              <p
+                class:list={[
+                  "font-mono text-4xl font-semibold sm:text-5xl",
+                  stat.value === "2027" ? "text-urgencia" : "text-tinta",
+                ]}
+              >
+                {stat.value}
+              </p>
+              <p class="mt-2 text-sm leading-relaxed text-tinta-suave">{stat.description}</p>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

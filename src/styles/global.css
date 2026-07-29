@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Tipografía autoalojada (sin peticiones a Google Fonts) */
+@import "@fontsource-variable/archivo";
+@import "@fontsource-variable/inter";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
+
+/*
+ * Tokens de marca — Flujoteca
+ * Fuente: brief de identidad visual del proyecto.
+ * No renombrar sin actualizar también el resto de componentes.
+ */
+@theme {
+  --color-tinta: #14273e;      /* azul tinta — principal */
+  --color-senal: #0a5aa0;      /* azul señal — acentos y enlaces */
+  --color-urgencia: #b3271e;   /* rojo — solo urgencias y plazos */
+  --color-hueso: #f1f3f5;      /* fondo */
+  --color-confirma: #1e6b45;   /* verde — confirmaciones */
+
+  /* Neutros derivados, para texto secundario y bordes sobre el fondo hueso */
+  --color-tinta-suave: #3d4e63;
+  --color-borde: #d7dbe0;
+  --color-blanco: #ffffff;
+
+  --font-display: "Archivo Variable", "Archivo", sans-serif;
+  --font-sans: "Inter Variable", "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+/* Contenedor centrado reutilizado por todas las secciones */
+@utility container-page {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-tinta);
+    background-color: var(--color-hueso);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100svh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-stretch: condensed;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+
+  /* Foco de teclado siempre visible, con buen contraste sobre hueso y tinta */
+  :focus-visible {
+    outline: 2px solid var(--color-senal);
+    outline-offset: 2px;
+  }
+
+  /* Respeta la preferencia de movimiento reducido del sistema */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

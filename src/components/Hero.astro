@@ -1,0 +1,31 @@
+---
+import { hero } from "../content/site";
+---
+
+<section id="inicio" class="border-b border-borde bg-hueso">
+  <div class="container-page py-20 sm:py-28 lg:py-32">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="font-mono text-xs font-medium tracking-widest text-senal uppercase">
+        {hero.kicker}
+      </p>
+
+      <h1 class="mt-5 font-display text-4xl font-semibold text-tinta sm:text-5xl lg:text-6xl">
+        {hero.title}
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-2xl text-balance text-lg leading-relaxed text-tinta-suave">
+        {hero.subtitle}
+      </p>
+
+      <div class="mt-10 flex flex-col items-center gap-3">
+        <a
+          href={hero.cta.href}
+          class="inline-flex items-center justify-center border border-senal bg-senal px-8 py-3.5 font-sans text-base font-medium text-blanco transition-colors hover:bg-tinta hover:border-tinta"
+        >
+          {hero.cta.label}
+        </a>
+        <p class="font-mono text-xs text-tinta-suave">{hero.meta}</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,78 @@
+---
+// Política de privacidad — estructura estándar (RGPD / LOPDGDD) con contenido de marcador.
+// TODO: sustituir todos los [Pendiente: ...] por el texto revisado por un
+// asesor legal antes de publicar el sitio, especialmente el apartado de
+// destinatarios (webhook/CRM real usado para el formulario de contacto).
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../content/site";
+---
+
+<Layout title="Política de privacidad">
+  <Header />
+  <main>
+    <section class="bg-hueso">
+      <div class="container-page max-w-3xl py-16 sm:py-20">
+        <h1 class="font-display text-3xl font-semibold text-tinta">Política de privacidad</h1>
+
+        <div class="mt-8 space-y-8 text-tinta-suave">
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">1. Responsable del tratamiento</h2>
+            <p class="mt-2 leading-relaxed">
+              {site.legalName}. [Pendiente: NIF/CIF y domicilio social]. Email de contacto:{" "}
+              <a href={`mailto:${site.contact.email}`} class="text-senal underline underline-offset-2">
+                {site.contact.email}
+              </a>
+            </p>
+          </div>
+
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">2. Finalidad del tratamiento</h2>
+            <p class="mt-2 leading-relaxed">
+              Los datos facilitados a través del formulario de contacto se tratan para gestionar
+              la solicitud de la sesión de diagnóstico gratuita y responder a la consulta
+              planteada.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">3. Legitimación</h2>
+            <p class="mt-2 leading-relaxed">
+              El consentimiento de la persona interesada, prestado al marcar la casilla de
+              aceptación del formulario.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">4. Destinatarios</h2>
+            <p class="mt-2 leading-relaxed">
+              [Pendiente: identificar la herramienta que recibe el formulario (CRM, gestor de
+              tareas, etc.) y si implica encargados de tratamiento fuera del Espacio Económico
+              Europeo]
+            </p>
+          </div>
+
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">5. Derechos de las personas interesadas</h2>
+            <p class="mt-2 leading-relaxed">
+              Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición,
+              limitación y portabilidad escribiendo a{" "}
+              <a href={`mailto:${site.contact.email}`} class="text-senal underline underline-offset-2">
+                {site.contact.email}
+              </a>.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="font-display text-lg font-semibold text-tinta">6. Conservación de los datos</h2>
+            <p class="mt-2 leading-relaxed">
+              [Pendiente: plazo de conservación de los datos del formulario de contacto]
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

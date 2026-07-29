@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: confirmar el dominio final en astro.config.mjs (site) antes de publicar
+Sitemap: https://www.flujoteca.es/sitemap-index.xml

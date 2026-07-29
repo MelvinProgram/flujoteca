@@ -1,0 +1,31 @@
+---
+import { site, nav } from "../content/site";
+---
+
+<header class="border-b border-borde bg-hueso">
+  <div class="container-page flex h-16 items-center justify-between gap-4">
+    <a href="#inicio" class="flex items-center" aria-label={`${site.name} — inicio`}>
+      <img src="/logo.png" alt={site.name} class="h-8 w-auto sm:h-9" width="662" height="200" />
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Navegación principal">
+      {
+        nav.links.map((link) => (
+          <a
+            href={link.href}
+            class="font-sans text-sm text-tinta-suave transition-colors hover:text-senal"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <a
+      href={nav.cta.href}
+      class="inline-flex items-center border border-tinta bg-tinta px-4 py-2 font-sans text-sm font-medium text-blanco transition-colors hover:bg-senal hover:border-senal"
+    >
+      {nav.cta.label}
+    </a>
+  </div>
+</header>
