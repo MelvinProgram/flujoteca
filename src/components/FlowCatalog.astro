@@ -12,13 +12,13 @@ import { flows } from "../content/site";
     <ul class="mt-12 grid gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
       {
         flows.items.map((flow) => (
-          <li class="relative flex flex-col gap-3 border border-borde bg-blanco px-6 pt-8 pb-6 shadow-[2px_2px_0_0_var(--color-borde)]">
+          <li class="relative flex flex-col gap-3 border border-borde bg-superficie px-6 pt-8 pb-6 shadow-[2px_2px_0_0_var(--color-borde)]">
             {/* Pestaña de ficha: sobresale del borde superior, como un separador de fichero */}
             <span
               class:list={[
                 "absolute -top-3 left-6 border px-2 py-0.5 font-mono text-xs font-medium",
                 flow.code === "F-02"
-                  ? "border-urgencia bg-urgencia text-hueso"
+                  ? "border-urgencia bg-urgencia text-hueso-fija"
                   : "border-tinta bg-hueso text-tinta",
               ]}
             >

@@ -5,7 +5,14 @@ import { site, nav } from "../content/site";
 <header class="border-b border-borde bg-hueso">
   <div class="container-page flex h-16 items-center justify-between gap-4">
     <a href="/#inicio" class="flex items-center" aria-label={`${site.name} — inicio`}>
-      <img src="/logo.png" alt={site.name} class="h-8 w-auto sm:h-9" width="662" height="200" />
+      <img src="/logo.png" alt={site.name} class="h-8 w-auto sm:h-9 dark:hidden" width="662" height="200" />
+      <img
+        src="/logo-dark.png"
+        alt={site.name}
+        class="hidden h-8 w-auto sm:h-9 dark:block"
+        width="662"
+        height="200"
+      />
     </a>
 
     <nav class="hidden items-center gap-8 md:flex" aria-label="Navegación principal">
@@ -21,11 +28,55 @@ import { site, nav } from "../content/site";
       }
     </nav>
 
-    <a
-      href={nav.cta.href}
-      class="inline-flex items-center border border-tinta bg-tinta px-4 py-2 font-sans text-sm font-medium text-blanco transition-colors hover:bg-senal hover:border-senal"
-    >
-      {nav.cta.label}
-    </a>
+    <div class="flex items-center gap-3">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-borde text-tinta-suave transition-colors hover:text-senal"
+        aria-label="Cambiar entre modo claro y oscuro"
+      >
+        <svg
+          class="h-4 w-4 dark:hidden"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+          ></path>
+        </svg>
+        <svg
+          class="hidden h-4 w-4 dark:block"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path>
+        </svg>
+      </button>
+
+      <a
+        href={nav.cta.href}
+        class="inline-flex items-center border border-tinta-fija bg-tinta-fija px-4 py-2 font-sans text-sm font-medium text-blanco transition-colors hover:bg-senal hover:border-senal"
+      >
+        {nav.cta.label}
+      </a>
+    </div>
   </div>
 </header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>("#theme-toggle");
+  toggle?.addEventListener("click", () => {
+    const isDark = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("flujoteca-theme", isDark ? "dark" : "light");
+  });
+</script>

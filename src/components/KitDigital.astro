@@ -2,22 +2,22 @@
 import { kitDigital } from "../content/site";
 ---
 
-<section id="kit-digital" class="border-b border-borde bg-tinta">
+<section id="kit-digital" class="border-b border-borde bg-tinta-fija">
   <div class="container-page py-14 sm:py-16">
-    <div class="flex flex-col items-start gap-6 border-y-4 border-double border-hueso/25 py-8 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-col items-start gap-6 border-y-4 border-double border-hueso-fija/25 py-8 sm:flex-row sm:items-center sm:justify-between">
       <div class="max-w-2xl">
-        <p class="font-mono text-xs font-medium tracking-widest text-hueso/70 uppercase">
+        <p class="font-mono text-xs font-medium tracking-widest text-hueso-fija/70 uppercase">
           Subvención · Kit Digital
         </p>
-        <h2 class="mt-2 font-display text-2xl font-bold text-hueso sm:text-3xl">
+        <h2 class="mt-2 font-display text-2xl font-bold text-hueso-fija sm:text-3xl">
           {kitDigital.title}
         </h2>
-        <p class="mt-3 text-hueso/85 leading-relaxed">{kitDigital.body}</p>
+        <p class="mt-3 text-hueso-fija/85 leading-relaxed">{kitDigital.body}</p>
       </div>
 
       <a
         href={kitDigital.cta.href}
-        class="inline-flex shrink-0 items-center justify-center border border-hueso px-6 py-3 font-sans text-sm font-medium text-hueso transition-colors hover:bg-hueso hover:text-tinta"
+        class="inline-flex shrink-0 items-center justify-center border border-hueso-fija px-6 py-3 font-sans text-sm font-medium text-hueso-fija transition-colors hover:bg-hueso-fija hover:text-tinta-fija"
       >
         {kitDigital.cta.label}
       </a>

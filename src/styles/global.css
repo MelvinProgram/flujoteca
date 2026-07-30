@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Tipografía autoalojada (sin peticiones a Google Fonts) */
 @import "@fontsource/zilla-slab/500.css";
 @import "@fontsource/zilla-slab/600.css";
@@ -26,9 +28,35 @@
   --color-borde: #d7dbe0;
   --color-blanco: #ffffff;
 
+  /*
+   * Tokens fijos: no cambian entre modo claro/oscuro. Se usan donde el mismo
+   * color de marca actúa como relleno sólido (botones CTA, banda de Kit
+   * Digital) en vez de como tinta de texto — ver bloque .dark más abajo.
+   */
+  --color-tinta-fija: #14273e;
+  --color-hueso-fija: #f1f3f5;
+  --color-superficie: #ffffff;
+
   --font-display: "Zilla Slab", ui-serif, Georgia, serif;
   --font-sans: "Public Sans Variable", "Public Sans", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+/*
+ * Modo oscuro — redefine los tokens de superficie/tinta/acento.
+ * tinta-fija y hueso-fija quedan fuera a propósito: son el relleno sólido de
+ * los botones CTA y de la banda de Kit Digital, que no deben cambiar de tono
+ * con el tema.
+ */
+.dark {
+  --color-hueso: #0b1420;
+  --color-tinta: #e7ebf1;
+  --color-tinta-suave: #a9b6c8;
+  --color-borde: #2a3a4f;
+  --color-senal: #4c9fe0;
+  --color-urgencia: #e0574c;
+  --color-confirma: #3fae7c;
+  --color-superficie: #141f2e;
 }
 
 /* Contenedor centrado reutilizado por todas las secciones */
