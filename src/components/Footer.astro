@@ -3,51 +3,7 @@ import { site, footer, creator } from "../content/site";
 ---
 
 <footer class="border-t border-borde bg-superficie">
-  <div class="container-page grid gap-8 py-12 sm:grid-cols-2">
-    <div>
-      <div class="flex items-center gap-2">
-        <img src="/logo.png" alt={site.name} class="h-6 w-auto dark:hidden" width="662" height="200" />
-        <img
-          src="/logo-dark.png"
-          alt={site.name}
-          class="hidden h-6 w-auto dark:block"
-          width="662"
-          height="200"
-        />
-      </div>
-      <p class="mt-2 max-w-sm text-sm text-tinta-suave">{site.tagline}</p>
-
-      <dl class="mt-4 space-y-1 font-mono text-sm text-tinta-suave">
-        <div class="flex gap-2">
-          <dt class="sr-only">Email</dt>
-          <dd>
-            <a href={`mailto:${site.contact.email}`} class="hover:text-senal">
-              {site.contact.email}
-            </a>
-          </dd>
-        </div>
-        <div class="flex gap-2">
-          <dt class="sr-only">Zona de servicio</dt>
-          <dd>{site.contact.address}</dd>
-        </div>
-      </dl>
-    </div>
-
-    <div class="sm:text-right">
-      <nav class="flex flex-col gap-2 sm:items-end" aria-label="Enlaces legales">
-        {
-          footer.legalLinks.map((link) => (
-            <a href={link.href} class="text-sm text-tinta-suave hover:text-senal">
-              {link.label}
-            </a>
-          ))
-        }
-      </nav>
-      <p class="mt-4 font-mono text-xs text-tinta-suave">{footer.copyright}</p>
-    </div>
-  </div>
-
-  <div class="container-page mt-8 flex flex-col items-center gap-3 border-t border-borde pt-6 sm:flex-row sm:justify-between">
+  <div class="container-page flex flex-col items-center gap-3 border-b border-borde pt-10 pb-8 sm:flex-row sm:justify-between">
     <div class="flex items-center gap-3">
       <img
         src={creator.photo}
@@ -89,6 +45,50 @@ import { site, footer, creator } from "../content/site";
           ></path>
         </svg>
       </a>
+    </div>
+  </div>
+
+  <div class="container-page grid gap-8 py-12 sm:grid-cols-2">
+    <div>
+      <div class="flex items-center gap-2">
+        <img src="/logo.png" alt={site.name} class="h-6 w-auto dark:hidden" width="662" height="200" />
+        <img
+          src="/logo-dark.png"
+          alt={site.name}
+          class="hidden h-6 w-auto dark:block"
+          width="662"
+          height="200"
+        />
+      </div>
+      <p class="mt-2 max-w-sm text-sm text-tinta-suave">{site.tagline}</p>
+
+      <dl class="mt-4 space-y-1 font-mono text-sm text-tinta-suave">
+        <div class="flex gap-2">
+          <dt class="sr-only">Email</dt>
+          <dd>
+            <a href={`mailto:${site.contact.email}`} class="hover:text-senal">
+              {site.contact.email}
+            </a>
+          </dd>
+        </div>
+        <div class="flex gap-2">
+          <dt class="sr-only">Zona de servicio</dt>
+          <dd>{site.contact.address}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="sm:text-right">
+      <nav class="flex flex-col gap-2 sm:items-end" aria-label="Enlaces legales">
+        {
+          footer.legalLinks.map((link) => (
+            <a href={link.href} class="text-sm text-tinta-suave hover:text-senal">
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+      <p class="mt-4 font-mono text-xs text-tinta-suave">{footer.copyright}</p>
     </div>
   </div>
 </footer>
