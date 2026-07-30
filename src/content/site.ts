@@ -175,3 +175,11 @@ export const footer = {
   ],
   copyright: `© ${new Date().getFullYear()} ${site.name}. Todos los derechos reservados.`,
 } as const;
+
+export const creator = {
+  name: "Melvin Brito",
+  role: "Creador y desarrollador",
+  photo: "/melvin-brito.jpg",
+  linkedin: "https://www.linkedin.com/in/melvin-brito-7b7904296/",
+  github: "https://github.com/MelvinProgram",
+} as const;
