@@ -20,9 +20,7 @@ export const site = {
   locale: "es_ES",
 
   contact: {
-    email: "hola@flujoteca.es", // TODO: email real
-    phone: "+34 600 000 000", // TODO: teléfono real
-    phoneHref: "+34600000000", // TODO: mismo teléfono en formato tel:
+    email: "hola@flujoteca.es",
     address: "Sur de la Comunidad de Madrid", // TODO: dirección real si aplica
     // Coordenadas para schema.org LocalBusiness — TODO: sustituir por las reales
     geo: {
@@ -34,11 +32,11 @@ export const site = {
 
 export const nav = {
   links: [
-    { label: "La flujoteca", href: "#flujoteca" },
-    { label: "Cómo funciona", href: "#como-funciona" },
-    { label: "Kit Digital", href: "#kit-digital" },
+    { label: "La flujoteca", href: "/#flujoteca" },
+    { label: "Cómo funciona", href: "/#como-funciona" },
+    { label: "Kit Digital", href: "/#kit-digital" },
   ],
-  cta: { label: "Diagnóstico gratuito", href: "#contacto" },
+  cta: { label: "Diagnóstico gratuito", href: "/#contacto" },
 } as const;
 
 export const hero = {

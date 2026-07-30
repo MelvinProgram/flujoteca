@@ -5,7 +5,10 @@ import { site, footer } from "../content/site";
 <footer class="border-t border-borde bg-blanco">
   <div class="container-page grid gap-8 py-12 sm:grid-cols-2">
     <div>
-      <p class="font-display text-lg font-bold text-tinta">{site.name}</p>
+      <div class="flex items-center gap-2">
+        <img src="/logo.png" alt={site.name} class="h-6 w-auto" width="662" height="200" />
+        <p class="font-display text-lg font-bold text-tinta">{site.name}</p>
+      </div>
       <p class="mt-2 max-w-sm text-sm text-tinta-suave">{site.tagline}</p>
 
       <dl class="mt-4 space-y-1 font-mono text-sm text-tinta-suave">
@@ -14,14 +17,6 @@ import { site, footer } from "../content/site";
           <dd>
             <a href={`mailto:${site.contact.email}`} class="hover:text-senal">
               {site.contact.email}
-            </a>
-          </dd>
-        </div>
-        <div class="flex gap-2">
-          <dt class="sr-only">Teléfono</dt>
-          <dd>
-            <a href={`tel:${site.contact.phoneHref}`} class="hover:text-senal">
-              {site.contact.phone}
             </a>
           </dd>
         </div>
