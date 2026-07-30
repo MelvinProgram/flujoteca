@@ -90,6 +90,7 @@
     color: var(--color-tinta);
     background-color: var(--color-hueso);
     -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 4rem; /* altura del header (h-16), ahora sticky */
   }
 
   body {
