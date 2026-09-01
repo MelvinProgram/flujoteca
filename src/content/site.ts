@@ -168,6 +168,22 @@ export const contactForm = {
     "No se ha podido enviar la solicitud. Escríbenos directamente a " + "hola@flujoteca.es" + " o inténtalo de nuevo.",
 } as const;
 
+export const hubspot = {
+  portalId: "147950631",
+  formGuid: "0d38920b-4077-4e74-8d99-6021133e92c7",
+  hublet: "eu1", // cuenta alojada en la UE — el endpoint de envío debe ser api-eu1.hsforms.com, no api.hsforms.com
+  gdprConsentEnabled: false, // confirmado: el formulario no tiene activado el consentimiento GDPR explícito
+  // El formulario de HubSpot solo tiene "First name" (sin "Last name"), así que
+  // el nombre completo del visitante se manda entero a `firstname`, sin dividir.
+  fieldMap: {
+    firstname: "firstname",
+    email: "email",
+    phone: "phone",
+    company: "company",
+    message: "message", // propiedad personalizada creada para este formulario
+  },
+} as const;
+
 export const footer = {
   legalLinks: [
     { label: "Aviso legal", href: "/aviso-legal" },

@@ -34,16 +34,13 @@ npm run build      # genera ./dist
 npm run preview
 ```
 
-## Variables de entorno
+## Formulario de contacto
 
-Copia `.env.example` a `.env` y configura:
-
-- `PUBLIC_CONTACT_WEBHOOK_URL` — URL del webhook (Zapier, Make, n8n, etc.) al
-  que el formulario de contacto envía los datos directamente desde el
-  navegador (el sitio no tiene backend propio).
-
-En Netlify/Vercel, configura la misma variable en los ajustes de entorno del
-proyecto.
+El formulario envía los datos directamente desde el navegador a la API de
+envíos de formularios de HubSpot (sin backend propio). La configuración
+(`portalId`, `formGuid`, mapeo de campos) vive en `src/content/site.ts`
+(`hubspot`) — ver `plans/02-contacto-hubspot.md` para el detalle completo
+y los pasos manuales pendientes en HubSpot.
 
 ## Pendiente antes de publicar
 
@@ -51,3 +48,5 @@ proyecto.
 - Dominio real en `astro.config.mjs` (`site`) y `public/robots.txt`
 - Revisión legal de `aviso-legal.astro` y `politica-privacidad.astro`
   (contienen texto de marcador `[Pendiente: ...]`)
+- Confirmar que el formulario de HubSpot está **publicado** (no en
+  borrador/preview) — ver `plans/02-contacto-hubspot.md`, Fase final

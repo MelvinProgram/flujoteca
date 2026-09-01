@@ -35,10 +35,14 @@ is no test suite or linter configured in this repo.
   built from `site.contact`. `src/pages/index.astro` composes the page by
   stacking components (`Header`, `Hero`, `ProblemStats`, `FlowCatalog`,
   `HowItWorks`, `KitDigital`, `ContactForm`, `Footer`) inside `Layout`.
-- **No backend.** `ContactForm.astro` posts form data as JSON directly from
-  the browser to `PUBLIC_CONTACT_WEBHOOK_URL` (an external webhook — Zapier,
-  Make, n8n, etc., configured via `.env`, copied from `.env.example`). Any
-  env var the client needs must be prefixed `PUBLIC_` for Astro to expose it.
+- **No backend.** `ContactForm.astro` posts form data directly from the
+  browser to HubSpot's public Forms Submission API
+  (`api.hsforms.com/submissions/v3/integration/submit/{portalId}/{formGuid}`).
+  Config (`portalId`, `formGuid`, `gdprConsentEnabled`, `fieldMap`) lives in
+  `src/content/site.ts` (`hubspot` export) — not `.env`, since these values
+  aren't secrets and don't vary per environment. See
+  `plans/02-contacto-hubspot.md` for the full design and the manual HubSpot
+  setup steps still pending.
 - **Design tokens** are defined once in `src/styles/global.css` under
   `@theme` (Tailwind v4 CSS-based config): brand colors (`tinta`, `senal`,
   `urgencia`, `hueso`, `confirma`, plus neutrals) and font families (Zilla

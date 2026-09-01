@@ -119,15 +119,14 @@ const { fields, consent } = contactForm;
 </section>
 
 <script>
-  const WEBHOOK_URL = import.meta.env.PUBLIC_CONTACT_WEBHOOK_URL;
+  import { contactForm, hubspot } from "../content/site";
 
-  const LABELS = {
-    submit: "Enviar solicitud",
-    submitting: "Enviando…",
-    success: "Solicitud recibida. Te responderemos en menos de 48 horas laborables.",
-    error:
-      "No se ha podido enviar la solicitud. Escríbenos directamente a hola@flujoteca.es o inténtalo de nuevo.",
-  };
+  const ENDPOINT = `https://api-${hubspot.hublet}.hsforms.com/submissions/v3/integration/submit/${hubspot.portalId}/${hubspot.formGuid}`;
+
+  function getHutk(): string | undefined {
+    const match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/);
+    return match ? decodeURIComponent(match[1]) : undefined;
+  }
 
   const form = document.querySelector<HTMLFormElement>("#contact-form");
   const status = document.querySelector<HTMLParagraphElement>("#form-status");
@@ -138,31 +137,66 @@ const { fields, consent } = contactForm;
     if (!status || !submitButton) return;
 
     submitButton.disabled = true;
-    submitButton.textContent = LABELS.submitting;
+    submitButton.textContent = contactForm.submittingLabel;
     status.textContent = "";
     status.classList.remove("text-urgencia", "text-confirma");
 
     const data = Object.fromEntries(new FormData(form).entries());
 
+    const fields: { name: string; value: string }[] = [];
+    const addField = (key: keyof typeof hubspot.fieldMap, value: string) => {
+      if (value) fields.push({ name: hubspot.fieldMap[key], value });
+    };
+
+    addField("firstname", String(data.name ?? ""));
+    addField("email", String(data.email ?? ""));
+    addField("phone", String(data.phone ?? ""));
+    addField("company", String(data.company ?? ""));
+    addField("message", String(data.message ?? ""));
+
+    const hutk = getHutk();
+
+    const body = {
+      fields,
+      context: {
+        pageUri: window.location.href,
+        pageName: document.title,
+        ...(hutk ? { hutk } : {}),
+      },
+      ...(hubspot.gdprConsentEnabled
+        ? {
+            legalConsentOptions: {
+              consent: {
+                consentToProcess: true,
+                text: `${contactForm.consent.text} ${contactForm.consent.linkLabel}.`,
+              },
+            },
+          }
+        : {}),
+    };
+
     try {
-      const response = await fetch(WEBHOOK_URL, {
+      const response = await fetch(ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(body),
       });
 
-      if (!response.ok) throw new Error(`Webhook respondió ${response.status}`);
+      if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(`HubSpot respondió ${response.status}: ${errorBody}`);
+      }
 
-      status.textContent = LABELS.success;
+      status.textContent = contactForm.successMessage;
       status.classList.add("text-confirma");
       form.reset();
     } catch (error) {
       console.error("Error al enviar el formulario de contacto:", error);
-      status.textContent = LABELS.error;
+      status.textContent = contactForm.errorMessage;
       status.classList.add("text-urgencia");
     } finally {
       submitButton.disabled = false;
-      submitButton.textContent = LABELS.submit;
+      submitButton.textContent = contactForm.submitLabel;
     }
   });
 </script>
