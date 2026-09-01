@@ -164,8 +164,10 @@ webhook genérico: separa `name` en `firstname`/`lastname`, arma `fields`
 según `hubspot.fieldMap` omitiendo los campos opcionales vacíos, lee
 `hubspotutk` de forma defensiva, incluye `legalConsentOptions` solo si
 `hubspot.gdprConsentEnabled` es `true`, y hace `POST` a
-`https://api.hsforms.com/submissions/v3/integration/submit/{portalId}/{formGuid}`.
-Los textos de UI (`submitLabel`, `submittingLabel`, `successMessage`,
+`` `https://api-${hubspot.hublet}.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}` ``
+(esta cuenta está alojada en el hublet `eu1` de HubSpot — usar el dominio
+genérico `api.hsforms.com` habría devuelto error, por eso el `hublet` es
+parte de la config en `site.ts`). Los textos de UI (`submitLabel`, `submittingLabel`, `successMessage`,
 `errorMessage`) se leen de `contactForm` en `site.ts` en vez de un objeto
 `LABELS` duplicado.
 
@@ -179,24 +181,40 @@ forma incondicional.
 
 ## Fase final — Verificación
 
-- [ ] `npm run build` sin errores.
-- [ ] `grep -r "PUBLIC_CONTACT_WEBHOOK_URL" .` (excluyendo `node_modules`,
+- [x] `npm run build` sin errores.
+- [x] `grep -r "PUBLIC_CONTACT_WEBHOOK_URL" .` (excluyendo `node_modules`,
       `dist`) — sin resultados.
-- [ ] `grep -r "hbspt.forms.create\|js.hsforms.net" src/` — sin
+- [x] `grep -r "hbspt.forms.create\|js.hsforms.net" src/` — sin
       resultados.
-- [ ] Con `hubspot.portalId`/`formGuid`/`fieldMap` reales (Fase 1
-      completada), probar manualmente en el navegador:
-  - Enviar el formulario con todos los campos rellenos → comprobar en
-    HubSpot (Contacts) que aparece el contacto nuevo con `firstname`,
-    `lastname`, `email`, `phone`, `company` y el mensaje en la propiedad
-    personalizada, todos con los valores correctos.
-  - Enviar el formulario con un nombre de una sola palabra → confirmar que
-    no falla (`lastname` vacío es el comportamiento esperado).
-  - Si `gdprConsentEnabled` es `true`: confirmar que el envío no devuelve
-    400 por consentimiento.
-  - Provocar un error a propósito (p. ej. `formGuid` temporalmente
-    incorrecto) → confirmar que el formulario sigue mostrando el mensaje
-    de error en español y no rompe la página; revertir después.
-- [ ] `git diff` final: revisar que no se ha añadido ningún API key, token
-      privado ni secreto de HubSpot al código (solo `portalId` y
-      `formGuid`, que no lo son).
+- [x] Con `hubspot.portalId`/`formGuid`/`fieldMap` reales, probado
+      manualmente en el navegador: envío con los 5 campos rellenos →
+      confirmado en HubSpot (Contacts) que el contacto aparece con
+      `firstname`, `email`, `phone`, `company` y el mensaje en la
+      propiedad personalizada `message`, todos con los valores correctos.
+      (No aplica la prueba de "nombre de una sola palabra / `lastname`
+      vacío" del diseño original — el formulario de HubSpot no tiene
+      campo "Last name", así que el nombre completo se manda entero a
+      `firstname`, ver Fase 0.)
+- [x] `gdprConsentEnabled` es `false` — no aplica la prueba de
+      consentimiento.
+- [x] `git diff` final: sin ningún API key, token privado ni secreto de
+      HubSpot en el código (solo `portalId`/`formGuid`/`hublet`, que no lo
+      son).
+
+**Bug real encontrado y corregido (lección para futuras ediciones del
+formulario en HubSpot):** la primera prueba end-to-end solo registró
+`firstname` y `email`; `phone`, `company` y `message` llegaban en la
+petición (confirmado con las DevTools del navegador, respuesta `200
+{"inlineMessage":""}`) pero no se guardaban en el contacto. Causa: el
+campo "Empresa" en el editor del formulario de HubSpot estaba configurado
+como una propiedad personalizada de tipo "Texto de una línea", no como la
+propiedad estándar "Nombre de Empresa" (`company`) — aunque el nombre
+mostrado en el editor parecía coincidir, HubSpot las trata como
+propiedades distintas y descarta en silencio (sin error) los valores que
+no casan con la definición real del formulario. No fue un fallo del
+`fieldMap` ni del script (ya usaban el nombre interno correcto). Se
+corrigió cambiando el tipo de campo en HubSpot, sin tocar código. Moraleja
+para la próxima vez que se edite este formulario: si un campo deja de
+guardarse sin que la API devuelva error, revisar primero si el campo del
+formulario está vinculado a la propiedad estándar esperada (no solo si el
+nombre interno "parece" el correcto).
