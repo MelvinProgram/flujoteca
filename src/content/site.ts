@@ -47,6 +47,7 @@ export const hero = {
     "Automatizamos las tareas que ocupan el día a día de asesorías y gestorías del sur de Madrid — onboarding de clientes, plazos, documentación y estado de expedientes — sin cambiar el software que ya usa tu despacho.",
   cta: { label: "Solicita tu diagnóstico gratuito", href: "#contacto" },
   meta: "Sesión de 30 minutos · Sin compromiso",
+  transparencyBadge: "Seleccionando despachos piloto en el sur de Madrid — plazas limitadas",
 } as const;
 
 export const problem = {
