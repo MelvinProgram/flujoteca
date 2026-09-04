@@ -16,7 +16,7 @@ export const site = {
   // Descripción corta para <meta name="description"> y Open Graph (140-160 caracteres aprox.)
   description:
     "Flujoteca automatiza las tareas repetitivas de asesorías y gestorías del sur de Madrid: onboarding, plazos, documentación y estados de expediente.",
-  url: "https://www.flujoteca.es", // TODO: dominio real, debe coincidir con astro.config.mjs (site)
+  url: "https://www.flujoteca.es",
   locale: "es_ES",
 
   contact: {
@@ -35,6 +35,7 @@ export const nav = {
     { label: "La flujoteca", href: "/#flujoteca" },
     { label: "Cómo funciona", href: "/#como-funciona" },
     { label: "Kit Digital", href: "/#kit-digital" },
+    { label: "FAQ", href: "/#faq" },
   ],
   cta: { label: "Diagnóstico gratuito", href: "/#contacto" },
 } as const;
@@ -140,6 +141,68 @@ export const kitDigital = {
   title: "Kit Digital 2026",
   body: "La convocatoria 2026 del Kit Digital cubre entre 3.000 € y 12.000 € para proyectos de automatización e inteligencia artificial, según el tamaño de la empresa.",
   cta: { label: "Consulta si tu despacho es elegible", href: "#contacto" },
+} as const;
+
+export const faq = {
+  title: "Preguntas frecuentes",
+  subtitle: "Las dudas que más nos plantean los despachos antes de empezar.",
+  items: [
+    {
+      question: "¿Tengo que cambiar el software que ya usamos en el despacho?",
+      answer:
+        "No. Flujoteca se conecta a las herramientas que ya usa tu equipo (correo, hojas de cálculo, CRM, gestor documental, etc.); no sustituye tu sistema de gestión ni te obliga a migrar nada.",
+    },
+    {
+      question: "¿Cuánto tarda en implementarse un flujo?",
+      answer:
+        "Entre 3 y 7 días laborables desde el diagnóstico, dependiendo de la complejidad del flujo y de la rapidez del despacho en darnos acceso a las herramientas necesarias. Los flujos del catálogo (onboarding, plazos, documentación, estados de expediente) ya están diseñados, así que la mayor parte del tiempo es adaptación y prueba, no desarrollo desde cero.",
+    },
+    {
+      question: "¿Qué pasa si mi despacho usa un programa poco habitual o hecho a medida?",
+      answer:
+        "La mayoría de conexiones se hacen por correo, ficheros o formularios web, así que no depende de que tu programa tenga una integración \"oficial\". En el diagnóstico gratuito se revisa caso por caso.",
+    },
+    {
+      question: "¿Es seguro dar acceso a los datos fiscales y de clientes de mi despacho?",
+      answer:
+        "Se firma un contrato de encargo de tratamiento (RGPD Art. 28) antes de tocar cualquier dato, y solo se accede a lo estrictamente necesario para el flujo contratado.",
+    },
+    {
+      question: "¿Qué incluye el soporte mensual?",
+      answer:
+        "Ajustes y seguimiento continuo para que el flujo se mantenga al día con la forma de trabajar del despacho a medida que cambian sus procesos.",
+    },
+    {
+      question: "No tenemos a nadie técnico en el despacho, ¿necesitamos formación?",
+      answer:
+        "El flujo se diseña para funcionar sin que nadie del despacho tenga que tocar configuración técnica; el mantenimiento lo llevamos nosotros.",
+    },
+    {
+      question: "¿Cómo funciona la subvención del Kit Digital?",
+      answer:
+        "Cubre entre 3.000€ y 12.000€ según el tamaño de la empresa; en el diagnóstico gratuito se revisa si el despacho es elegible y se ayuda con la tramitación.",
+    },
+    {
+      question: "¿Dónde se almacenan los datos?",
+      answer:
+        "Los flujos de trabajo se ejecutan en infraestructura propia (servidor autoalojado), no en un servicio en la nube de terceros. Los datos del despacho pasan por las herramientas que tu equipo ya usa (correo, hojas de cálculo, CRM) y por este servidor, sin almacenarse de forma permanente fuera de esos sistemas.",
+    },
+    {
+      question: "¿Qué pasa si el flujo no encaja después de un tiempo?",
+      answer:
+        "El soporte mensual incluye ajustes al flujo cuando cambia la forma de trabajar del despacho, sin coste adicional por esos cambios menores. Si el flujo deja de encajar, puedes cancelar el servicio con 30 días de aviso, sin permanencia forzosa.",
+    },
+    {
+      question: "¿Cuánto cuesta?",
+      answer:
+        "El coste depende del número de flujos y de la complejidad de cada uno; se concreta en el diagnóstico gratuito. Como referencia, la mayoría de despachos entra dentro de la subvención del Kit Digital (3.000€–12.000€), lo que cubre buena parte o la totalidad de la inversión inicial.",
+    },
+    {
+      question: "¿Ayuda esto con Verifactu?",
+      answer:
+        "Flujoteca no es un software de facturación ni sustituye tu adaptación a Verifactu — eso lo cubre tu programa de facturación certificado. Lo que sí hacemos es automatizar los procesos alrededor de esa gestión (plazos, documentación, seguimiento), para que el cambio normativo no añada más carga manual a tu día a día.",
+    },
+  ],
 } as const;
 
 export const contactForm = {
