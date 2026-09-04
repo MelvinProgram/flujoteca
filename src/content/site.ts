@@ -54,9 +54,10 @@ export const problem = {
   title: "El problema no es la falta de tiempo. Es dónde se va.",
   stats: [
     {
-      value: "68%",
-      unit: "%",
-      description: "de las pymes dedica más de 10 horas semanales a tareas repetitivas",
+      value: "16",
+      unit: "",
+      description:
+        "horas semanales pierden de media los empleados españoles en tareas administrativas repetitivas",
     },
     {
       value: "2027",
@@ -64,11 +65,12 @@ export const problem = {
       description: "es el plazo límite para adaptarse a Verifactu",
     },
     {
-      value: "83%",
+      value: "27%",
       unit: "%",
       description: "de las empresas desconoce las nuevas pautas de facturación electrónica",
     },
   ],
+  sources: "Fuentes: estudio de Ricoh (2026) y encuesta de Holded (2026).",
 } as const;
 
 export const flows = {
