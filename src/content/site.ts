@@ -229,7 +229,7 @@ export const contactForm = {
   },
   submitLabel: "Enviar solicitud",
   submittingLabel: "Enviando…",
-  successMessage: "Solicitud recibida. Te responderemos en menos de 48 horas laborables.",
+  successMessage: "Solicitud recibida. Te responderemos en menos de 24 horas laborables.",
   errorMessage:
     "No se ha podido enviar la solicitud. Escríbenos directamente a " + "hola@flujoteca.es" + " o inténtalo de nuevo.",
 } as const;
