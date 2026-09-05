@@ -1,34 +1,8 @@
 import type { Config } from "@netlify/functions";
 
 const BREVO_ENDPOINT = "https://api.brevo.com/v3/smtp/email";
-const SENDER = { name: "Melvin — Flujoteca", email: "hola@flujoteca.es" };
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function buildEmail(name: string) {
-  const text = `Hola ${name},
-
-Hemos recibido tu solicitud de diagnóstico gratuito. Te responderemos en menos de 24 horas para proponerte horario y hablar sobre cómo automatizar los procesos de tu despacho.
-
-Mientras tanto, si tienes alguna pregunta puedes responder directamente a este correo.
-
-Un saludo,
-Melvin — Flujoteca`;
-
-  const html = text
-    .split("\n\n")
-    .map((paragraph) => `<p>${escapeHtml(paragraph).replace(/\n/g, "<br>")}</p>`)
-    .join("\n");
-
-  return { text, html };
-}
+const CONFIRMATION_TEMPLATE_ID = 13;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default async (req: Request) => {
   if (req.method !== "POST") {
@@ -58,14 +32,12 @@ export default async (req: Request) => {
     });
   }
 
-  if (!name || !email) {
-    return new Response(JSON.stringify({ error: "Falta nombre o email" }), {
+  if (!name || !email || !EMAIL_PATTERN.test(email)) {
+    return new Response(JSON.stringify({ error: "Nombre o email inválidos" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
   }
-
-  const { text, html } = buildEmail(name);
 
   try {
     const response = await fetch(BREVO_ENDPOINT, {
@@ -76,11 +48,9 @@ export default async (req: Request) => {
         "api-key": apiKey,
       },
       body: JSON.stringify({
-        sender: SENDER,
+        templateId: CONFIRMATION_TEMPLATE_ID,
         to: [{ email, name }],
-        subject: "Hemos recibido tu solicitud — Flujoteca",
-        htmlContent: html,
-        textContent: text,
+        params: { FIRSTNAME: name },
       }),
     });
 
