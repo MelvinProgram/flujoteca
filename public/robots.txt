@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.flujoteca.es/sitemap-index.xml
+Sitemap: https://flujoteca.es/sitemap-index.xml

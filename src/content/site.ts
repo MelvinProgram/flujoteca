@@ -16,7 +16,7 @@ export const site = {
   // Descripción corta para <meta name="description"> y Open Graph (140-160 caracteres aprox.)
   description:
     "Flujoteca automatiza las tareas repetitivas de asesorías y gestorías del sur de Madrid: onboarding, plazos, documentación y estados de expediente.",
-  url: "https://www.flujoteca.es",
+  url: "https://flujoteca.es",
   locale: "es_ES",
 
   contact: {
