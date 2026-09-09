@@ -44,9 +44,8 @@ y los pasos manuales pendientes en HubSpot.
 
 ## Pendiente antes de publicar
 
-- Datos de contacto reales en `src/content/site.ts` (`site.contact`)
-- Dominio real en `astro.config.mjs` (`site`) y `public/robots.txt`
+- Datos de contacto reales en `src/content/site.ts` (`site.contact`):
+  dirección y coordenadas siguen siendo un marcador genérico del sur de
+  Madrid, no una ubicación real
 - Revisión legal de `aviso-legal.astro` y `politica-privacidad.astro`
   (contienen texto de marcador `[Pendiente: ...]`)
-- Confirmar que el formulario de HubSpot está **publicado** (no en
-  borrador/preview) — ver `plans/02-contacto-hubspot.md`, Fase final
