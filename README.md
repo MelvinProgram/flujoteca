@@ -44,8 +44,11 @@ y los pasos manuales pendientes en HubSpot.
 
 ## Pendiente antes de publicar
 
-- Datos de contacto reales en `src/content/site.ts` (`site.contact`):
-  dirección y coordenadas siguen siendo un marcador genérico del sur de
-  Madrid, no una ubicación real
-- Revisión legal de `aviso-legal.astro` y `politica-privacidad.astro`
-  (contienen texto de marcador `[Pendiente: ...]`)
+- Revisión por un asesor legal de las cláusulas de `aviso-legal.astro`
+  (condiciones de uso, propiedad intelectual) y `politica-privacidad.astro`:
+  el texto ya no tiene marcadores `[Pendiente: ...]`, pero esas dos
+  cláusulas concretas son redacción estándar generada por IA, no texto
+  revisado por un abogado
+- Completar el alta de actividad económica (autónomo o sociedad) y
+  actualizar `site.nif` / `site.legalName` en `src/content/site.ts` si la
+  titularidad de Flujoteca cambia de persona física a autónomo/sociedad

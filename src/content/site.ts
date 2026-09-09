@@ -11,7 +11,7 @@
 
 export const site = {
   name: "Flujoteca",
-  legalName: "Flujoteca", // TODO: razón social completa si difiere del nombre comercial
+  legalName: "Melvin Brito Aquino", // persona física titular (aún no dado de alta como autónomo)
   tagline: "Automatización de procesos para asesorías y gestorías",
   // Descripción corta para <meta name="description"> y Open Graph (140-160 caracteres aprox.)
   description:
@@ -21,13 +21,14 @@ export const site = {
 
   contact: {
     email: "hola@flujoteca.es",
-    address: "Sur de la Comunidad de Madrid", // TODO: dirección real si aplica
-    // Coordenadas para schema.org LocalBusiness — TODO: sustituir por las reales
+    address: "Valdemoro, Madrid",
+    // Coordenadas aproximadas del municipio de Valdemoro (sin dirección exacta, por privacidad)
     geo: {
-      latitude: 40.2085,
-      longitude: -3.7128,
+      latitude: 40.1903,
+      longitude: -3.6772,
     },
   },
+  nif: "03481090V", // NIF personal del titular (persona física, aún no dado de alta como autónomo)
 } as const;
 
 export const nav = {

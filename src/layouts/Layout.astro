@@ -12,7 +12,6 @@ const { title, description = site.description } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : `${site.name} — ${site.tagline}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-// schema.org LocalBusiness — datos reales pendientes de confirmar (ver site.contact en src/content/site.ts)
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -20,8 +19,10 @@ const localBusinessSchema = {
   description: site.description,
   url: site.url,
   email: site.contact.email,
+  taxID: site.nif,
   address: {
     "@type": "PostalAddress",
+    addressLocality: "Valdemoro",
     addressRegion: "Madrid",
     addressCountry: "ES",
   },

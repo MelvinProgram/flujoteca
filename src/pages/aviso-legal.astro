@@ -1,7 +1,9 @@
 ---
-// Aviso legal — estructura estándar (LSSI-CE) con contenido de marcador.
-// TODO: sustituir todos los [Pendiente: ...] por el texto revisado por un
-// asesor legal antes de publicar el sitio.
+// Aviso legal — estructura estándar (LSSI-CE).
+// Datos identificativos (NIF, domicilio) confirmados por el titular.
+// Las cláusulas de condiciones de uso y propiedad intelectual son texto
+// estándar redactado por IA, no revisado por un asesor legal — conviene
+// que un abogado las repase antes de darlas por definitivas.
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -24,7 +26,9 @@ import { site } from "../content/site";
               el titular de este sitio web es {site.legalName}.
             </p>
             <p class="mt-2 leading-relaxed">
-              [Pendiente: NIF/CIF, domicilio social y datos de inscripción registral si aplica]
+              NIF: {site.nif}. Domicilio: {site.contact.address} (España). El titular opera
+              actualmente como persona física, sin alta de actividad económica ni datos de
+              inscripción registral asociados.
             </p>
             <p class="mt-2 leading-relaxed">
               Email de contacto: <a href={`mailto:${site.contact.email}`} class="text-senal underline underline-offset-2">{site.contact.email}</a>
@@ -43,23 +47,38 @@ import { site } from "../content/site";
           <div>
             <h2 class="font-display text-lg font-bold text-tinta">3. Condiciones de uso</h2>
             <p class="mt-2 leading-relaxed">
-              [Pendiente: condiciones de acceso y uso del sitio, responsabilidad sobre los
-              contenidos y enlaces]
+              El acceso a este sitio web es gratuito y no requiere registro previo, salvo para la
+              cumplimentación del formulario de contacto. El usuario se compromete a hacer un uso
+              adecuado y lícito del sitio, de conformidad con la legislación aplicable, la buena
+              fe y el orden público, absteniéndose de utilizarlo con fines ilícitos o lesivos para
+              los derechos e intereses de terceros.
+            </p>
+            <p class="mt-2 leading-relaxed">
+              El titular no se hace responsable de los daños y perjuicios que pudieran derivarse
+              de interferencias, interrupciones, virus informáticos o fallos técnicos ajenos a su
+              control, ni de los contenidos de sitios web de terceros a los que pueda enlazarse
+              desde este sitio, sobre los que no ejerce ningún tipo de control.
             </p>
           </div>
 
           <div>
             <h2 class="font-display text-lg font-bold text-tinta">4. Propiedad intelectual e industrial</h2>
             <p class="mt-2 leading-relaxed">
-              [Pendiente: titularidad de los contenidos, marca y diseño del sitio]
+              Los textos, diseño, logotipos, marca y demás contenidos de este sitio web son
+              titularidad del responsable indicado en el apartado 1, salvo que se indique lo
+              contrario, y están protegidos por la normativa de propiedad intelectual e
+              industrial. Queda prohibida su reproducción, distribución o transformación sin
+              autorización expresa del titular.
             </p>
           </div>
 
           <div>
             <h2 class="font-display text-lg font-bold text-tinta">5. Legislación aplicable</h2>
             <p class="mt-2 leading-relaxed">
-              Las presentes condiciones se rigen por la legislación española. [Pendiente: fuero
-              o jurisdicción aplicable en caso de conflicto]
+              Las presentes condiciones se rigen por la legislación española. Para la resolución
+              de cualquier controversia derivada del acceso o uso de este sitio web, las partes
+              se someten a los juzgados y tribunales de Madrid, con renuncia expresa a cualquier
+              otro fuero que pudiera corresponderles.
             </p>
           </div>
         </div>
