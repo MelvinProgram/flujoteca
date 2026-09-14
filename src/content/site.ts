@@ -21,7 +21,6 @@ export const site = {
 
   contact: {
     email: "hola@flujoteca.es",
-    phone: "+34 600 000 000",
     address: "Valdemoro, Madrid",
     // Coordenadas aproximadas del municipio de Valdemoro (sin dirección exacta, por privacidad)
     geo: {
