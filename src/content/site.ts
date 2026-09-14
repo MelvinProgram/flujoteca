@@ -21,6 +21,7 @@ export const site = {
 
   contact: {
     email: "hola@flujoteca.es",
+    phone: "+34 600 000 000",
     address: "Valdemoro, Madrid",
     // Coordenadas aproximadas del municipio de Valdemoro (sin dirección exacta, por privacidad)
     geo: {
@@ -28,6 +29,8 @@ export const site = {
       longitude: -3.6772,
     },
   },
+  // Zona de servicio mostrada al público (más amplia que el domicilio legal exacto de "contact.address")
+  serviceArea: "Sur de Madrid",
   nif: "03481090V", // NIF personal del titular (persona física, aún no dado de alta como autónomo)
 } as const;
 
@@ -61,9 +64,9 @@ export const problem = {
         "horas semanales pierden de media los empleados españoles en tareas administrativas repetitivas",
     },
     {
-      value: "2027",
+      value: "150",
       unit: "",
-      description: "es el plazo límite para adaptarse a Verifactu",
+      description: "clientes de tu cartera necesitan adaptarse a Verifactu, no solo tu propio software",
     },
     {
       value: "27%",
@@ -184,12 +187,12 @@ export const faq = {
     {
       question: "¿Cómo funciona la subvención del Kit Digital?",
       answer:
-        "Cubre entre 3.000€ y 12.000€ según el tamaño de la empresa; en el diagnóstico gratuito se revisa si el despacho es elegible y se ayuda con la tramitación.",
+        "Cubre entre 3.000 € y 12.000 € según el tamaño de la empresa. En el diagnóstico gratuito revisamos si tu despacho cumple los requisitos y te orientamos sobre los pasos a seguir.",
     },
     {
       question: "¿Dónde se almacenan los datos?",
       answer:
-        "Los flujos de trabajo se ejecutan en infraestructura propia (servidor autoalojado), no en un servicio en la nube de terceros. Los datos del despacho pasan por las herramientas que tu equipo ya usa (correo, hojas de cálculo, CRM) y por este servidor, sin almacenarse de forma permanente fuera de esos sistemas.",
+        "Los datos del despacho pasan por las herramientas que tu equipo ya usa (correo, hojas de cálculo, CRM) y por el servidor donde se ejecutan los flujos. Solo se accede a lo estrictamente necesario para el flujo contratado, y se firma un contrato de encargo de tratamiento antes de tocar ningún dato.",
     },
     {
       question: "¿Qué pasa si el flujo no encaja después de un tiempo?",

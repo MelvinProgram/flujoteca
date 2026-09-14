@@ -73,8 +73,16 @@ import { site, footer, creator } from "../content/site";
             </dd>
           </div>
           <div class="flex gap-2">
+            <dt class="sr-only">Teléfono</dt>
+            <dd>
+              <a href={`tel:${site.contact.phone.replace(/\s+/g, "")}`} class="hover:text-senal">
+                {site.contact.phone}
+              </a>
+            </dd>
+          </div>
+          <div class="flex gap-2">
             <dt class="sr-only">Zona de servicio</dt>
-            <dd>{site.contact.address}</dd>
+            <dd>{site.serviceArea}</dd>
           </div>
         </dl>
       </div>
