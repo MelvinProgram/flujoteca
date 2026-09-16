@@ -1,0 +1,16 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    # 'unsafe-inline' on script-src is required because Astro inlines this
+    # site's small client scripts (theme toggle, contact form) directly into
+    # the page instead of emitting hashed external files. There is no
+    # user-controlled HTML rendering anywhere in this codebase (no
+    # dangerouslySetInnerHTML/innerHTML/set:html on user input), so the
+    # residual XSS risk from allowing inline scripts is low; tighten this to
+    # a nonce or hash-based policy if that ever changes.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://*.hsforms.com; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'"
