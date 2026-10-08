@@ -3,6 +3,8 @@ import type { Config } from "@netlify/functions";
 const BREVO_ENDPOINT = "https://api.brevo.com/v3/smtp/email";
 const CONFIRMATION_TEMPLATE_ID = 13;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 254;
 const PRODUCTION_ORIGIN = "https://flujoteca.es";
 
 // This endpoint triggers a billed third-party (Brevo) email send, so it must
@@ -55,7 +57,13 @@ export default async (req: Request) => {
     });
   }
 
-  if (!name || !email || !EMAIL_PATTERN.test(email)) {
+  if (
+    !name ||
+    !email ||
+    name.length > MAX_NAME_LENGTH ||
+    email.length > MAX_EMAIL_LENGTH ||
+    !EMAIL_PATTERN.test(email)
+  ) {
     return new Response(JSON.stringify({ error: "Nombre o email inválidos" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },

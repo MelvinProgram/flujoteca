@@ -18,7 +18,7 @@ src/
   content/site.ts       # Todos los textos del sitio (editar aquí, no en los componentes)
   layouts/Layout.astro  # <head>, meta tags, Open Graph, schema.org
   components/           # Header, Hero, ProblemStats, FlowCatalog, HowItWorks,
-                         # KitDigital, ContactForm, Footer
+                         # FlowDemo, Technology, FAQ, ContactForm, Footer
   pages/                # index.astro, aviso-legal.astro, politica-privacidad.astro
 public/
   logo.png, favicon-*.png, og-image.png

@@ -13,9 +13,11 @@ export const site = {
   name: "Flujoteca",
   legalName: "Melvin Brito Aquino", // persona física titular (aún no dado de alta como autónomo)
   tagline: "Automatización de procesos para asesorías y gestorías",
+  // <title> de la portada
+  seoTitle: "Automatización para Asesorías y Gestorías | Flujoteca",
   // Descripción corta para <meta name="description"> y Open Graph (140-160 caracteres aprox.)
   description:
-    "Automatización de procesos para asesorías y gestorías del sur de Madrid con Make, n8n e IA (ChatGPT): onboarding, plazos, documentación y expedientes.",
+    "Automatizamos procesos repetitivos de asesorías y gestorías: documentación, recordatorios, onboarding, expedientes y captación de leads.",
   url: "https://flujoteca.es",
   locale: "es_ES",
 
@@ -36,94 +38,98 @@ export const nav = {
   links: [
     { label: "La flujoteca", href: "/#flujoteca" },
     { label: "Cómo funciona", href: "/#como-funciona" },
-    { label: "Kit Digital", href: "/#kit-digital" },
+    { label: "Ejemplo", href: "/#ejemplo" },
     { label: "FAQ", href: "/#faq" },
   ],
-  cta: { label: "Diagnóstico gratuito", href: "/#contacto" },
+  cta: { label: "Analizar mi despacho", href: "/#contacto" },
 } as const;
 
-// Tecnologías que integramos (usadas en JSON-LD y textos)
-export const stack = [
-  "Make",
-  "n8n",
-  "API de OpenAI (ChatGPT)",
-  "Notion",
-  "Brevo",
-  "Discord",
-] as const;
+// Tecnologías de automatización que usamos (JSON-LD y llms.txt). Quedan en segundo
+// plano en la web: el cliente compra el resultado, no la herramienta.
+export const stack = ["Make", "n8n", "API de OpenAI (ChatGPT)"] as const;
 
 export const hero = {
-  kicker: "AUTOMATIZACIÓN DE PROCESOS · DESPACHOS PROFESIONALES",
+  kicker: "AUTOMATIZACIÓN PARA ASESORÍAS Y GESTORÍAS",
   title: "Recupera las horas que se van en lo repetitivo",
   subtitle:
-    "Automatizamos las tareas que ocupan el día a día de asesorías y gestorías del sur de Madrid — onboarding de clientes, plazos, documentación y estado de expedientes — sin cambiar el software que ya usa tu despacho.",
-  cta: { label: "Solicita tu diagnóstico gratuito", href: "#contacto" },
-  meta: "Sesión de 30 minutos · Sin compromiso",
-  transparencyBadge: "Seleccionando despachos piloto en el sur de Madrid — plazas limitadas",
+    "Automatizamos los procesos repetitivos de asesorías y gestorías para que tu equipo dedique menos tiempo a perseguir documentos, enviar recordatorios y actualizar expedientes.",
+  cta: { label: "Analizar mi despacho", href: "#contacto" },
+  secondaryCta: { label: "Ver automatizaciones", href: "#flujoteca" },
+  meta: "Diagnóstico inicial gratuito · Sin compromiso",
+  transparencyBadge: "Seleccionando despachos piloto en el sur de Madrid",
 } as const;
 
 export const problem = {
   title: "El problema no es la falta de tiempo. Es dónde se va.",
+  intro:
+    "En muchos despachos, una parte importante del día se va en tareas que se repiten una y otra vez:",
+  tasks: [
+    "Perseguir documentos que el cliente no envía",
+    "Enviar recordatorios de plazos y vencimientos",
+    "Actualizar el estado de los expedientes",
+    "Responder las mismas consultas de seguimiento",
+  ],
+  // Solo cifras con fuente verificable. No añadir datos sin comprobar la fuente original.
   stats: [
     {
-      value: "16",
-      unit: "",
+      value: "84%",
       description:
-        "horas semanales pierden de media los empleados españoles en tareas administrativas repetitivas",
-    },
-    {
-      value: "150",
-      unit: "",
-      description: "clientes de tu cartera necesitan adaptarse a Verifactu, no solo tu propio software",
-    },
-    {
-      value: "27%",
-      unit: "%",
-      description: "de las empresas desconoce las nuevas pautas de facturación electrónica",
+        "de los asesores reconoce que la tecnología permite automatizar tareas repetitivas y liberar tiempo para actividades más estratégicas",
     },
   ],
-  sources: "Fuentes: estudio de Ricoh (2026) y encuesta de Holded (2026).",
+  source: {
+    label: "Fuente: Wolters Kluwer, Barómetro de la Asesoría 2026.",
+    href: "https://www.wolterskluwer.com/es-es/news/barometro-asesoria-2026-retos-despacho-profesional",
+  },
 } as const;
 
 export const flows = {
   title: "La flujoteca",
   subtitle:
-    "Catálogo de flujos ya diseñados para despachos profesionales. Cada uno se adapta al funcionamiento de tu equipo antes de ponerse en marcha.",
+    "Catálogo de automatizaciones pensadas para asesorías y gestorías del sur de Madrid. Cada una se adapta al funcionamiento de tu equipo antes de ponerse en marcha.",
+  labels: { problem: "Problema", automates: "Qué automatiza", result: "Resultado" },
   items: [
     {
       code: "F-01",
       name: "Onboarding de clientes",
-      resolves:
-        "Automatiza la recogida de datos y documentación cuando entra un cliente nuevo, sin cadenas de correo ni formularios sueltos.",
-      audience: "Gestorías con alta rotación de altas de clientes",
+      problem:
+        "Cada cliente nuevo implica cadenas de correo y formularios sueltos para reunir sus datos.",
+      automates:
+        "Recoge los datos y la documentación del cliente nuevo en un único flujo, con seguimiento de lo que falta.",
+      result: "Altas más ordenadas y menos correos de ida y vuelta.",
     },
     {
       code: "F-02",
-      name: "Recordatorios de plazos",
-      resolves:
-        "Avisa automáticamente de vencimientos fiscales y administrativos antes de que se conviertan en urgencia.",
-      audience: "Asesorías con varios clientes y plazos simultáneos",
+      name: "Recordatorios",
+      problem:
+        "Los vencimientos fiscales y administrativos se controlan a mano y acaban convirtiéndose en urgencia.",
+      automates:
+        "Genera avisos automáticos de plazos, con antelación, para el equipo y para los clientes.",
+      result: "Menos plazos al límite y menos seguimiento manual.",
     },
     {
       code: "F-03",
       name: "Recogida documental",
-      resolves:
-        "Centraliza la petición y recepción de documentos en un único canal, con seguimiento de lo que falta.",
-      audience: "Despachos que dependen de que el cliente envíe papeles a tiempo",
+      problem: "Tu equipo pierde tiempo enviando correos para recordar qué documentos faltan.",
+      automates: "Centraliza la solicitud, recepción y seguimiento de documentación.",
+      result:
+        "Menos correos de seguimiento y una visión clara de qué documentación falta en cada expediente.",
     },
     {
       code: "F-04",
       name: "Estados de expediente",
-      resolves:
-        "Informa al cliente del estado de su expediente de forma automática, sin que tenga que llamar para preguntar.",
-      audience: "Equipos que reciben muchas llamadas de seguimiento",
+      problem: "Los clientes llaman o escriben para preguntar cómo va su expediente.",
+      automates:
+        "Informa al cliente del estado de su expediente cuando cambia, sin intervención manual.",
+      result: "Menos llamadas de seguimiento y clientes mejor informados.",
     },
     {
       code: "F-05",
       name: "Captación de leads",
-      resolves:
-        "Cualifica y enruta las solicitudes que llegan por la web antes de la primera reunión.",
-      audience: "Despachos que quieren filtrar antes de reunirse",
+      problem:
+        "Las solicitudes que llegan por la web se atienden sin filtrar antes de la primera reunión.",
+      automates: "Recoge, cualifica y enruta cada solicitud a la persona adecuada.",
+      result: "Primeras reuniones con la información ya recogida.",
     },
   ],
 } as const;
@@ -133,29 +139,92 @@ export const howItWorks = {
   steps: [
     {
       number: "01",
-      title: "Diagnóstico gratuito",
-      description:
-        "Una sesión de 30 minutos para identificar qué tareas de tu despacho se pueden automatizar y con qué prioridad.",
+      title: "Analizamos",
+      description: "Identificamos las tareas repetitivas que más tiempo consumen.",
     },
     {
       number: "02",
-      title: "Implementación",
-      description:
-        "Configuramos el flujo elegido con Make o n8n y lo conectamos con las herramientas que ya usa tu equipo, y con otras como la API de ChatGPT, Notion, Brevo o Discord cuando aportan valor. Sin migraciones.",
+      title: "Diseñamos",
+      description: "Elegimos qué proceso tiene sentido automatizar y cómo debe funcionar.",
     },
     {
       number: "03",
-      title: "Soporte mensual",
+      title: "Implementamos",
+      description: "Construimos el flujo utilizando las herramientas adecuadas.",
+    },
+    {
+      number: "04",
+      title: "Probamos",
       description:
-        "Seguimiento y ajustes continuos para que el flujo se mantenga al día con tu forma de trabajar.",
+        "Comprobamos que el flujo funciona correctamente antes de ponerlo en producción.",
+    },
+    {
+      number: "05",
+      title: "Mantenemos",
+      description: "Monitorizamos y ajustamos el flujo cuando sea necesario.",
     },
   ],
+  closing: "El objetivo no es añadir más tecnología a tu despacho. Es quitar trabajo manual.",
 } as const;
 
-export const kitDigital = {
-  title: "Kit Digital 2026",
-  body: "La convocatoria 2026 del Kit Digital cubre entre 3.000 € y 12.000 € para proyectos de automatización e inteligencia artificial, según el tamaño de la empresa.",
-  cta: { label: "Consulta si tu despacho es elegible", href: "#contacto" },
+export const flowDemo = {
+  badge: "Ejemplo de funcionamiento",
+  title: "Así puede funcionar una automatización",
+  subtitle:
+    "Escenario ilustrativo del flujo F-03 · Recogida documental. Es un ejemplo con datos ficticios: no corresponde a ningún cliente real.",
+  steps: [
+    {
+      title: "Cliente",
+      description: "Un cliente (ficticio) tiene que entregar documentación a su asesoría.",
+    },
+    {
+      title: "Solicitud automática de documentos",
+      description:
+        "Recibe un correo con la lista de lo que debe aportar (por ejemplo: DNI, extractos, facturas).",
+    },
+    {
+      title: "Recepción de archivos",
+      description: "Los archivos llegan a un único lugar, ordenados por expediente.",
+    },
+    {
+      title: "Comprobación de documentación",
+      description: "El flujo revisa qué documentos están y cuáles faltan.",
+    },
+  ],
+  decision: {
+    question: "¿Falta algún documento?",
+    yes: {
+      label: "Sí",
+      title: "Recordatorio automático",
+      description: "El cliente recibe un aviso con lo que falta y el flujo vuelve a comprobar.",
+    },
+    no: {
+      label: "No",
+      title: "Aviso al equipo",
+      description: "El equipo recibe la notificación de que la documentación está completa.",
+    },
+  },
+  final: {
+    title: "Expediente completo",
+    description: "Todo en orden, sin haber perseguido a nadie por correo.",
+  },
+} as const;
+
+export const technology = {
+  title: "Conectamos las herramientas que ya utilizas",
+  body: "Flujoteca se adapta al ecosistema tecnológico de cada despacho. Diseñamos automatizaciones que conectan correo electrónico, formularios, CRM, gestores documentales, bases de datos y otras herramientas.",
+  items: [
+    "Correo electrónico",
+    "Formularios",
+    "CRM",
+    "Gestores documentales",
+    "Bases de datos",
+    "APIs",
+    "Make",
+    "n8n",
+    "OpenAI",
+  ],
+  note: "La tecnología es el medio. Lo que importa es el resultado en tu día a día.",
 } as const;
 
 export const faq = {
@@ -163,74 +232,63 @@ export const faq = {
   subtitle: "Las dudas que más nos plantean los despachos antes de empezar.",
   items: [
     {
-      question: "¿Cómo automatizar la captación de leads de un despacho?",
+      question: "¿Tengo que cambiar mi software actual?",
       answer:
-        "Conectamos el formulario de la web con un flujo en Make o n8n que recoge la solicitud, la cualifica (con la API de ChatGPT si hace falta clasificar el mensaje), la registra en Notion o en tu CRM, envía un correo de confirmación con Brevo y avisa al equipo por Discord. Así llegas a la primera reunión con los datos ya ordenados.",
+        "No. Flujoteca está diseñada para conectar y automatizar procesos alrededor de las herramientas que ya utiliza tu despacho siempre que técnicamente sea posible.",
     },
     {
-      question: "¿Qué herramientas de IA y CRM integramos?",
+      question: "¿Necesito conocimientos técnicos?",
       answer:
-        "Trabajamos con Make y n8n como motores de automatización, la API de OpenAI (ChatGPT) para clasificar y resumir textos, Notion como base de datos y gestor de expedientes, Brevo para el correo transaccional y Discord para avisos internos. Si tu despacho usa otro CRM o programa, se revisa en el diagnóstico gratuito.",
+        "No. Nosotros diseñamos e implementamos la automatización. Solo necesitamos conocer cómo funciona actualmente el proceso.",
+    },
+    {
+      question: "¿Qué herramientas podéis conectar?",
+      answer:
+        "Depende del proceso. Podemos trabajar con APIs, correo electrónico, formularios, CRM, bases de datos y plataformas de automatización como Make o n8n.",
+    },
+    {
+      question: "¿Cuánto tarda una automatización?",
+      answer:
+        "Los flujos estándar pueden estar listos en pocos días. El plazo depende de la complejidad, integraciones y accesos necesarios.",
+    },
+    {
+      question: "¿Qué pasa si algo deja de funcionar?",
+      answer: "Ofrecemos mantenimiento y soporte según el plan contratado.",
+    },
+    {
+      question: "¿La automatización sustituye a mi equipo?",
+      answer:
+        "No. El objetivo es eliminar tareas repetitivas para que el equipo pueda centrarse en tareas de mayor valor.",
+    },
+    {
+      question: "¿Cómo automatizar la captación de leads de un despacho?",
+      answer:
+        "Se conecta el formulario de la web con un flujo (por ejemplo, en Make o n8n) que recoge la solicitud, la cualifica, la envía al CRM o a la herramienta que use el despacho y avisa al equipo. Así la primera reunión empieza con la información ya ordenada.",
     },
     {
       question: "¿Cuánto tiempo ahorra una automatización?",
       answer:
-        "Depende del flujo y de cuántas veces se repite la tarea en tu despacho. No damos cifras genéricas: en el diagnóstico gratuito medimos contigo cuánto tiempo dedica hoy tu equipo a cada tarea repetitiva y estimamos qué parte se puede automatizar.",
-    },
-    {
-      question: "¿Tengo que cambiar el software que ya usamos en el despacho?",
-      answer:
-        "No. Flujoteca se conecta a las herramientas que ya usa tu equipo (correo, hojas de cálculo, CRM, gestor documental, etc.); no sustituye tu sistema de gestión ni te obliga a migrar nada.",
-    },
-    {
-      question: "¿Cuánto tarda en implementarse un flujo?",
-      answer:
-        "Entre 3 y 7 días laborables desde el diagnóstico, dependiendo de la complejidad del flujo y de la rapidez del despacho en darnos acceso a las herramientas necesarias. Los flujos del catálogo (onboarding, plazos, documentación, estados de expediente) ya están diseñados, así que la mayor parte del tiempo es adaptación y prueba, no desarrollo desde cero.",
+        "Depende del proceso y de cuántas veces se repite. No damos cifras genéricas: en el diagnóstico gratuito analizamos una tarea concreta de tu despacho y vemos qué parte puede automatizarse.",
     },
     {
       question: "¿Qué pasa si mi despacho usa un programa poco habitual o hecho a medida?",
       answer:
-        "La mayoría de conexiones se hacen por correo, ficheros o formularios web, así que no depende de que tu programa tenga una integración \"oficial\". En el diagnóstico gratuito se revisa caso por caso.",
+        "La mayoría de conexiones se pueden hacer por correo, ficheros o formularios web, así que no depende de que tu programa tenga una integración oficial. En el diagnóstico gratuito se revisa caso por caso.",
     },
     {
-      question: "¿Es seguro dar acceso a los datos fiscales y de clientes de mi despacho?",
+      question: "¿Es seguro dar acceso a los datos de mi despacho?",
       answer:
-        "Se firma un contrato de encargo de tratamiento (RGPD Art. 28) antes de tocar cualquier dato, y solo se accede a lo estrictamente necesario para el flujo contratado.",
-    },
-    {
-      question: "¿Qué incluye el soporte mensual?",
-      answer:
-        "Ajustes y seguimiento continuo para que el flujo se mantenga al día con la forma de trabajar del despacho a medida que cambian sus procesos.",
-    },
-    {
-      question: "No tenemos a nadie técnico en el despacho, ¿necesitamos formación?",
-      answer:
-        "El flujo se diseña para funcionar sin que nadie del despacho tenga que tocar configuración técnica; el mantenimiento lo llevamos nosotros.",
-    },
-    {
-      question: "¿Cómo funciona la subvención del Kit Digital?",
-      answer:
-        "Cubre entre 3.000 € y 12.000 € según el tamaño de la empresa. En el diagnóstico gratuito revisamos si tu despacho cumple los requisitos y te orientamos sobre los pasos a seguir.",
-    },
-    {
-      question: "¿Dónde se almacenan los datos?",
-      answer:
-        "Los datos del despacho pasan por las herramientas que tu equipo ya usa (correo, hojas de cálculo, CRM) y por el servidor donde se ejecutan los flujos. Solo se accede a lo estrictamente necesario para el flujo contratado, y se firma un contrato de encargo de tratamiento antes de tocar ningún dato.",
-    },
-    {
-      question: "¿Qué pasa si el flujo no encaja después de un tiempo?",
-      answer:
-        "El soporte mensual incluye ajustes al flujo cuando cambia la forma de trabajar del despacho, sin coste adicional por esos cambios menores. Si el flujo deja de encajar, puedes cancelar el servicio con 30 días de aviso, sin permanencia forzosa.",
+        "Solo se accede a lo estrictamente necesario para el flujo contratado y, cuando corresponde, se formaliza un contrato de encargo de tratamiento de datos antes de empezar.",
     },
     {
       question: "¿Cuánto cuesta?",
       answer:
-        "El coste depende del número de flujos y de la complejidad de cada uno; se concreta en el diagnóstico gratuito. Como referencia, la mayoría de despachos entra dentro de la subvención del Kit Digital (3.000€–12.000€), lo que cubre buena parte o la totalidad de la inversión inicial.",
+        "Depende del número de flujos y de la complejidad de cada uno. Se concreta después del diagnóstico gratuito, una vez entendido el proceso.",
     },
     {
       question: "¿Ayuda esto con Verifactu?",
       answer:
-        "Flujoteca no es un software de facturación ni sustituye tu adaptación a Verifactu — eso lo cubre tu programa de facturación certificado. Lo que sí hacemos es automatizar los procesos alrededor de esa gestión (plazos, documentación, seguimiento), para que el cambio normativo no añada más carga manual a tu día a día.",
+        "Flujoteca no es un software de facturación y no sustituye la adaptación de tu despacho a Verifactu. Automatizamos los procesos administrativos que rodean esa gestión.",
     },
   ],
 } as const;
@@ -238,15 +296,28 @@ export const faq = {
 export const contactForm = {
   title: "Solicita tu diagnóstico gratuito",
   subtitle:
-    "Cuéntanos brevemente cómo trabaja tu despacho y te proponemos horario para la sesión de diagnóstico.",
+    "En una sesión de aproximadamente 30 minutos analizamos un proceso concreto de tu despacho, identificamos tareas repetitivas y te mostramos qué partes podrían automatizarse.",
+  note: "Sin compromiso. Sin necesidad de cambiar tu software actual.",
   fields: {
     name: { label: "Nombre", placeholder: "Nombre y apellidos" },
     email: { label: "Email", placeholder: "tu@despacho.es" },
     phone: { label: "Teléfono", placeholder: "600 000 000" },
     company: { label: "Empresa", placeholder: "Nombre de la asesoría o gestoría" },
+    process: {
+      label: "¿Qué proceso te gustaría automatizar?",
+      placeholder: "Selecciona una opción",
+      options: [
+        "Alta de clientes",
+        "Recogida de documentación",
+        "Recordatorios",
+        "Seguimiento de expedientes",
+        "Captación de leads",
+        "Otro",
+      ],
+    },
     message: {
-      label: "Mensaje",
-      placeholder: "¿Qué tarea repetitiva te gustaría automatizar primero?",
+      label: "Cuéntanos brevemente qué tarea quieres mejorar",
+      placeholder: "Por ejemplo: cómo se hace hoy y qué parte te quita más tiempo",
     },
   },
   consent: {
@@ -256,10 +327,26 @@ export const contactForm = {
   },
   submitLabel: "Enviar solicitud",
   submittingLabel: "Enviando…",
-  successMessage: "Solicitud recibida. Te responderemos en menos de 24 horas laborables.",
+  success: {
+    title: "Solicitud recibida",
+    body: "Gracias. Hemos recibido tu solicitud de diagnóstico.",
+    next: "Revisaremos la información y nos pondremos en contacto contigo para concretar la sesión.",
+  },
   errorMessage:
     "No se ha podido enviar la solicitud. Escríbenos directamente a " + "hola@flujoteca.es" + " o inténtalo de nuevo.",
 } as const;
+
+// Estructura preparada para casos reales. NO añadir casos ficticios: solo clientes reales
+// y con su permiso. Cuando exista el primero, crear una sección que renderice este array.
+export type CaseStudy = {
+  client: string;
+  initialSituation: string;
+  problem: string;
+  solution: string;
+  result: string;
+  tools: readonly string[];
+};
+export const caseStudies: readonly CaseStudy[] = [];
 
 export const hubspot = {
   portalId: "147950631",

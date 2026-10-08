@@ -7,6 +7,8 @@ import { site, footer, creator } from "../content/site";
     <div class="flex flex-col items-center gap-3 border-b border-borde pt-10 pb-8 sm:flex-row sm:justify-between">
       <div class="flex items-center gap-3">
         <img
+          loading="lazy"
+          decoding="async"
           src={creator.photo}
           alt={creator.name}
           class="h-10 w-10 rounded-full border border-borde object-cover"
@@ -25,7 +27,7 @@ import { site, footer, creator } from "../content/site";
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`LinkedIn de ${creator.name}`}
-          class="text-tinta-suave transition-colors hover:text-senal"
+          class="-m-2 inline-flex p-2 text-tinta-suave transition-colors hover:text-senal"
         >
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path
@@ -38,7 +40,7 @@ import { site, footer, creator } from "../content/site";
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`GitHub de ${creator.name}`}
-          class="text-tinta-suave transition-colors hover:text-senal"
+          class="-m-2 inline-flex p-2 text-tinta-suave transition-colors hover:text-senal"
         >
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path
@@ -52,10 +54,12 @@ import { site, footer, creator } from "../content/site";
     <div class="grid gap-8 py-12 sm:grid-cols-2">
       <div>
         <div class="flex items-center gap-2">
-          <img src="/logo.png" alt={site.name} class="h-6 w-auto dark:hidden" width="662" height="200" />
+          <img src="/logo.png" alt={site.name} loading="lazy" decoding="async" class="h-6 w-auto dark:hidden" width="662" height="200" />
           <img
             src="/logo-dark.png"
             alt={site.name}
+            loading="lazy"
+            decoding="async"
             class="hidden h-6 w-auto dark:block"
             width="662"
             height="200"
@@ -67,7 +71,7 @@ import { site, footer, creator } from "../content/site";
           <div class="flex gap-2">
             <dt class="sr-only">Email</dt>
             <dd>
-              <a href={`mailto:${site.contact.email}`} class="hover:text-senal">
+              <a href={`mailto:${site.contact.email}`} class="inline-block py-2 hover:text-senal">
                 {site.contact.email}
               </a>
             </dd>
@@ -83,7 +87,7 @@ import { site, footer, creator } from "../content/site";
         <nav class="flex flex-col gap-2 sm:items-end" aria-label="Enlaces legales">
           {
             footer.legalLinks.map((link) => (
-              <a href={link.href} class="text-sm text-tinta-suave hover:text-senal">
+              <a href={link.href} class="inline-block py-2 text-sm text-tinta-suave hover:text-senal">
                 {link.label}
               </a>
             ))

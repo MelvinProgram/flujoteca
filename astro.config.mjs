@@ -13,5 +13,6 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [sitemap()]
+  // Borrador sin revisión jurídica: no se indexa ni entra en el sitemap
+  integrations: [sitemap({ filter: (page) => !page.includes("/condiciones-contratacion") })]
 });

@@ -25,16 +25,16 @@ is no test suite or linter configured in this repo.
 
 - **All site copy lives in `src/content/site.ts`**, not in components. Every
   section exports a typed `as const` object (`hero`, `problem`, `flows`,
-  `howItWorks`, `kitDigital`, `contactForm`, `footer`, ...) that the matching
+  `howItWorks`, `flowDemo`, `technology`, `faq`, `contactForm`, `footer`, ...) that the matching
   component in `src/components/` imports and renders. To change any visible
   text, edit this file rather than the `.astro` components. Fields marked
   `// TODO:` are placeholders (contact info, real domain) still needed before
   launch.
 - **`src/layouts/Layout.astro`** owns `<head>` — meta tags, canonical URL,
-  Open Graph/Twitter cards, and a JSON-LD `LocalBusiness` schema.org block
-  built from `site.contact`. `src/pages/index.astro` composes the page by
+  Open Graph/Twitter cards, and JSON-LD `Organization` and `Service` schema.org blocks
+  (the site is a digital business, so no `LocalBusiness`). `src/pages/index.astro` composes the page by
   stacking components (`Header`, `Hero`, `ProblemStats`, `FlowCatalog`,
-  `HowItWorks`, `KitDigital`, `ContactForm`, `Footer`) inside `Layout`.
+  `HowItWorks`, `FlowDemo`, `Technology`, `FAQ`, `ContactForm`, `Footer`) inside `Layout`.
 - **No backend.** `ContactForm.astro` posts form data directly from the
   browser to HubSpot's public Forms Submission API
   (`api.hsforms.com/submissions/v3/integration/submit/{portalId}/{formGuid}`).

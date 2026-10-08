@@ -1,0 +1,95 @@
+---
+// BORRADOR de condiciones de contratación — estructura conceptual, NO cláusulas definitivas.
+// - Está marcada noindex, excluida del sitemap (astro.config.mjs) y no enlazada desde el pie.
+// - Antes de publicarla: revisión jurídica completa, quitar el aviso de borrador, añadir el
+//   enlace en `footer.legalLinks` (site.ts), quitar `noindex` y el filtro del sitemap.
+// - Cada punto marcado con [REQUIERE VALIDACIÓN LEGAL] necesita redacción de un profesional.
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const sections = [
+  {
+    title: "1. Objeto del servicio",
+    body: "Diseño, implementación y mantenimiento de automatizaciones de procesos para el cliente, según lo acordado en la propuesta o presupuesto aceptado.",
+  },
+  {
+    title: "2. Alcance",
+    body: "El alcance de cada proyecto (procesos, flujos y herramientas incluidos) se define por escrito antes de empezar. Lo que no figure en ese alcance se considera fuera de él.",
+  },
+  {
+    title: "3. Implementación y plazos",
+    body: "Los plazos son orientativos y dependen de la complejidad del flujo, de las integraciones necesarias y de que el cliente facilite a tiempo los accesos y la información requeridos.",
+  },
+  {
+    title: "4. Accesos necesarios",
+    body: "El cliente facilitará los accesos y permisos mínimos necesarios a sus herramientas y es responsable de que tenga derecho a concederlos.",
+  },
+  {
+    title: "5. Herramientas de terceros",
+    body: "Las automatizaciones pueden depender de plataformas de terceros (por ejemplo, de automatización, correo, CRM o inteligencia artificial). Su disponibilidad, condiciones, precios y licencias son ajenos a Flujoteca. [REQUIERE VALIDACIÓN LEGAL: reparto de responsabilidad y costes de licencias.]",
+  },
+  {
+    title: "6. Mantenimiento y soporte",
+    body: "El mantenimiento y soporte incluyen lo definido en el plan contratado. [REQUIERE VALIDACIÓN LEGAL: tiempos de respuesta, horarios y niveles de servicio, si se ofrecen.]",
+  },
+  {
+    title: "7. Cambios fuera del alcance",
+    body: "Cualquier cambio que exceda el alcance acordado se presupuestará aparte y requerirá aceptación previa del cliente.",
+  },
+  {
+    title: "8. Precio y pagos",
+    body: "Precio, forma y calendario de pago según la propuesta aceptada. [REQUIERE VALIDACIÓN LEGAL: IVA, facturación, impagos y demoras.]",
+  },
+  {
+    title: "9. Duración y cancelación",
+    body: "Duración, preaviso y causas de cancelación según lo pactado. [REQUIERE VALIDACIÓN LEGAL: plazos de preaviso, permanencia y efectos de la baja.]",
+  },
+  {
+    title: "10. Responsabilidades del cliente",
+    body: "El cliente es responsable de la veracidad de la información facilitada, de la gestión de sus propios clientes y de revisar el resultado de las automatizaciones en su actividad profesional.",
+  },
+  {
+    title: "11. Responsabilidad sobre herramientas externas",
+    body: "Flujoteca no responde de interrupciones, cambios o fallos de plataformas de terceros. [REQUIERE VALIDACIÓN LEGAL: límites de responsabilidad.]",
+  },
+  {
+    title: "12. Tratamiento de datos",
+    body: "Si el servicio implica tratar datos personales por cuenta del cliente, se formalizará un contrato de encargado del tratamiento conforme al art. 28 del RGPD antes de acceder a ningún dato. [REQUIERE VALIDACIÓN LEGAL: contenido del contrato, subencargados y transferencias internacionales.]",
+  },
+  {
+    title: "13. Propiedad y uso de las automatizaciones",
+    body: "Titularidad de los flujos, derecho de uso del cliente y qué ocurre con ellos al terminar el servicio. [REQUIERE VALIDACIÓN LEGAL: propiedad intelectual y licencias.]",
+  },
+  {
+    title: "14. Incidencias",
+    body: "Procedimiento para comunicar y resolver incidencias. [REQUIERE VALIDACIÓN LEGAL: canal, plazos y alcance.]",
+  },
+];
+---
+
+<Layout title="Condiciones de contratación" noindex>
+  <Header />
+  <main>
+    <section class="bg-hueso">
+      <div class="container-page max-w-3xl py-16 sm:py-20">
+        <p class="border border-urgencia px-3 py-2 font-mono text-xs text-urgencia" role="note">
+          BORRADOR · Pendiente de revisión jurídica. No constituye un texto contractual definitivo.
+        </p>
+        <h1 class="mt-6 font-display text-3xl font-bold text-tinta">Condiciones de contratación</h1>
+
+        <div class="mt-8 space-y-8 text-tinta-suave">
+          {
+            sections.map((section) => (
+              <div>
+                <h2 class="font-display text-lg font-bold text-tinta">{section.title}</h2>
+                <p class="mt-2 leading-relaxed">{section.body}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

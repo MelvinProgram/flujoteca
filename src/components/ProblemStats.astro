@@ -8,27 +8,43 @@ import { problem } from "../content/site";
       {problem.title}
     </h2>
 
-    <dl class="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-6">
-      {
-        problem.stats.map((stat, index) => (
-          <div class="border-t-2 border-tinta pt-4">
-            <dt class="sr-only">{stat.description}</dt>
-            <dd>
-              <p
-                class:list={[
-                  "font-mono text-4xl font-semibold sm:text-5xl",
-                  index === 1 ? "text-urgencia" : "text-tinta",
-                ]}
-              >
-                {stat.value}
-              </p>
-              <p class="mt-2 text-sm leading-relaxed text-tinta-suave" aria-hidden="true">{stat.description}</p>
-            </dd>
-          </div>
-        ))
-      }
-    </dl>
+    <div class="mt-10 grid gap-10 md:grid-cols-2 md:gap-12">
+      <div>
+        <p class="text-tinta-suave">{problem.intro}</p>
+        <ul class="mt-4 space-y-3">
+          {
+            problem.tasks.map((task) => (
+              <li class="flex items-start gap-3 text-tinta">
+                <span class="mt-2 h-1.5 w-1.5 shrink-0 bg-urgencia" aria-hidden="true" />
+                {task}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
 
-    <p class="mt-6 font-mono text-xs text-tinta-suave">{problem.sources}</p>
+      <div>
+        {
+          problem.stats.map((stat) => (
+            <figure class="border-t-2 border-tinta pt-4">
+              <p class="font-mono text-5xl font-semibold text-tinta sm:text-6xl">{stat.value}</p>
+              <figcaption class="mt-2 text-sm leading-relaxed text-tinta-suave">
+                {stat.description}
+              </figcaption>
+            </figure>
+          ))
+        }
+        <p class="mt-4 font-mono text-xs text-tinta-suave">
+          <a
+            href={problem.source.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="underline underline-offset-2 hover:text-senal"
+          >
+            {problem.source.label}
+          </a>
+        </p>
+      </div>
+    </div>
   </div>
 </section>
