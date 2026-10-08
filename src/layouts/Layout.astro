@@ -50,6 +50,8 @@ const localBusinessSchema = {
   taxID: site.nif,
   address: {
     "@type": "PostalAddress",
+    streetAddress: site.contact.streetAddress,
+    postalCode: site.contact.postalCode,
     addressLocality: "Valdemoro",
     addressRegion: "Madrid",
     addressCountry: "ES",

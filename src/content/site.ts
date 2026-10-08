@@ -22,6 +22,8 @@ export const site = {
   contact: {
     email: "hola@flujoteca.es",
     address: "Valdemoro, Madrid",
+    streetAddress: "C/ Agustina de Aragón",
+    postalCode: "28342",
     // Coordenadas aproximadas del municipio de Valdemoro (sin dirección exacta, por privacidad)
     geo: {
       latitude: 40.1903,
