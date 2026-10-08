@@ -15,7 +15,7 @@ export const site = {
   tagline: "Automatización de procesos para asesorías y gestorías",
   // Descripción corta para <meta name="description"> y Open Graph (140-160 caracteres aprox.)
   description:
-    "Flujoteca automatiza las tareas repetitivas de asesorías y gestorías del sur de Madrid: onboarding, plazos, documentación y estados de expediente.",
+    "Automatización de procesos para asesorías y gestorías del sur de Madrid con Make, n8n e IA (ChatGPT): onboarding, plazos, documentación y expedientes.",
   url: "https://flujoteca.es",
   locale: "es_ES",
 
@@ -42,6 +42,16 @@ export const nav = {
   ],
   cta: { label: "Diagnóstico gratuito", href: "/#contacto" },
 } as const;
+
+// Tecnologías que integramos (usadas en JSON-LD y textos)
+export const stack = [
+  "Make",
+  "n8n",
+  "API de OpenAI (ChatGPT)",
+  "Notion",
+  "Brevo",
+  "Discord",
+] as const;
 
 export const hero = {
   kicker: "AUTOMATIZACIÓN DE PROCESOS · DESPACHOS PROFESIONALES",
@@ -132,7 +142,7 @@ export const howItWorks = {
       number: "02",
       title: "Implementación",
       description:
-        "Configuramos el flujo elegido y lo conectamos con las herramientas que ya usa tu equipo. Sin migraciones.",
+        "Configuramos el flujo elegido con Make o n8n y lo conectamos con las herramientas que ya usa tu equipo, y con otras como la API de ChatGPT, Notion, Brevo o Discord cuando aportan valor. Sin migraciones.",
     },
     {
       number: "03",
@@ -153,6 +163,21 @@ export const faq = {
   title: "Preguntas frecuentes",
   subtitle: "Las dudas que más nos plantean los despachos antes de empezar.",
   items: [
+    {
+      question: "¿Cómo automatizar la captación de leads de un despacho?",
+      answer:
+        "Conectamos el formulario de la web con un flujo en Make o n8n que recoge la solicitud, la cualifica (con la API de ChatGPT si hace falta clasificar el mensaje), la registra en Notion o en tu CRM, envía un correo de confirmación con Brevo y avisa al equipo por Discord. Así llegas a la primera reunión con los datos ya ordenados.",
+    },
+    {
+      question: "¿Qué herramientas de IA y CRM integramos?",
+      answer:
+        "Trabajamos con Make y n8n como motores de automatización, la API de OpenAI (ChatGPT) para clasificar y resumir textos, Notion como base de datos y gestor de expedientes, Brevo para el correo transaccional y Discord para avisos internos. Si tu despacho usa otro CRM o programa, se revisa en el diagnóstico gratuito.",
+    },
+    {
+      question: "¿Cuánto tiempo ahorra una automatización?",
+      answer:
+        "Depende del flujo y de cuántas veces se repite la tarea en tu despacho. No damos cifras genéricas: en el diagnóstico gratuito medimos contigo cuánto tiempo dedica hoy tu equipo a cada tarea repetitiva y estimamos qué parte se puede automatizar.",
+    },
     {
       question: "¿Tengo que cambiar el software que ya usamos en el despacho?",
       answer:

@@ -1,0 +1,38 @@
+# Flujoteca
+
+> Flujoteca es una consultoría de automatización de procesos e integración de IA para asesorías y gestorías del sur de la Comunidad de Madrid (base en Valdemoro). Automatiza tareas repetitivas sin obligar al despacho a cambiar el software que ya usa.
+
+## A quién ayudamos
+
+Asesorías, gestorías y despachos profesionales del sur de Madrid con tareas administrativas repetitivas: altas de clientes, plazos fiscales, petición de documentos y consultas sobre el estado de expedientes.
+
+## Stack técnico
+
+- Make y n8n: motores de automatización de flujos
+- API de OpenAI (ChatGPT): clasificación y resumen de textos
+- Notion: base de datos y seguimiento de expedientes
+- Brevo: correo transaccional y confirmaciones
+- Discord: avisos internos al equipo
+
+## Catálogo de flujos
+
+- Onboarding de clientes
+- Recordatorios de plazos fiscales y administrativos
+- Recogida documental
+- Estados de expediente
+- Captación y cualificación de leads
+
+## Cómo trabajamos
+
+1. Diagnóstico gratuito de 30 minutos, sin compromiso.
+2. Implementación del flujo conectado a las herramientas actuales del despacho, sin migraciones.
+3. Soporte mensual con ajustes y seguimiento, sin permanencia forzosa (30 días de aviso).
+
+Los proyectos de automatización e IA pueden ser elegibles para la subvención Kit Digital.
+Flujoteca no es software de facturación ni sustituye la adaptación a Verifactu.
+
+## Enlaces
+
+- Web: https://flujoteca.es
+- Preguntas frecuentes: https://flujoteca.es/#faq
+- Contacto: hola@flujoteca.es
