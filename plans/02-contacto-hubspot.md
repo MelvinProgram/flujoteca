@@ -79,12 +79,12 @@ la UI de HubSpot que no se pueden adivinar desde fuera.
 
 Checklist:
 
-- [ ] Crear un formulario nuevo de tipo **"Insertado" / "Regular"** (no
+- [x] Crear un formulario nuevo de tipo **"Insertado" / "Regular"** (no
       "Pop-up", no "En un correo electrónico"). No hace falta insertarlo
       visualmente en ninguna página — solo se usa como destino de envíos
       vía API, el formulario visible del sitio sigue siendo el HTML propio
       de `ContactForm.astro`.
-- [ ] Añadir estos campos (reutilizando propiedades de contacto por
+- [x] Añadir estos campos (reutilizando propiedades de contacto por
       defecto de HubSpot donde exista):
   - **Nombre de pila** (`firstname`) — obligatorio.
   - **Apellidos** (`lastname`) — **no** obligatorio (ver justificación en
@@ -97,7 +97,7 @@ Checklist:
         **nombre interno** exacto (al pasar el cursor sobre el campo en el
         editor del formulario, o en Configuración → Propiedades →
         columna "Nombre interno").
-- [ ] En "Consentimiento y privacidad" (GDPR / Data privacy consent) del
+- [x] En "Consentimiento y privacidad" (GDPR / Data privacy consent) del
       editor: decidir/anotar si se activa. Si se activa, elegir
       "Consentimiento explícito" (checkbox) con un texto legal equivalente
       al que ya usa el sitio (`contactForm.consent.text` +
@@ -105,10 +105,10 @@ Checklist:
       HubSpot no se renderiza en el sitio — solo determina si la API
       exige `legalConsentOptions`.
 - [ ] Publicar el formulario (estado activo, no borrador).
-- [ ] Anotar el **Portal ID** (Hub ID): visible en la URL de HubSpot tras
+- [x] Anotar el **Portal ID** (Hub ID): visible en la URL de HubSpot tras
       iniciar sesión, o en Configuración → Cuenta y facturación →
       Información de la cuenta.
-- [ ] Anotar el **GUID del formulario**: en "Compartir"/"Insertar" del
+- [x] Anotar el **GUID del formulario**: en "Compartir"/"Insertar" del
       editor aparece el fragmento de embed con el `formId` (UUID).
 - [x] Rellenar esta tabla con los nombres internos reales:
 
@@ -140,8 +140,8 @@ prueba real de la Fase final (si no, la API puede rechazar los envíos).
 ## Fase 2 — Configuración de contenido y retirada del webhook genérico
 
 `src/content/site.ts` ya tiene el export `hubspot` con `portalId`,
-`formGuid`, `gdprConsentEnabled` y `fieldMap`, todos marcados `// TODO:`
-— rellenar con los datos anotados en la Fase 1.
+`formGuid`, `gdprConsentEnabled`, `hublet` y `fieldMap`, ya rellenados con
+los datos reales de la Fase 1.
 
 `PUBLIC_CONTACT_WEBHOOK_URL` retirada de `.env.example`, `README.md` y
 `CLAUDE.md` (eliminada, no dejada como fallback: una vez cableado HubSpot

@@ -27,9 +27,8 @@ is no test suite or linter configured in this repo.
   section exports a typed `as const` object (`hero`, `problem`, `flows`,
   `howItWorks`, `flowDemo`, `technology`, `faq`, `contactForm`, `footer`, ...) that the matching
   component in `src/components/` imports and renders. To change any visible
-  text, edit this file rather than the `.astro` components. Fields marked
-  `// TODO:` are placeholders (contact info, real domain) still needed before
-  launch.
+  text, edit this file rather than the `.astro` components. No `// TODO:`
+  placeholders remain; contact info and the HubSpot config are filled in.
 - **`src/layouts/Layout.astro`** owns `<head>` — meta tags, canonical URL,
   Open Graph/Twitter cards, and JSON-LD `Organization` and `Service` schema.org blocks
   (the site is a digital business, so no `LocalBusiness`). `src/pages/index.astro` composes the page by
@@ -37,12 +36,14 @@ is no test suite or linter configured in this repo.
   `HowItWorks`, `FlowDemo`, `Technology`, `FAQ`, `ContactForm`, `Footer`) inside `Layout`.
 - **No backend.** `ContactForm.astro` posts form data directly from the
   browser to HubSpot's public Forms Submission API
-  (`api.hsforms.com/submissions/v3/integration/submit/{portalId}/{formGuid}`).
-  Config (`portalId`, `formGuid`, `gdprConsentEnabled`, `fieldMap`) lives in
+  (`api-{hublet}.hsforms.com/submissions/v3/integration/submit/{portalId}/{formGuid}`;
+  the account is on the EU hublet, `eu1`).
+  Config (`portalId`, `formGuid`, `hublet`, `gdprConsentEnabled`, `fieldMap`) lives in
   `src/content/site.ts` (`hubspot` export) — not `.env`, since these values
   aren't secrets and don't vary per environment. See
-  `plans/02-contacto-hubspot.md` for the full design and the manual HubSpot
-  setup steps still pending.
+  `plans/02-contacto-hubspot.md` for the full design. HubSpot setup is done;
+  only deleting the legacy `PUBLIC_CONTACT_WEBHOOK_URL` env var in Netlify
+  (if present) remains as a manual step.
 - **Design tokens** are defined once in `src/styles/global.css` under
   `@theme` (Tailwind v4 CSS-based config): brand colors (`tinta`, `senal`,
   `urgencia`, `hueso`, `confirma`, plus neutrals) and font families (Zilla
@@ -52,8 +53,8 @@ is no test suite or linter configured in this repo.
   font-family strings in components. Fonts are self-hosted via Fontsource
   (no external font requests). Custom reusable utilities (e.g.
   `container-page`, `registro-stamp`) are also declared here via `@utility`.
-- `astro.config.mjs` sets `site:` (the canonical domain, currently a
-  placeholder) and registers `@astrojs/sitemap`.
+- `astro.config.mjs` sets `site:` (the canonical domain,
+  `https://flujoteca.es`) and registers `@astrojs/sitemap`.
 
 ## Documentation
 
