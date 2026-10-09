@@ -23,7 +23,7 @@ async function init() {
   gsap.registerPlugin(ScrollTrigger);
 
   lenis = new LenisCtor({
-    duration: 1.6,
+    duration: 2.2,
     easing: (t: number) => (t === 1 ? 1 : 1 - 2 ** (-10 * t)), // expo.out
     anchors: { offset: -64 }, // altura del header sticky (h-16)
     autoRaf: false,

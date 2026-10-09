@@ -27,8 +27,8 @@ async function init() {
       onEnter: (els) => {
         gsap.fromTo(
           els,
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 1.2, ease: "power3.out", stagger: 0.15, overwrite: true },
+          { opacity: 0, y: 60 },
+          { opacity: 1, y: 0, duration: 1.8, ease: "power3.out", stagger: 0.2, overwrite: true },
         );
       },
     });

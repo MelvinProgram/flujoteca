@@ -89,7 +89,7 @@
  */
 html.motion-pending .reveal {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(60px);
 }
 
 /* Lenis (scroll suave) */
