@@ -6,7 +6,12 @@
  * que la CSP (`style-src 'self'`) permite.
  */
 const root = document.documentElement;
-let batches: { kill: () => void }[] = [];
+// El `y` inicial de global.css (translateY(60px)) debe coincidir con estos valores.
+const REVEAL = {
+  desktop: { start: "top 85%", y: 60, duration: 1.8, stagger: 0.2 },
+  mobile: { start: "top 90%", y: 60, duration: 1.8, stagger: 0.2 },
+} as const;
+let batches:{ kill: () => void }[] = [];
 let starting = false;
 
 async function init() {
@@ -21,14 +26,20 @@ async function init() {
     ]);
     gsap.registerPlugin(ScrollTrigger);
 
+    // Móvil (< 768 px): el scroll táctil es nativo (Lenis sin syncTouch), así que
+    // el reveal compensa disparándose antes (top 90 %). Desktop no cambia.
+    const { start, y, duration, stagger } = matchMedia("(max-width: 767px)").matches
+      ? REVEAL.mobile
+      : REVEAL.desktop;
+
     batches = ScrollTrigger.batch(gsap.utils.toArray<HTMLElement>(".reveal"), {
-      start: "top 85%",
+      start,
       once: true,
       onEnter: (els) => {
         gsap.fromTo(
           els,
-          { opacity: 0, y: 60 },
-          { opacity: 1, y: 0, duration: 1.8, ease: "power3.out", stagger: 0.2, overwrite: true },
+          { opacity: 0, y },
+          { opacity: 1, y: 0, duration, ease: "power3.out", stagger, overwrite: true },
         );
       },
     });
