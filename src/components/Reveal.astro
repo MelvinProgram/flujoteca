@@ -1,0 +1,127 @@
+---
+/**
+ * Reveal — aparición gradual (opacidad + desplazamiento) al entrar en
+ * el viewport, con un único IntersectionObserver compartido.
+ *
+ * Uso:
+ *   <Reveal>…</Reveal>
+ *   <Reveal direction="left" duration={900} delay={150}>…</Reveal>
+ *   <Reveal as="li" delay={i * 100}>…</Reveal>   // escalonado
+ *
+ * Degradación segura:
+ *  - Sin JS (`scripting: none`) el contenido se ve siempre.
+ *  - Con `prefers-reduced-motion: reduce` no se oculta ni se anima.
+ */
+interface Props {
+  /** Duración de la transición en ms. */
+  duration?: number;
+  /** Retraso inicial en ms (útil para escalonar elementos). */
+  delay?: number;
+  /** Desde dónde entra el elemento. `none` solo anima la opacidad. */
+  direction?: "up" | "down" | "left" | "right" | "none";
+  /** Distancia del desplazamiento inicial, en px. */
+  distance?: number;
+  /** Fracción visible (0–1) necesaria para disparar la animación. */
+  threshold?: number;
+  /** Margen del observer (como `rootMargin` de CSS). */
+  rootMargin?: string;
+  /** Si es false, el elemento vuelve a ocultarse al salir del viewport. */
+  once?: boolean;
+  /** Etiqueta HTML a renderizar. */
+  as?: string;
+  class?: string;
+  /** Cualquier otro atributo (`id`, `data-*`, `aria-*`…) se pasa tal cual. */
+  [attr: string]: unknown;
+}
+
+const {
+  duration = 700,
+  delay = 0,
+  direction = "up",
+  distance = 24,
+  threshold = 0.15,
+  rootMargin = "0px 0px -8% 0px",
+  once = true,
+  as: Tag = "div",
+  class: className = "",
+  ...rest
+} = Astro.props;
+
+const offsets = {
+  up: [0, distance],
+  down: [0, -distance],
+  left: [distance, 0],
+  right: [-distance, 0],
+  none: [0, 0],
+} as const;
+const [x, y] = offsets[direction];
+
+const style = [
+  `--reveal-x:${x}px`,
+  `--reveal-y:${y}px`,
+  `transition-duration:${duration}ms`,
+  `transition-delay:${delay}ms`,
+].join(";");
+---
+
+<Tag
+  {...rest}
+  data-reveal
+  data-reveal-threshold={threshold}
+  data-reveal-margin={rootMargin}
+  data-reveal-once={once ? "true" : "false"}
+  style={style}
+  class:list={[
+    "motion-safe:transition-[opacity,translate] motion-safe:ease-out motion-safe:will-change-[opacity,translate]",
+    // Estado inicial: oculto solo si hay JS y no se pidió movimiento reducido
+    "motion-safe:[@media(scripting:enabled)]:[&:not([data-visible])]:opacity-0",
+    "motion-safe:[@media(scripting:enabled)]:[&:not([data-visible])]:translate-x-(--reveal-x)",
+    "motion-safe:[@media(scripting:enabled)]:[&:not([data-visible])]:translate-y-(--reveal-y)",
+    className,
+  ]}
+>
+  <slot />
+</Tag>
+
+<script>
+  const SELECTOR = "[data-reveal]";
+  const observers = new Map<string, IntersectionObserver>();
+
+  const show = (el: Element) => el.setAttribute("data-visible", "");
+
+  // Un observer por combinación threshold/margin, compartido entre instancias
+  function observerFor(threshold: number, margin: string) {
+    const key = `${threshold}|${margin}`;
+    let io = observers.get(key);
+    if (!io) {
+      io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            const el = entry.target as HTMLElement;
+            if (entry.isIntersecting) {
+              show(el);
+              if (el.dataset.revealOnce !== "false") io!.unobserve(el);
+            } else if (el.dataset.revealOnce === "false") {
+              el.removeAttribute("data-visible");
+            }
+          }
+        },
+        { threshold, rootMargin: margin },
+      );
+      observers.set(key, io);
+    }
+    return io;
+  }
+
+  const targets = document.querySelectorAll<HTMLElement>(SELECTOR);
+
+  if (!("IntersectionObserver" in window)) {
+    targets.forEach(show);
+  } else {
+    targets.forEach((el) => {
+      const threshold = Number(el.dataset.revealThreshold ?? 0.15);
+      const margin = el.dataset.revealMargin ?? "0px";
+      observerFor(threshold, margin).observe(el);
+    });
+  }
+</script>

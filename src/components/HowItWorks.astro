@@ -1,25 +1,31 @@
 ---
 import { howItWorks } from "../content/site";
+import Reveal from "./Reveal.astro";
 ---
 
 <section id="como-funciona" class="border-b border-borde bg-hueso">
   <div class="container-page py-16 sm:py-20">
-    <h2 class="font-display text-2xl font-bold text-tinta sm:text-3xl">{howItWorks.title}</h2>
+    <Reveal as="h2" class="font-display text-2xl font-bold text-tinta sm:text-3xl">
+      {howItWorks.title}
+    </Reveal>
 
     <ol class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-0 lg:divide-x lg:divide-borde">
       {
-        howItWorks.steps.map((step) => (
-          <li class="lg:px-5 first:lg:pl-0 last:lg:pr-0">
+        howItWorks.steps.map((step, i) => (
+          <Reveal as="li" delay={i * 100} class="lg:px-5 first:lg:pl-0 last:lg:pr-0">
             <p class="font-mono text-sm text-senal">{step.number}</p>
             <h3 class="mt-2 font-display text-xl font-bold text-tinta">{step.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-tinta-suave">{step.description}</p>
-          </li>
+          </Reveal>
         ))
       }
     </ol>
 
-    <p class="mt-12 max-w-2xl border-l-4 border-senal pl-4 font-display text-lg text-tinta">
+    <Reveal
+      as="p"
+      class="mt-12 max-w-2xl border-l-4 border-senal pl-4 font-display text-lg text-tinta"
+    >
       {howItWorks.closing}
-    </p>
+    </Reveal>
   </div>
 </section>
