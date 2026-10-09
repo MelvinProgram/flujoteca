@@ -10,9 +10,24 @@ let lenis: Lenis | null = null;
 let tick: ((time: number) => void) | null = null;
 let starting = false;
 
+/** Único origen de scroll del sitio: el header escucha `site:scroll`. */
+function emitScroll(scroll: number, velocity: number) {
+  document.dispatchEvent(new CustomEvent("site:scroll", { detail: { scroll, velocity } }));
+}
+
+let nativeBound = false;
+function bindNativeScroll() {
+  if (nativeBound) return;
+  nativeBound = true;
+  addEventListener("scroll", () => emitScroll(scrollY, Infinity), { passive: true });
+}
+
 async function init() {
   if (lenis || starting) return;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    bindNativeScroll(); // sin Lenis, el scroll nativo es el único origen
+    return;
+  }
   starting = true;
 
   const [{ default: LenisCtor }, { gsap }, { ScrollTrigger }] = await Promise.all([
@@ -29,6 +44,9 @@ async function init() {
     autoRaf: false,
   });
   lenis.on("scroll", ScrollTrigger.update);
+  lenis.on("scroll", ({ scroll, velocity }: { scroll: number; velocity: number }) =>
+    emitScroll(scroll, velocity),
+  );
   tick = (time) => lenis?.raf(time * 1000);
   gsap.ticker.add(tick);
   gsap.ticker.lagSmoothing(0);
