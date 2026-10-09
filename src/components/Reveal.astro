@@ -57,22 +57,23 @@ const offsets = {
   none: [0, 0],
 } as const;
 const [x, y] = offsets[direction];
-
-const style = [
-  `--reveal-x:${x}px`,
-  `--reveal-y:${y}px`,
-  `transition-duration:${duration}ms`,
-  `transition-delay:${delay}ms`,
-].join(";");
 ---
 
+{/*
+  Duración, retraso y desplazamiento viajan como data-* y los aplica el script
+  por CSSOM: la CSP del sitio (`style-src 'self'`, ver netlify.toml) bloquea
+  los atributos `style` en línea, así que `style="…"` se ignoraría en producción.
+*/}
 <Tag
   {...rest}
   data-reveal
+  data-reveal-duration={duration}
+  data-reveal-delay={delay}
+  data-reveal-x={x}
+  data-reveal-y={y}
   data-reveal-threshold={threshold}
   data-reveal-margin={rootMargin}
   data-reveal-once={once ? "true" : "false"}
-  style={style}
   class:list={[
     "transition-[opacity,translate] ease-out motion-safe:will-change-[opacity,translate]",
     // Estado inicial: oculto solo si hay JS. Con movimiento reducido solo hay
@@ -122,6 +123,12 @@ const style = [
     targets.forEach(show);
   } else {
     targets.forEach((el) => {
+      const { revealDuration, revealDelay, revealX, revealY } = el.dataset;
+      el.style.setProperty("transition-duration", `${revealDuration ?? 700}ms`);
+      el.style.setProperty("transition-delay", `${revealDelay ?? 0}ms`);
+      el.style.setProperty("--reveal-x", `${revealX ?? 0}px`);
+      el.style.setProperty("--reveal-y", `${revealY ?? 0}px`);
+
       const threshold = Number(el.dataset.revealThreshold ?? 0.15);
       const margin = el.dataset.revealMargin ?? "0px";
       observerFor(threshold, margin).observe(el);
