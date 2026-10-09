@@ -10,7 +10,9 @@
  *
  * Degradación segura:
  *  - Sin JS (`scripting: none`) el contenido se ve siempre.
- *  - Con `prefers-reduced-motion: reduce` no se oculta ni se anima.
+ *  - Con `prefers-reduced-motion: reduce` solo hay fundido de opacidad, sin
+ *    desplazamiento (global.css exime a `[data-reveal]` del recorte de
+ *    transiciones para que el fundido se vea).
  */
 interface Props {
   /** Duración de la transición en ms. */
@@ -72,9 +74,10 @@ const style = [
   data-reveal-once={once ? "true" : "false"}
   style={style}
   class:list={[
-    "motion-safe:transition-[opacity,translate] motion-safe:ease-out motion-safe:will-change-[opacity,translate]",
-    // Estado inicial: oculto solo si hay JS y no se pidió movimiento reducido
-    "motion-safe:[@media(scripting:enabled)]:[&:not([data-visible])]:opacity-0",
+    "transition-[opacity,translate] ease-out motion-safe:will-change-[opacity,translate]",
+    // Estado inicial: oculto solo si hay JS. Con movimiento reducido solo hay
+    // fundido de opacidad; el desplazamiento queda solo para `motion-safe`.
+    "[@media(scripting:enabled)]:[&:not([data-visible])]:opacity-0",
     "motion-safe:[@media(scripting:enabled)]:[&:not([data-visible])]:translate-x-(--reveal-x)",
     "motion-safe:[@media(scripting:enabled)]:[&:not([data-visible])]:translate-y-(--reveal-y)",
     className,
