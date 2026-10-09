@@ -1,16 +1,15 @@
 ---
 import { problem } from "../content/site";
-import Reveal from "./Reveal.astro";
 ---
 
 <section id="problema" class="border-b border-borde bg-hueso">
   <div class="container-page py-16 sm:py-20">
-    <Reveal as="h2" class="max-w-2xl font-display text-2xl font-bold text-tinta sm:text-3xl">
+    <h2 class="max-w-2xl font-display text-2xl font-bold text-tinta sm:text-3xl">
       {problem.title}
-    </Reveal>
+    </h2>
 
     <div class="mt-10 grid gap-10 md:grid-cols-2 md:gap-12">
-      <Reveal>
+      <div>
         <p class="text-tinta-suave">{problem.intro}</p>
         <ul class="mt-4 space-y-3">
           {
@@ -22,9 +21,9 @@ import Reveal from "./Reveal.astro";
             ))
           }
         </ul>
-      </Reveal>
+      </div>
 
-      <Reveal delay={150}>
+      <div>
         {
           problem.stats.map((stat) => (
             <figure class="border-t-2 border-tinta pt-4">
@@ -45,7 +44,7 @@ import Reveal from "./Reveal.astro";
             {problem.source.label}
           </a>
         </p>
-      </Reveal>
+      </div>
     </div>
   </div>
 </section>

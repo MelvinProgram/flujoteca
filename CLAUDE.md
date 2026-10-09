@@ -44,6 +44,13 @@ is no test suite or linter configured in this repo.
   `plans/02-contacto-hubspot.md` for the full design. HubSpot setup is done;
   only deleting the legacy `PUBLIC_CONTACT_WEBHOOK_URL` env var in Netlify
   (if present) remains as a manual step.
+- **Motion** lives in `src/scripts/motion.ts` (loaded from `Layout.astro`):
+  Lenis smooth scroll plus a GSAP/ScrollTrigger reveal of each section's
+  blocks. The hidden initial state is CSS in `global.css`
+  (`html.motion-pending …`, class added by an inline script in `<head>` only
+  when `prefers-reduced-motion` is not `reduce`); keep the selectors in both
+  files in sync. The CSP (`style-src 'self'`) blocks inline `style="…"`
+  attributes, so set styles from JS (CSSOM), never in markup.
 - **Design tokens** are defined once in `src/styles/global.css` under
   `@theme` (Tailwind v4 CSS-based config): brand colors (`tinta`, `senal`,
   `urgencia`, `hueso`, `confirma`, plus neutrals) and font families (Zilla

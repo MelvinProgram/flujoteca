@@ -59,6 +59,18 @@ const serviceSchema = {
         document.documentElement.classList.toggle("dark", dark);
       })();
     </script>
+    <script is:inline>
+      // Oculta los bloques de las secciones hasta que motion.ts los revele.
+      // Sin movimiento reducido, y con un seguro por si el script no llega a cargar.
+      (function () {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var root = document.documentElement;
+        root.classList.add("motion-pending");
+        setTimeout(function () {
+          if (!window.__motionReady) root.classList.remove("motion-pending");
+        }, 4000);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
@@ -93,6 +105,7 @@ const serviceSchema = {
     <script>
       import { initClickTracking } from "../lib/track";
       initClickTracking();
+      import "../scripts/motion";
     </script>
   </body>
 </html>
