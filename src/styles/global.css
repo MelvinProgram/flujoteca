@@ -85,20 +85,9 @@
 
 /*
  * Reveal al hacer scroll — estado inicial. `motion-pending` lo añade el <head>
- * solo si no hay movimiento reducido; src/scripts/motion.ts revela cada bloque.
- * Los selectores deben coincidir con BLOCKS/ITEMS de motion.ts.
+ * solo si no hay movimiento reducido; src/scripts/reveal.ts revela cada `.reveal`.
  */
-html.motion-pending
-  main
-  > section:not(#inicio)
-  .container-page
-  > :not(ul, ol, [data-reveal-group], .hidden),
-html.motion-pending
-  main
-  > section:not(#inicio)
-  .container-page
-  > :is(ul, ol, [data-reveal-group])
-  > :not(.hidden) {
+html.motion-pending .reveal {
   opacity: 0;
   transform: translateY(40px);
 }

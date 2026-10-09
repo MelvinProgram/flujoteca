@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { site, stack } from "../content/site";
+import SmoothScroll from "../components/SmoothScroll.astro";
 
 interface Props {
   title?: string;
@@ -60,14 +61,14 @@ const serviceSchema = {
       })();
     </script>
     <script is:inline>
-      // Oculta los bloques de las secciones hasta que motion.ts los revele.
+      // Oculta las secciones .reveal hasta que reveal.ts las revele.
       // Sin movimiento reducido, y con un seguro por si el script no llega a cargar.
       (function () {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         var root = document.documentElement;
         root.classList.add("motion-pending");
         setTimeout(function () {
-          if (!window.__motionReady) root.classList.remove("motion-pending");
+          if (!root.classList.contains("motion-ready")) root.classList.remove("motion-pending");
         }, 4000);
       })();
     </script>
@@ -102,10 +103,11 @@ const serviceSchema = {
   </head>
   <body class="bg-hueso text-tinta antialiased">
     <slot />
+    <SmoothScroll />
     <script>
       import { initClickTracking } from "../lib/track";
       initClickTracking();
-      import "../scripts/motion";
+      import "../scripts/reveal";
     </script>
   </body>
 </html>
