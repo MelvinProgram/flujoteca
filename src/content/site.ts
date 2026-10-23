@@ -361,6 +361,7 @@ export const hubspot = {
     phone: "phone",
     company: "company",
     message: "message", // propiedad personalizada creada para este formulario
+    process: "proceso_a_automatizar", // propiedad desplegable; los valores coinciden con el texto de las opciones
   },
 } as const;
 

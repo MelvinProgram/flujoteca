@@ -199,10 +199,11 @@ const { fields, consent } = contactForm;
     addField("email", String(data.email ?? ""));
     addField("phone", String(data.phone ?? ""));
     addField("company", String(data.company ?? ""));
-    // El proceso elegido se antepone al mensaje: así no hace falta una propiedad nueva en HubSpot
+    // El proceso elegido va a su propia propiedad desplegable; el mensaje lleva solo el texto libre
     const processChoice = String(data.process ?? "");
     const freeText = String(data.message ?? "");
-    addField("message", [processChoice && `Proceso de interés: ${processChoice}`, freeText].filter(Boolean).join("\n\n"));
+    addField("process", processChoice);
+    addField("message", freeText);
 
     const hutk = getHutk();
 
