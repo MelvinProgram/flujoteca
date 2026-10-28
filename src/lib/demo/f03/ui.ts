@@ -153,7 +153,6 @@ export function initDemoF03(): void {
         b.type = "button";
         b.dataset.key = `row:${e.id}`;
         if (e.id === seleccionado) b.setAttribute("aria-current", "true");
-        b.setAttribute("aria-label", `${t.list.select} ${e.cliente}, ${e.id}, ${t.states[estado]}`);
         b.append(
           el("span", "hidden font-mono text-xs text-tinta-suave sm:block", e.id),
           (() => {

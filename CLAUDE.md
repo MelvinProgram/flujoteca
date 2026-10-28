@@ -21,7 +21,10 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 Other commands: `npm run build` (outputs to `./dist`), `npm run preview`,
 `npm run check` (`astro check` typecheck) and `npm run test:demo` (plain-Node
-tests of the demo logic, no framework). There is no linter configured.
+tests of the demo logic, no framework) and `npm run test:e2e` (Playwright +
+axe-core against the built `dist/`, using the installed Chrome: no browser
+download; `scripts/serve-dist.mjs` serves it because `astro preview` detaches
+from its process in some environments). There is no linter configured.
 
 ## Architecture
 
