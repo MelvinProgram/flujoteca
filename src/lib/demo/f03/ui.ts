@@ -37,15 +37,15 @@ const DOC_BADGE: Record<EstadoDocumento, string> = {
 };
 // Segmento de progreso por documento (el color no es el único indicador: va con "n/total").
 const SEGMENTO: Record<EstadoDocumento, string> = {
-  pendiente: "bg-borde",
+  pendiente: "bg-tinta/15",
   recibido: "bg-confirma",
   dudoso: "bg-tinta",
 };
 // min-h-11 (44 px) en táctil; en escritorio vuelve al tamaño compacto.
 const BTN =
-  "inline-flex min-h-11 items-center border border-borde bg-superficie px-3 py-1.5 text-sm font-medium text-tinta transition-colors hover:border-senal hover:text-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-borde disabled:hover:text-tinta sm:min-h-9";
+  "inline-flex min-h-11 items-center rounded-md border border-tinta/20 bg-superficie/85 px-3 py-1.5 text-sm font-medium text-tinta transition-colors hover:border-senal hover:text-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-tinta/20 disabled:hover:text-tinta sm:min-h-9";
 const BTN_PRIMARY =
-  "inline-flex min-h-11 items-center border border-tinta-fija bg-tinta-fija px-3 py-1.5 text-sm font-medium text-blanco transition-colors hover:border-senal hover:bg-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-tinta-fija disabled:hover:bg-tinta-fija sm:min-h-9 dark:hover:text-tinta-fija";
+  "inline-flex min-h-11 items-center rounded-md border border-tinta-fija bg-tinta-fija px-3 py-1.5 dark:border-senal/60 text-sm font-medium text-blanco transition-colors hover:border-senal hover:bg-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-tinta-fija disabled:hover:bg-tinta-fija sm:min-h-9 dark:hover:text-tinta-fija";
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -65,7 +65,7 @@ function q<T extends HTMLElement>(sel: string): T {
 }
 
 function badge(text: string, cls: string): HTMLElement {
-  return el("span", `inline-flex shrink-0 border px-2 py-0.5 font-mono text-[11px] uppercase ${cls}`, text);
+  return el("span", `inline-flex shrink-0 rounded-sm border px-2 py-0.5 font-mono text-[11px] uppercase ${cls}`, text);
 }
 
 /** Barra de un segmento por documento + "recibidos/total". Solo clases, sin `style` (CSP). */
@@ -124,10 +124,10 @@ export function initDemoF03(): void {
       ...opciones.map(([valor, etiqueta, n]) => {
         const b = el(
           "button",
-          `min-h-11 border px-3 py-1.5 text-sm transition-colors sm:min-h-9 ${
+          `min-h-11 rounded-md border px-3 py-1.5 text-sm transition-colors sm:min-h-9 ${
             filtro === valor
               ? "border-tinta-fija bg-tinta-fija text-blanco"
-              : "border-borde bg-superficie text-tinta hover:border-senal hover:text-senal"
+              : "border-tinta/20 bg-superficie/85 text-tinta hover:border-senal hover:text-senal"
           }`,
           `${etiqueta} (${n})`,
         );
@@ -156,7 +156,7 @@ export function initDemoF03(): void {
   function renderLista(s: EstadoDemo) {
     const filas = visibles(s);
     if (filas.length === 0) {
-      list.replaceChildren(el("li", "border border-borde bg-superficie p-4 text-sm text-tinta-suave", t.filters.empty));
+      list.replaceChildren(el("li", "vidrio p-4 text-sm text-tinta-suave", t.filters.empty));
       return;
     }
     list.replaceChildren(
@@ -165,8 +165,8 @@ export function initDemoF03(): void {
         const li = el("li");
         const b = el(
           "button",
-          `grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 border bg-superficie p-3 text-left transition-colors hover:border-senal sm:grid-cols-[minmax(0,1fr)_7rem_9rem] ${
-            e.id === seleccionado ? "border-senal shadow-[2px_2px_0_0_var(--color-senal)]" : "border-borde"
+          `vidrio grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 p-3 text-left transition-colors hover:border-senal sm:grid-cols-[minmax(0,1fr)_7rem_9rem] ${
+            e.id === seleccionado ? "outline-2 outline-senal" : ""
           }`,
         );
         b.type = "button";
@@ -242,7 +242,7 @@ export function initDemoF03(): void {
     nodos.push(progreso(exp, "mt-3"));
 
     if (estado === "revision") {
-      const r = el("div", "mt-4 border-2 border-tinta bg-tinta/5 p-3 text-sm");
+      const r = el("div", "mt-4 rounded-md border-2 border-tinta bg-tinta/5 p-3 text-sm");
       r.append(
         el("p", "font-mono text-[11px] font-semibold uppercase text-tinta", t.detail.reviewTitle),
         el("p", "mt-1 text-tinta", exp.motivoRevision ?? t.detail.reviewNote),
@@ -254,9 +254,9 @@ export function initDemoF03(): void {
     // Documentos
     nodos.push(el("h4", "mt-5 font-mono text-[11px] uppercase tracking-wide text-senal", t.detail.docs));
     const hoy = diaDe(s.ahora);
-    const docs = el("ul", "mt-2 divide-y divide-borde border border-borde");
+    const docs = el("ul", "mt-2 divide-y divide-tinta/10 overflow-hidden rounded-md border border-tinta/10");
     for (const d of exp.documentos) {
-      const li = el("li", "flex flex-wrap items-start gap-x-3 gap-y-2 bg-superficie p-3");
+      const li = el("li", "flex flex-wrap items-start gap-x-3 gap-y-2 bg-superficie/55 p-3");
       const info = el("div", "min-w-0 flex-1 basis-40");
       // Plazo de un documento pendiente: el rojo (urgencia) solo cuando vence hoy o mañana.
       const dias = d.vencimiento - hoy;
@@ -320,7 +320,7 @@ export function initDemoF03(): void {
     // Correo simulado
     nodos.push(el("h4", "mt-5 font-mono text-[11px] uppercase tracking-wide text-senal", t.detail.emailTitle));
     const ultimo = ultimoCorreo(s, exp.id);
-    const caja = el("div", "mt-2 border border-dashed border-borde bg-superficie p-3 text-sm");
+    const caja = el("div", "mt-2 rounded-md border border-dashed border-tinta/25 bg-superficie/60 p-3 text-sm");
     if (ultimo) {
       caja.append(
         el("p", "font-mono text-[11px] font-semibold uppercase text-tinta", t.detail.emailNote),
@@ -344,7 +344,7 @@ export function initDemoF03(): void {
     }
     history.replaceChildren(
       ...[...s.historial].reverse().map((ev) => {
-        const li = el("li", "grid gap-x-3 gap-y-1 border-b border-borde p-3 text-sm last:border-b-0 sm:grid-cols-[9.5rem_6.5rem_1fr]");
+        const li = el("li", "grid gap-x-3 gap-y-1 border-b border-tinta/10 p-3 text-sm last:border-b-0 sm:grid-cols-[9.5rem_6.5rem_1fr]");
         li.append(
           el("span", "font-mono text-xs text-tinta-suave", formatReloj(ev.t)),
           (() => {

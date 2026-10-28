@@ -4,7 +4,7 @@ import { contactForm } from "../content/site";
 const { fields, consent } = contactForm;
 ---
 
-<section id="contacto" class="reveal bg-hueso">
+<section id="contacto" class="reveal">
   <div class="container-page py-16 sm:py-20">
     <div class="mx-auto max-w-xl">
       <div class="text-center">
@@ -17,7 +17,7 @@ const { fields, consent } = contactForm;
 
       <div
         id="form-success"
-        class="mt-10 hidden border border-confirma bg-superficie p-6 text-center sm:p-8"
+        class="mt-10 hidden rounded-lg border border-confirma bg-superficie/85 p-6 text-center backdrop-blur-md sm:p-8"
         role="status"
         tabindex="-1"
       >
@@ -26,7 +26,7 @@ const { fields, consent } = contactForm;
         <p class="mt-2 text-sm text-tinta-suave">{contactForm.success.next}</p>
       </div>
 
-      <form id="contact-form" class="relative mt-10 space-y-5 border border-borde bg-superficie p-6 sm:p-8">
+      <form id="contact-form" class="vidrio relative mt-10 space-y-5 p-6 sm:p-8">
         <div class="grid gap-5 sm:grid-cols-2">
           <div>
             <label for="name" class="block font-mono text-xs uppercase tracking-wide text-tinta-suave">
@@ -39,7 +39,7 @@ const { fields, consent } = contactForm;
               required
               autocomplete="name"
               placeholder={fields.name.placeholder}
-              class="mt-1.5 w-full border border-borde bg-superficie px-3 py-2.5 text-tinta placeholder:text-tinta-suave/80 focus:border-senal"
+              class="mt-1.5 w-full rounded-md border border-tinta/20 bg-superficie/85 px-3 py-2.5 text-tinta placeholder:text-tinta-suave/80 focus:border-senal"
             />
           </div>
 
@@ -54,7 +54,7 @@ const { fields, consent } = contactForm;
               required
               autocomplete="email"
               placeholder={fields.email.placeholder}
-              class="mt-1.5 w-full border border-borde bg-superficie px-3 py-2.5 text-tinta placeholder:text-tinta-suave/80 focus:border-senal"
+              class="mt-1.5 w-full rounded-md border border-tinta/20 bg-superficie/85 px-3 py-2.5 text-tinta placeholder:text-tinta-suave/80 focus:border-senal"
             />
           </div>
 
@@ -68,7 +68,7 @@ const { fields, consent } = contactForm;
               name="phone"
               autocomplete="tel"
               placeholder={fields.phone.placeholder}
-              class="mt-1.5 w-full border border-borde bg-superficie px-3 py-2.5 text-tinta placeholder:text-tinta-suave/80 focus:border-senal"
+              class="mt-1.5 w-full rounded-md border border-tinta/20 bg-superficie/85 px-3 py-2.5 text-tinta placeholder:text-tinta-suave/80 focus:border-senal"
             />
           </div>
 
@@ -82,7 +82,7 @@ const { fields, consent } = contactForm;
               name="company"
               autocomplete="organization"
               placeholder={fields.company.placeholder}
-              class="mt-1.5 w-full border border-borde bg-superficie px-3 py-2.5 text-tinta placeholder:text-tinta-suave/80 focus:border-senal"
+              class="mt-1.5 w-full rounded-md border border-tinta/20 bg-superficie/85 px-3 py-2.5 text-tinta placeholder:text-tinta-suave/80 focus:border-senal"
             />
           </div>
         </div>
@@ -94,7 +94,7 @@ const { fields, consent } = contactForm;
           <select
             id="process"
             name="process"
-            class="mt-1.5 w-full border border-borde bg-superficie px-3 py-2.5 text-tinta focus:border-senal"
+            class="mt-1.5 w-full rounded-md border border-tinta/20 bg-superficie/85 px-3 py-2.5 text-tinta focus:border-senal"
           >
             <option value="">{fields.process.placeholder}</option>
             {fields.process.options.map((option) => <option value={option}>{option}</option>)}
@@ -110,7 +110,7 @@ const { fields, consent } = contactForm;
             name="message"
             rows="4"
             placeholder={fields.message.placeholder}
-            class="mt-1.5 w-full resize-y border border-borde bg-superficie px-3 py-2.5 text-tinta placeholder:text-tinta-suave/80 focus:border-senal"
+            class="mt-1.5 w-full resize-y rounded-md border border-tinta/20 bg-superficie/85 px-3 py-2.5 text-tinta placeholder:text-tinta-suave/80 focus:border-senal"
           ></textarea>
         </div>
 
@@ -126,7 +126,7 @@ const { fields, consent } = contactForm;
             id="consent"
             name="consent"
             required
-            class="mt-0.5 h-5 w-5 shrink-0 border border-borde accent-senal"
+            class="mt-0.5 h-5 w-5 shrink-0 rounded-sm border border-tinta/30 accent-senal"
           />
           <label for="consent" class="text-sm text-tinta-suave">
             {consent.text}
@@ -139,7 +139,7 @@ const { fields, consent } = contactForm;
 
         <button
           type="submit"
-          class="w-full border border-tinta-fija bg-tinta-fija px-6 py-3.5 font-sans text-base font-medium text-blanco transition-colors hover:bg-senal hover:border-senal disabled:cursor-not-allowed disabled:opacity-60"
+          class="w-full rounded-md border border-tinta-fija bg-tinta-fija px-6 py-3.5 font-sans text-base font-medium text-blanco transition-colors hover:bg-senal hover:border-senal disabled:cursor-not-allowed disabled:opacity-60"
         >
           {contactForm.submitLabel}
         </button>
@@ -173,7 +173,7 @@ const { fields, consent } = contactForm;
     submitButton.disabled = true;
     submitButton.textContent = contactForm.submittingLabel;
     status.textContent = "";
-    status.classList.remove("text-urgencia", "text-confirma");
+    status.classList.remove("text-urgencia-texto", "text-confirma");
 
     const data = Object.fromEntries(new FormData(form).entries());
 
@@ -253,7 +253,7 @@ const { fields, consent } = contactForm;
     } catch (error) {
       console.error("Error al enviar el formulario de contacto:", error);
       status.textContent = contactForm.errorMessage;
-      status.classList.add("text-urgencia");
+      status.classList.add("text-urgencia-texto");
     } finally {
       submitButton.disabled = false;
       submitButton.textContent = contactForm.submitLabel;

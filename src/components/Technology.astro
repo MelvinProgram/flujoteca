@@ -2,7 +2,7 @@
 import { technology } from "../content/site";
 ---
 
-<section id="herramientas" class="reveal border-b border-borde bg-hueso">
+<section id="herramientas" class="reveal">
   <div class="container-page py-16 sm:py-20">
     <div class="max-w-2xl">
       <h2 class="font-display text-2xl font-bold text-tinta sm:text-3xl">{technology.title}</h2>
@@ -12,7 +12,7 @@ import { technology } from "../content/site";
     <ul class="mt-8 flex flex-wrap gap-2">
       {
         technology.items.map((item) => (
-          <li class="border border-borde bg-superficie px-3 py-1.5 font-mono text-xs text-tinta-suave">
+          <li class="rounded-md border border-tinta/15 bg-superficie/70 px-3 py-1.5 backdrop-blur-sm font-mono text-xs text-tinta-suave">
             {item}
           </li>
         ))

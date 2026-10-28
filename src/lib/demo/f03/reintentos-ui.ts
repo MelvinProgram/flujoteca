@@ -88,16 +88,16 @@ export function initReintentosF03(): void {
     const final = p.final;
     // Nodo cuadrado, sin radio. Hecho: confirma; actual: señal; resultado "persona": tinta.
     const nodoColor = !hecho
-      ? "border-borde bg-superficie"
+      ? "border-tinta/25 bg-superficie"
       : actual && !final
         ? "border-senal bg-senal"
         : final === "persona"
           ? "border-tinta bg-tinta"
           : "border-confirma bg-confirma";
 
-    const li = el("li", "relative border-l border-borde pb-6 pl-6 last:border-l-transparent last:pb-0");
+    const li = el("li", "relative border-l border-tinta/15 pb-6 pl-6 last:border-l-transparent last:pb-0");
     if (actual) li.setAttribute("aria-current", "step");
-    li.append(el("span", `absolute top-1 -left-[7px] h-3.5 w-3.5 border ${nodoColor}`));
+    li.append(el("span", `absolute top-1 -left-[7px] h-3.5 w-3.5 rounded-sm border ${nodoColor}`));
 
     const cab = el("div", "flex flex-wrap items-baseline gap-x-3 gap-y-1");
     cab.append(
@@ -114,7 +114,7 @@ export function initReintentosF03(): void {
       if (p.correo) {
         // En pantallas pequeñas el panel lateral no cabe: el correo va dentro del paso,
         // abierto en el más reciente para que se vea justo al pulsar «Siguiente paso».
-        const det = el("details", "mt-3 border border-dashed border-borde bg-superficie p-3 text-sm lg:hidden");
+        const det = el("details", "mt-3 rounded-md border border-dashed border-tinta/25 bg-superficie/60 p-3 text-sm lg:hidden");
         det.open = actual;
         det.append(el("summary", "flex min-h-11 cursor-pointer items-center font-medium text-senal", t.reintentos.email.view), ...correoNodos(p));
         li.append(det);
@@ -123,7 +123,7 @@ export function initReintentosF03(): void {
         li.append(
           el(
             "p",
-            `mt-2 inline-flex border px-2 py-0.5 font-mono text-xs uppercase ${
+            `mt-2 inline-flex rounded-sm border px-2 py-0.5 font-mono text-xs uppercase ${
               final === "completo" ? "border-confirma text-confirma" : "border-tinta bg-tinta/10 font-semibold text-tinta"
             }`,
             t.reintentos.finals[final],

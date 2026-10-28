@@ -2,7 +2,7 @@
 import { hero } from "../content/site";
 ---
 
-<section id="inicio" class="relative border-b border-borde bg-hueso">
+<section id="inicio" class="relative">
   <!-- Sello de registro: firma visual del sitio, evoca un sello de entrada administrativo -->
   <div
     class="absolute top-5 right-4 z-10 sm:top-8 sm:right-8 lg:right-12"
@@ -15,8 +15,8 @@ import { hero } from "../content/site";
     </div>
   </div>
 
-  <div class="container-page py-24 sm:py-32 lg:py-40">
-    <div class="mx-auto max-w-3xl text-center">
+  <div class="container-page pt-32 pb-16 sm:py-24 lg:py-28">
+    <div class="mx-auto max-w-3xl rounded-lg border border-tinta/10 bg-superficie/25 px-6 py-12 text-center backdrop-blur-sm sm:px-12 sm:py-16 dark:bg-hueso/20">
       <p class="font-mono text-xs font-medium tracking-widest text-senal uppercase">
         {hero.kicker}
       </p>
@@ -34,20 +34,20 @@ import { hero } from "../content/site";
           <a
             href={hero.cta.href}
             data-track="cta_hero_click"
-            class="inline-flex w-full items-center justify-center border border-senal bg-senal px-8 py-3.5 font-sans text-base font-medium text-blanco transition-colors hover:bg-tinta-fija hover:border-tinta-fija sm:w-auto"
+            class="inline-flex w-full items-center justify-center rounded-md border border-senal bg-senal px-8 py-3.5 font-sans text-base font-medium text-blanco transition-colors hover:bg-tinta-fija hover:border-tinta-fija sm:w-auto dark:text-tinta-fija dark:hover:text-hueso-fija"
           >
             {hero.cta.label}
           </a>
           <a
             href={hero.secondaryCta.href}
             data-track="cta_hero_secondary_click"
-            class="inline-flex w-full items-center justify-center border border-tinta bg-transparent px-8 py-3.5 font-sans text-base font-medium text-tinta transition-colors hover:border-senal hover:text-senal sm:w-auto"
+            class="inline-flex w-full items-center justify-center rounded-md border border-tinta/40 bg-superficie/60 px-8 py-3.5 font-sans text-base font-medium text-tinta transition-colors hover:border-senal hover:text-senal sm:w-auto"
           >
             {hero.secondaryCta.label}
           </a>
         </div>
         <p class="font-mono text-xs text-tinta-suave">{hero.meta}</p>
-        <p class="inline-flex items-center border border-borde px-3 py-1 font-mono text-[11px] tracking-wide text-tinta-suave">
+        <p class="inline-flex items-center rounded-sm border border-tinta/20 px-3 py-1 font-mono text-[11px] tracking-wide text-tinta-suave">
           {hero.transparencyBadge}
         </p>
       </div>

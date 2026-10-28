@@ -76,6 +76,13 @@ from its process in some environments). There is no linter configured.
   (`html.motion-pending .reveal`, class added by an inline script in `<head>`
   only when motion is allowed). The CSP (`style-src 'self'`) blocks inline
   `style="…"` attributes, so set styles from JS (CSSOM), never in markup.
+- **Glass style ("Folios de cristal")** applies to the whole site: panels use the
+  `vidrio` utility (`global.css`: translucent surface + blur + thin tinta border; text
+  stays solid), over the blurred colour mists in `Layout.astro`. Inside a `vidrio` panel use
+  plain classes (`rounded-md border border-tinta/10 bg-superficie/55`), never mix the
+  utility with plain `border-*`/`rounded-*`. Red text uses `text-urgencia-texto` (lighter
+  in dark mode for 4.5:1), not `text-urgencia`. Dark-mode hover on dark buttons uses
+  `dark:hover:text-tinta-fija`. `tests/e2e/sitio.spec.ts` runs axe on every page in both themes.
 - **Design tokens** are defined once in `src/styles/global.css` under
   `@theme` (Tailwind v4 CSS-based config): brand colors (`tinta`, `senal`,
   `urgencia`, `hueso`, `confirma`, plus neutrals) and font families (Zilla

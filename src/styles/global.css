@@ -55,7 +55,7 @@
   --color-borde: #2a3a4f;
   --color-senal: #4c9fe0;
   --color-urgencia: #e0574c;
-  --color-urgencia-texto: #e8665b; /* 5,12:1 sobre superficie y 5,71:1 sobre hueso (oscuro) */
+  --color-urgencia-texto: #ee7469; /* ≥ 5,5:1 sobre superficie, hueso y el vidrio tintado (oscuro) */
   --color-confirma: #3fae7c;
   --color-superficie: #141f2e;
 }
@@ -83,6 +83,30 @@
   @apply pointer-events-none absolute inset-1 border;
   border-color: currentColor;
   opacity: 0.55;
+}
+
+/*
+ * Vidrio esmerilado — toda la web ("Folios de cristal", glassmorphism sobrio).
+ * Solo el plano es translúcido: el texto siempre es sólido (tinta sobre superficie
+ * ≥ 4,5:1). Funciona en claro y oscuro porque solo usa tokens de marca. Las nieblas de color que
+ * refracta están en `Layout.astro`. Sin soporte
+ * de `backdrop-filter` el fondo es casi opaco, así que nada pierde contraste.
+ * Para elementos interiores usa clases normales (`rounded-md border border-tinta/10
+ * bg-superficie/55`); evita mezclar esta utilidad con `border-*` o `rounded-*` planos.
+ */
+@utility vidrio {
+  background-color: color-mix(in srgb, var(--color-superficie) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-tinta) 15%, transparent);
+  border-radius: 0.5rem;
+  box-shadow: 0 18px 40px -24px color-mix(in srgb, var(--color-tinta-fija) 45%, transparent);
+  @supports (backdrop-filter: blur(1px)) {
+    background-color: color-mix(in srgb, var(--color-superficie) 68%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    /* En oscuro la niebla aclararía el plano y restaría contraste al texto: más opaco */
+    :where(.dark) & {
+      background-color: color-mix(in srgb, var(--color-superficie) 86%, transparent);
+    }
+  }
 }
 
 /*

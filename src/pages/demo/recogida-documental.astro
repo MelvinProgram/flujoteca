@@ -6,19 +6,22 @@ import { demoF03 as t } from "../../content/demo-f03";
 
 const r = t.reintentos;
 
+// Vidrio esmerilado ("Folios de cristal"): ver la utilidad `vidrio` en global.css.
+// Interior de los planos: clases normales, sin mezclar con la utilidad.
 const inputClass =
-  "mt-1 min-h-11 w-full border border-borde bg-superficie px-3 py-2 text-tinta";
+  "mt-1 min-h-11 w-full rounded-md border border-tinta/20 bg-superficie/85 px-3 py-2 text-tinta";
 const btnSecundario =
-  "inline-flex min-h-11 items-center border border-borde bg-superficie px-3 py-1.5 text-sm font-medium text-tinta transition-colors hover:border-senal hover:text-senal sm:min-h-9";
+  "inline-flex min-h-11 items-center rounded-md border border-tinta/20 bg-superficie/85 px-3 py-1.5 text-sm font-medium text-tinta transition-colors hover:border-senal hover:text-senal sm:min-h-9";
+const tarjeta = "rounded-md border border-tinta/10 bg-superficie/55";
 const kpiLabel = "font-mono text-[11px] tracking-wide text-tinta-suave uppercase";
 const sectionTitle = "font-display text-xl font-bold text-tinta";
 ---
 
 <Layout title={t.seoTitle} description={t.seoDescription} noindex>
   <Header />
-  <main id="contenido" tabindex="-1" class="bg-hueso focus:outline-none">
+  <main id="contenido" tabindex="-1" class="focus:outline-none">
     <!-- Aviso permanente -->
-    <div role="note" class="border-b-2 border-urgencia bg-superficie">
+    <div role="note" class="border-b-2 border-urgencia bg-superficie/80 backdrop-blur-md">
       <div class="container-page flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:gap-4">
         <p class="shrink-0 font-mono text-sm font-semibold tracking-wide text-urgencia-texto">{t.badge}</p>
         <p class="text-sm text-tinta-suave">{t.badgeNote}</p>
@@ -31,7 +34,7 @@ const sectionTitle = "font-display text-xl font-bold text-tinta";
       <p class="mt-3 max-w-3xl text-tinta-suave">{t.intro}</p>
 
       <!-- Reloj y controles globales -->
-      <div class="mt-6 flex flex-wrap items-center gap-3 border border-borde bg-superficie p-3">
+      <div class="vidrio mt-6 flex flex-wrap items-center gap-3 p-3">
         <p class="text-sm text-tinta-suave">
           {t.clock.label}: <span id="demo-clock" class="font-mono text-tinta">—</span>
         </p>
@@ -47,7 +50,7 @@ const sectionTitle = "font-display text-xl font-bold text-tinta";
       <dl class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {
           t.kpis.items.map((k) => (
-            <div class="border border-borde bg-superficie p-3">
+            <div class="vidrio p-3">
               <dt class={kpiLabel}>{k.label}</dt>
               <dd id={`kpi-${k.key}`} class="mt-1 font-display text-2xl font-bold text-tinta">0</dd>
             </div>
@@ -84,7 +87,7 @@ const sectionTitle = "font-display text-xl font-bold text-tinta";
         <section
           id="demo-detail-section"
           aria-label="Detalle del expediente"
-          class="self-start border border-borde bg-hueso p-4 lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto"
+          class="vidrio self-start p-4 lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto"
           data-lenis-prevent
         >
           <div id="demo-detail"></div>
@@ -94,14 +97,14 @@ const sectionTitle = "font-display text-xl font-bold text-tinta";
       <!-- Historial -->
       <section class="mt-10" aria-labelledby="demo-history-title">
         <h2 id="demo-history-title" class={sectionTitle}>{t.history.title}</h2>
-        <ol id="demo-history" class="mt-3 max-h-80 overflow-y-auto border border-borde bg-superficie" data-lenis-prevent></ol>
+        <ol id="demo-history" class="vidrio mt-3 max-h-80 overflow-y-auto" data-lenis-prevent></ol>
       </section>
 
       <div id="demo-live" role="status" aria-live="polite" class="sr-only"></div>
     </section>
 
     <!-- Simulador de reintentos -->
-    <section id="reintentos" class="border-t border-borde bg-hueso" aria-labelledby="demo-retry-title">
+    <section id="reintentos" aria-labelledby="demo-retry-title">
       <div class="container-page py-14 sm:py-16">
         <div class="max-w-3xl">
           <h2 id="demo-retry-title" class="font-display text-2xl font-bold text-tinta sm:text-3xl">{r.title}</h2>
@@ -110,7 +113,7 @@ const sectionTitle = "font-display text-xl font-bold text-tinta";
         </div>
 
         <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)]">
-          <div>
+          <div class="vidrio p-5 sm:p-6">
             <form id="demo-retry-config" class="grid gap-4 sm:grid-cols-[2fr_1fr_1fr]">
               <label class="text-sm text-tinta">
                 {r.fields.comportamiento.label}
@@ -133,21 +136,21 @@ const sectionTitle = "font-display text-xl font-bold text-tinta";
             </form>
 
             <div class="mt-4 flex flex-wrap gap-2">
-              <button id="demo-retry-next" type="button" class="inline-flex min-h-11 items-center border border-tinta-fija bg-tinta-fija px-4 py-1.5 text-sm font-medium text-blanco transition-colors hover:border-senal hover:bg-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-tinta-fija disabled:hover:bg-tinta-fija sm:min-h-9 dark:hover:text-tinta-fija">{r.buttons.next}</button>
+              <button id="demo-retry-next" type="button" class="inline-flex min-h-11 items-center rounded-md border border-tinta-fija bg-tinta-fija px-4 py-1.5 dark:border-senal/60 text-sm font-medium text-blanco transition-colors hover:border-senal hover:bg-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-tinta-fija disabled:hover:bg-tinta-fija sm:min-h-9 dark:hover:text-tinta-fija">{r.buttons.next}</button>
               <button id="demo-retry-play" type="button" class={btnSecundario + " disabled:cursor-not-allowed disabled:opacity-50"}>{r.buttons.play}</button>
               <button id="demo-retry-reset" type="button" class={btnSecundario}>{r.buttons.reset}</button>
             </div>
 
             <dl class="mt-6 grid grid-cols-3 gap-3">
-              <div class="border border-borde bg-superficie p-3">
+              <div class={tarjeta + " p-3"}>
                 <dt class={kpiLabel}>{r.counters.avisos}</dt>
                 <dd id="demo-retry-avisos" class="mt-1 font-display text-2xl font-bold text-tinta">0</dd>
               </div>
-              <div class="border border-borde bg-superficie p-3">
+              <div class={tarjeta + " p-3"}>
                 <dt class={kpiLabel}>{r.counters.dias}</dt>
                 <dd id="demo-retry-dias" class="mt-1 font-display text-2xl font-bold text-tinta">0</dd>
               </div>
-              <div class="border border-borde bg-superficie p-3">
+              <div class={tarjeta + " p-3"}>
                 <dt class={kpiLabel}>{r.counters.minutos}</dt>
                 <dd id="demo-retry-minutos" class="mt-1 font-display text-2xl font-bold text-tinta">0 min</dd>
               </div>
@@ -156,15 +159,15 @@ const sectionTitle = "font-display text-xl font-bold text-tinta";
 
             <h3 class="sr-only">{r.steps.title}</h3>
             <ol id="demo-retry-steps" class="mt-8"></ol>
-            <p class="mt-6 border-t border-borde pt-4 text-sm text-tinta-suave">{r.ruleNote}</p>
+            <p class="mt-6 border-t border-tinta/10 pt-4 text-sm text-tinta-suave">{r.ruleNote}</p>
           </div>
 
           <aside
             aria-label={r.email.title}
-            class="hidden self-start border border-borde bg-superficie p-4 shadow-[2px_2px_0_0_var(--color-borde)] lg:sticky lg:top-20 lg:block"
+            class="vidrio hidden self-start p-4 lg:sticky lg:top-20 lg:block"
           >
             <h3 class="font-display text-lg font-bold text-tinta">{r.email.title}</h3>
-            <div id="demo-retry-mail" class="mt-3 border border-dashed border-borde p-3 text-sm"></div>
+            <div id="demo-retry-mail" class="mt-3 rounded-md border border-dashed border-tinta/25 bg-superficie/60 p-3 text-sm"></div>
           </aside>
         </div>
         <div id="demo-retry-live" role="status" aria-live="polite" class="sr-only"></div>
@@ -172,14 +175,14 @@ const sectionTitle = "font-display text-xl font-bold text-tinta";
     </section>
 
     <!-- Calculadora -->
-    <section class="border-t border-borde bg-superficie" aria-labelledby="demo-calc-title">
+    <section aria-labelledby="demo-calc-title">
       <div class="container-page py-12">
-        <p class="inline-flex border border-urgencia px-2 py-0.5 font-mono text-xs tracking-wide text-urgencia-texto uppercase">{t.calculator.badge}</p>
+        <p class="inline-flex rounded-sm border border-urgencia px-2 py-0.5 font-mono text-xs tracking-wide text-urgencia-texto uppercase">{t.calculator.badge}</p>
         <h2 id="demo-calc-title" class="mt-3 font-display text-2xl font-bold text-tinta">{t.calculator.title}</h2>
         <p class="mt-2 max-w-3xl text-tinta-suave">{t.calculator.intro}</p>
 
         <div class="mt-6 grid gap-8 lg:grid-cols-2">
-          <form id="demo-calc" novalidate class="grid gap-4 sm:grid-cols-2">
+          <form id="demo-calc" novalidate class="vidrio grid gap-4 p-5 sm:grid-cols-2 sm:p-6">
             <label class="text-sm text-tinta">
               {t.calculator.fields.expedientesMes}
               <input name="expedientesMes" type="number" inputmode="numeric" min="1" max="5000" step="1" value="80" class={inputClass} />
@@ -201,19 +204,19 @@ const sectionTitle = "font-display text-xl font-bold text-tinta";
           <div aria-live="polite">
             <div id="demo-calc-errors" role="alert" class="text-sm text-urgencia-texto"></div>
             <dl id="demo-calc-out" class="grid gap-3 sm:grid-cols-2">
-              <div class="border border-dashed border-borde p-3">
+              <div class="vidrio p-4">
                 <dt class={kpiLabel}>{t.calculator.results.horasManualesMes}</dt>
                 <dd id="calc-horasManualesMes" class="mt-1 font-display text-xl font-bold text-tinta"></dd>
               </div>
-              <div class="border border-dashed border-borde p-3">
+              <div class="vidrio p-4">
                 <dt class={kpiLabel}>{t.calculator.results.horasAhorradasMes}</dt>
                 <dd id="calc-horasAhorradasMes" class="mt-1 font-display text-xl font-bold text-tinta"></dd>
               </div>
-              <div class="border border-dashed border-borde p-3">
+              <div class="vidrio p-4">
                 <dt class={kpiLabel}>{t.calculator.results.ahorroMes}</dt>
                 <dd id="calc-ahorroMes" class="mt-1 font-display text-xl font-bold text-tinta"></dd>
               </div>
-              <div class="border border-dashed border-borde p-3">
+              <div class="vidrio p-4">
                 <dt class={kpiLabel}>{t.calculator.results.ahorroAnio}</dt>
                 <dd id="calc-ahorroAnio" class="mt-1 font-display text-xl font-bold text-tinta"></dd>
               </div>
@@ -225,21 +228,23 @@ const sectionTitle = "font-display text-xl font-bold text-tinta";
     </section>
 
     <!-- CTA -->
-    <section class="border-t border-borde" aria-labelledby="demo-cta-title">
-      <div class="container-page py-14 text-center">
-        <h2 id="demo-cta-title" class="font-display text-2xl font-bold text-tinta sm:text-3xl">{t.cta.title}</h2>
-        <p class="mx-auto mt-3 max-w-2xl text-tinta-suave">{t.cta.body}</p>
-        <div class="mt-6 flex flex-wrap justify-center gap-3">
-          <a
-            href={t.cta.href}
-            data-track="cta_diagnostico_click"
-            data-track-label="demo-f03"
-            class="inline-flex items-center border border-tinta-fija bg-tinta-fija px-5 py-2.5 font-medium text-blanco transition-colors hover:border-senal hover:bg-senal dark:hover:text-tinta-fija"
-          >{t.cta.label}</a>
-          <a
-            href={t.cta.secondary.href}
-            class="inline-flex items-center border border-borde bg-superficie px-5 py-2.5 font-medium text-tinta transition-colors hover:border-senal hover:text-senal"
-          >{t.cta.secondary.label}</a>
+    <section aria-labelledby="demo-cta-title">
+      <div class="container-page py-14">
+        <div class="vidrio mx-auto max-w-3xl px-6 py-10 text-center">
+          <h2 id="demo-cta-title" class="font-display text-2xl font-bold text-tinta sm:text-3xl">{t.cta.title}</h2>
+          <p class="mx-auto mt-3 max-w-2xl text-tinta-suave">{t.cta.body}</p>
+          <div class="mt-6 flex flex-wrap justify-center gap-3">
+            <a
+              href={t.cta.href}
+              data-track="cta_diagnostico_click"
+              data-track-label="demo-f03"
+              class="inline-flex min-h-11 items-center rounded-md border border-tinta-fija bg-tinta-fija px-5 py-2.5 dark:border-senal/60 font-medium text-blanco transition-colors hover:border-senal hover:bg-senal dark:hover:text-tinta-fija"
+            >{t.cta.label}</a>
+            <a
+              href={t.cta.secondary.href}
+              class="inline-flex min-h-11 items-center rounded-md border border-tinta/20 bg-superficie/85 px-5 py-2.5 font-medium text-tinta transition-colors hover:border-senal hover:text-senal"
+            >{t.cta.secondary.label}</a>
+          </div>
         </div>
       </div>
     </section>

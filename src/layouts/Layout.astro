@@ -101,11 +101,21 @@ const serviceSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   </head>
-  <body class="bg-hueso text-tinta antialiased">
+  <body class="relative isolate bg-hueso text-tinta antialiased">
     <a
       href={nav.skip.href}
       class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:border focus:border-tinta-fija focus:bg-tinta-fija focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-blanco"
     >{nav.skip.label}</a>
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden dark:block">
+      <span class="absolute top-[1%] left-[2%] size-[34rem] rounded-full bg-senal/30 blur-3xl dark:bg-senal/14"></span>
+      <span class="absolute top-[9%] right-[0%] size-[30rem] rounded-full bg-tinta/20 blur-3xl dark:bg-tinta/10"></span>
+      <span class="absolute top-[20%] left-[30%] size-[26rem] rounded-full bg-confirma/20 blur-3xl dark:bg-confirma/14"></span>
+      <span class="absolute top-[33%] right-[6%] size-[32rem] rounded-full bg-senal/25 blur-3xl dark:bg-senal/12"></span>
+      <span class="absolute top-[46%] left-[0%] size-[34rem] rounded-full bg-confirma/25 blur-3xl dark:bg-confirma/14"></span>
+      <span class="absolute top-[58%] right-[2%] size-[30rem] rounded-full bg-tinta/20 blur-3xl dark:bg-tinta/10"></span>
+      <span class="absolute top-[70%] left-[8%] size-[32rem] rounded-full bg-senal/28 blur-3xl dark:bg-senal/12"></span>
+      <span class="absolute top-[82%] right-[4%] size-[32rem] rounded-full bg-confirma/22 blur-3xl dark:bg-confirma/12"></span>
+    </div>
     <slot />
     <SmoothScroll />
     <script>
