@@ -55,12 +55,21 @@ export const demoF03 = {
     dudoso: "Dudoso",
   },
 
-  list: { title: "Expedientes", select: "Seleccionar", finished: "Finalizado" },
+  list: {
+    title: "Expedientes",
+    finished: "Finalizado",
+    docs: "docs",
+    columns: { expediente: "Expediente", estado: "Estado", documentos: "Documentos" },
+  },
 
   detail: {
     placeholder: "Selecciona un expediente para ver sus documentos y acciones.",
     docs: "Documentos requeridos",
     due: "Vence",
+    dueToday: "Vence hoy",
+    dueTomorrow: "Vence mañana",
+    dueIn: "en",
+    dueDays: "días",
     actions: "Acciones simuladas",
     back: "Volver a la lista",
     reviewTitle: "Revisión humana",

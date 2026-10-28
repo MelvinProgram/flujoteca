@@ -2,6 +2,7 @@ import { demoF03 as t } from "../../../content/demo-f03.ts";
 import { crearAlmacen } from "./store.ts";
 import { calcularAhorro, calcularMetricas } from "./metrics.ts";
 import {
+  diaDe,
   estadoDe,
   formatDia,
   formatReloj,
@@ -26,17 +27,25 @@ const BADGE: Record<EstadoExpediente, string> = {
   pendiente: "border-tinta-suave text-tinta-suave",
   parcial: "border-senal text-senal",
   completo: "border-confirma text-confirma",
-  revision: "border-urgencia text-urgencia",
+  // El rojo (`urgencia`) queda reservado a plazos; la revisión humana va en tinta.
+  revision: "border-tinta bg-tinta/10 font-semibold text-tinta",
 };
 const DOC_BADGE: Record<EstadoDocumento, string> = {
   pendiente: "border-tinta-suave text-tinta-suave",
   recibido: "border-confirma text-confirma",
-  dudoso: "border-urgencia text-urgencia",
+  dudoso: "border-tinta bg-tinta/10 font-semibold text-tinta",
 };
+// Segmento de progreso por documento (el color no es el único indicador: va con "n/total").
+const SEGMENTO: Record<EstadoDocumento, string> = {
+  pendiente: "bg-borde",
+  recibido: "bg-confirma",
+  dudoso: "bg-tinta",
+};
+// min-h-11 (44 px) en táctil; en escritorio vuelve al tamaño compacto.
 const BTN =
-  "inline-flex items-center border border-borde bg-superficie px-3 py-1.5 text-sm font-medium text-tinta transition-colors hover:border-senal hover:text-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-borde disabled:hover:text-tinta";
+  "inline-flex min-h-11 items-center border border-borde bg-superficie px-3 py-1.5 text-sm font-medium text-tinta transition-colors hover:border-senal hover:text-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-borde disabled:hover:text-tinta sm:min-h-9";
 const BTN_PRIMARY =
-  "inline-flex items-center border border-tinta-fija bg-tinta-fija px-3 py-1.5 text-sm font-medium text-blanco transition-colors hover:border-senal hover:bg-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-tinta-fija disabled:hover:bg-tinta-fija";
+  "inline-flex min-h-11 items-center border border-tinta-fija bg-tinta-fija px-3 py-1.5 text-sm font-medium text-blanco transition-colors hover:border-senal hover:bg-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-tinta-fija disabled:hover:bg-tinta-fija sm:min-h-9";
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -57,6 +66,17 @@ function q<T extends HTMLElement>(sel: string): T {
 
 function badge(text: string, cls: string): HTMLElement {
   return el("span", `inline-flex shrink-0 border px-2 py-0.5 font-mono text-[11px] uppercase ${cls}`, text);
+}
+
+/** Barra de un segmento por documento + "recibidos/total". Solo clases, sin `style` (CSP). */
+function progreso(exp: Expediente, className = ""): HTMLElement {
+  const recibidos = exp.documentos.filter((d) => d.estado === "recibido").length;
+  const w = el("span", `flex items-center gap-2 ${className}`);
+  const barra = el("span", "flex gap-0.5");
+  barra.setAttribute("aria-hidden", "true");
+  for (const d of exp.documentos) barra.append(el("span", `h-1.5 w-4 ${SEGMENTO[d.estado]}`));
+  w.append(barra, el("span", "font-mono text-xs tabular-nums text-tinta-suave", `${recibidos}/${exp.documentos.length} ${t.list.docs}`));
+  return w;
 }
 
 function formatMinutos(min: number): string {
@@ -104,7 +124,7 @@ export function initDemoF03(): void {
       ...opciones.map(([valor, etiqueta, n]) => {
         const b = el(
           "button",
-          `border px-3 py-1.5 text-sm transition-colors ${
+          `min-h-11 border px-3 py-1.5 text-sm transition-colors sm:min-h-9 ${
             filtro === valor
               ? "border-tinta-fija bg-tinta-fija text-blanco"
               : "border-borde bg-superficie text-tinta hover:border-senal hover:text-senal"
@@ -142,11 +162,10 @@ export function initDemoF03(): void {
     list.replaceChildren(
       ...filas.map((e) => {
         const estado = estadoDe(e);
-        const recibidos = e.documentos.filter((d) => d.estado === "recibido").length;
         const li = el("li");
         const b = el(
           "button",
-          `grid w-full grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 border bg-superficie p-3 text-left transition-colors hover:border-senal sm:grid-cols-[5rem_1fr_auto_5rem] ${
+          `grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 border bg-superficie p-3 text-left transition-colors hover:border-senal sm:grid-cols-[minmax(0,1fr)_7rem_9rem] ${
             e.id === seleccionado ? "border-senal shadow-[2px_2px_0_0_var(--color-senal)]" : "border-borde"
           }`,
         );
@@ -154,14 +173,15 @@ export function initDemoF03(): void {
         b.dataset.key = `row:${e.id}`;
         if (e.id === seleccionado) b.setAttribute("aria-current", "true");
         b.append(
-          el("span", "hidden font-mono text-xs text-tinta-suave sm:block", e.id),
           (() => {
             const w = el("span", "min-w-0");
             w.append(el("span", "block truncate font-medium text-tinta", e.cliente), el("span", "block text-xs text-tinta-suave", `${e.id} · ${e.tramite}`));
             return w;
           })(),
-          badge(e.cerrado ? t.list.finished : t.states[estado], e.cerrado ? "border-confirma text-confirma" : BADGE[estado]),
-          el("span", "hidden text-right font-mono text-xs text-tinta-suave sm:block", `${recibidos}/${e.documentos.length}`),
+          // En móvil el badge queda a la derecha del nombre; en escritorio, en su propia columna
+          badge(e.cerrado ? t.list.finished : t.states[estado], `justify-self-start ${e.cerrado ? "border-confirma text-confirma" : BADGE[estado]}`),
+          // En móvil ocupa su propia fila; en escritorio, la última columna alineada a la derecha
+          progreso(e, "col-span-2 sm:col-span-1 sm:justify-end"),
         );
         b.addEventListener("click", () => seleccionar(e.id));
         li.append(b);
@@ -203,7 +223,7 @@ export function initDemoF03(): void {
     const estado = estadoDe(exp);
     const nodos: HTMLElement[] = [];
 
-    const volver = el("button", "mb-3 text-sm text-senal underline underline-offset-2 lg:hidden", `← ${t.detail.back}`);
+    const volver = el("button", "mb-3 inline-flex min-h-11 items-center text-sm text-senal underline underline-offset-2 lg:hidden", `← ${t.detail.back}`);
     volver.type = "button";
     volver.addEventListener("click", () => {
       q("#demo-list-section").scrollIntoView({ block: "start" });
@@ -219,11 +239,12 @@ export function initDemoF03(): void {
     titulos.append(h, el("p", "mt-1 font-mono text-xs text-tinta-suave", `${exp.id} · ${exp.tramite}`));
     cab.append(titulos, badge(exp.cerrado ? t.list.finished : t.states[estado], exp.cerrado ? "border-confirma text-confirma" : BADGE[estado]));
     nodos.push(cab);
+    nodos.push(progreso(exp, "mt-3"));
 
     if (estado === "revision") {
-      const r = el("div", "mt-4 border border-urgencia p-3 text-sm");
+      const r = el("div", "mt-4 border-2 border-tinta bg-tinta/5 p-3 text-sm");
       r.append(
-        el("p", "font-mono text-[11px] uppercase text-urgencia", t.detail.reviewTitle),
+        el("p", "font-mono text-[11px] font-semibold uppercase text-tinta", t.detail.reviewTitle),
         el("p", "mt-1 text-tinta", exp.motivoRevision ?? t.detail.reviewNote),
         el("p", "mt-1 text-xs text-tinta-suave", t.detail.reviewNote),
       );
@@ -232,13 +253,23 @@ export function initDemoF03(): void {
 
     // Documentos
     nodos.push(el("h4", "mt-5 font-mono text-[11px] uppercase tracking-wide text-senal", t.detail.docs));
+    const hoy = diaDe(s.ahora);
     const docs = el("ul", "mt-2 divide-y divide-borde border border-borde");
     for (const d of exp.documentos) {
       const li = el("li", "flex flex-wrap items-start gap-x-3 gap-y-2 bg-superficie p-3");
       const info = el("div", "min-w-0 flex-1 basis-40");
+      // Plazo de un documento pendiente: el rojo (urgencia) solo cuando vence hoy o mañana.
+      const dias = d.vencimiento - hoy;
+      const plazo =
+        dias <= 0
+          ? t.detail.dueToday
+          : dias === 1
+            ? t.detail.dueTomorrow
+            : `${t.detail.due} ${formatDia(d.vencimiento)} (${t.detail.dueIn} ${dias} ${t.detail.dueDays})`;
+      const hayPlazo = d.estado === "pendiente" && exp.solicitado;
       info.append(
         el("p", "text-sm text-tinta", d.nombre),
-        el("p", "text-xs text-tinta-suave", d.estado === "pendiente" && exp.solicitado ? `${t.detail.due} ${formatDia(d.vencimiento)}` : ""),
+        el("p", `text-xs ${hayPlazo && dias <= 1 ? "font-medium text-urgencia" : "text-tinta-suave"}`, hayPlazo ? plazo : ""),
       );
       li.append(info, badge(t.docStates[d.estado], DOC_BADGE[d.estado]));
       if (puedeRecibir(exp, d).ok) {
@@ -274,18 +305,16 @@ export function initDemoF03(): void {
     } else {
       barra.append(accion("act:revisar", t.actions.review, vRev.ok, () => ejecutar({ tipo: "revisar", expediente: exp.id })));
     }
-    barra.append(accion("act:finalizar", t.actions.finish, vFin.ok, () => ejecutar({ tipo: "finalizar", expediente: exp.id }), true));
+    const bFin = accion("act:finalizar", t.actions.finish, vFin.ok, () => ejecutar({ tipo: "finalizar", expediente: exp.id }), true);
+    barra.append(bFin);
     nodos.push(barra);
 
-    const motivos = [
-      !vSol.ok && `${t.actions.request}: ${vSol.motivo}`,
-      !vRec.ok && `${t.actions.remind}: ${vRec.motivo}`,
-      !vFin.ok && `${t.actions.finish}: ${vFin.motivo}`,
-    ].filter((m): m is string => typeof m === "string");
-    if (motivos.length > 0) {
-      const ul = el("ul", "mt-2 space-y-0.5 text-xs text-tinta-suave");
-      motivos.forEach((m) => ul.append(el("li", "", m)));
-      nodos.push(ul);
+    // Solo se explica por qué no se puede finalizar; el resto de botones se entienden por su estado.
+    if (!vFin.ok) {
+      bFin.setAttribute("aria-describedby", "demo-fin-motivo");
+      const p = el("p", "mt-2 text-sm text-tinta-suave", vFin.motivo);
+      p.id = "demo-fin-motivo";
+      nodos.push(p);
     }
 
     // Correo simulado
@@ -294,7 +323,7 @@ export function initDemoF03(): void {
     const caja = el("div", "mt-2 border border-dashed border-borde bg-superficie p-3 text-sm");
     if (ultimo) {
       caja.append(
-        el("p", "font-mono text-[11px] uppercase text-urgencia", t.detail.emailNote),
+        el("p", "font-mono text-[11px] font-semibold uppercase text-tinta", t.detail.emailNote),
         el("p", "mt-2 text-xs text-tinta-suave", `${t.detail.emailTo}: ${ultimo.correo.para}`),
         el("p", "text-xs text-tinta-suave", `${t.detail.emailSubject}: ${ultimo.correo.asunto}`),
         el("pre", "mt-2 font-sans text-sm whitespace-pre-wrap text-tinta", ultimo.correo.cuerpo),
@@ -322,7 +351,7 @@ export function initDemoF03(): void {
             const w = el("span", "flex flex-wrap items-center gap-1");
             w.append(
               badge(t.history.actions[ev.accion], "border-tinta-suave text-tinta-suave"),
-              badge(ev.resultado === "ok" ? t.history.ok : t.history.blocked, ev.resultado === "ok" ? "border-confirma text-confirma" : "border-urgencia text-urgencia"),
+              badge(ev.resultado === "ok" ? t.history.ok : t.history.blocked, ev.resultado === "ok" ? "border-confirma text-confirma" : "border-tinta bg-tinta/10 font-semibold text-tinta"),
             );
             return w;
           })(),
@@ -364,6 +393,15 @@ export function initDemoF03(): void {
     }
   }
 
+  // En escritorio el panel de detalle no arranca vacío: se abre el primer expediente
+  // que admite una acción. En móvil no, para no provocar un salto de scroll.
+  function seleccionInicial(): string | null {
+    if (!matchMedia("(min-width: 1024px)").matches) return null;
+    const { expedientes } = store.obtener();
+    return (expedientes.find((e) => puedeSolicitar(e).ok) ?? expedientes[0])?.id ?? null;
+  }
+  seleccionado = seleccionInicial();
+
   store.suscribir(() => render());
 
   q("#demo-search").addEventListener("input", (e) => {
@@ -375,9 +413,10 @@ export function initDemoF03(): void {
   q("#demo-reset").addEventListener("click", () => {
     filtro = "todos";
     busqueda = "";
-    seleccionado = null;
     q<HTMLInputElement>("#demo-search").value = "";
     store.reiniciar();
+    seleccionado = seleccionInicial();
+    render();
     live.textContent = t.resetDone;
   });
 
