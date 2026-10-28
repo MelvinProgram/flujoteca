@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Flujoteca — a single-page marketing site (in Spanish) for a process-automation
 consultancy targeting asesorías/gestorías (Spanish accounting/admin firms) in
-southern Madrid. Static Astro site, no backend, deployed to Netlify or Vercel.
+southern Madrid, plus an interactive F-03 demo at `/demo/recogida-documental`
+(see Architecture). Static Astro site, no backend, deployed to Netlify or Vercel.
 
 ## Development
 
@@ -18,8 +19,9 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
-Other commands: `npm run build` (outputs to `./dist`), `npm run preview`. There
-is no test suite or linter configured in this repo.
+Other commands: `npm run build` (outputs to `./dist`), `npm run preview`,
+`npm run check` (`astro check` typecheck) and `npm run test:demo` (plain-Node
+tests of the demo logic, no framework). There is no linter configured.
 
 ## Architecture
 
@@ -44,6 +46,19 @@ is no test suite or linter configured in this repo.
   `plans/02-contacto-hubspot.md` for the full design. HubSpot setup is done;
   only deleting the legacy `PUBLIC_CONTACT_WEBHOOK_URL` env var in Netlify
   (if present) remains as a manual step.
+- **F-03 demo** (`src/pages/demo/recogida-documental.astro`, `noindex`, excluded
+  from the sitemap in `astro.config.mjs`). Fictitious data only: no network,
+  email, `localStorage` or personal data. Copy lives in `src/content/demo-f03.ts`;
+  the F-03 card in `FlowCatalog.astro` links to it via `flows.demo` in `site.ts`.
+  Logic is in `src/lib/demo/f03/`: `store.ts` holds the single source of truth
+  (`EstadoDemo`) and a pure reducer `reducir` that enforces every rule (duplicate
+  reminders keyed by expediente+documento+vencimiento, human review for doubtful
+  or incomplete files, simulated clock, event log). Expediente status and all
+  metrics are derived from that state (`rules.ts`, `metrics.ts`), never stored.
+  `ui.ts` renders with `createElement`/`textContent` only (no `innerHTML`).
+  Calculator figures and manual-minutes-per-task are hypotheses and are labelled
+  as such in the UI. Relative imports in `src/lib/demo/f03/` use `.ts` extensions
+  so Node can run them in `scripts/test-demo-f03.mjs`.
 - **Motion**: `src/components/SmoothScroll.astro` (Lenis, duration 1.6, loads
   `src/scripts/smooth-scroll.ts`) and `src/scripts/reveal.ts` (GSAP
   ScrollTrigger reveal of every `.reveal` section) are loaded from

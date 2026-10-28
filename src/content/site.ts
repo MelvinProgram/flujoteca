@@ -88,6 +88,13 @@ export const flows = {
   subtitle:
     "Catálogo de automatizaciones pensadas para asesorías y gestorías del sur de Madrid. Cada una se adapta al funcionamiento de tu equipo antes de ponerse en marcha.",
   labels: { problem: "Problema", automates: "Qué automatiza", result: "Resultado" },
+  // Flujo que tiene demo interactiva (datos ficticios)
+  demo: {
+    code: "F-03",
+    label: "Probar la demo interactiva",
+    note: "Datos ficticios",
+    href: "/demo/recogida-documental",
+  },
   items: [
     {
       code: "F-01",

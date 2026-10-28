@@ -1,0 +1,169 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { demoF03 as t } from "../../content/demo-f03";
+
+const inputClass =
+  "mt-1 w-full border border-borde bg-superficie px-3 py-2 text-tinta";
+const kpiLabel = "font-mono text-[11px] tracking-wide text-tinta-suave uppercase";
+const sectionTitle = "font-display text-xl font-bold text-tinta";
+---
+
+<Layout title={t.seoTitle} description={t.seoDescription} noindex>
+  <Header />
+  <main id="inicio" class="bg-hueso">
+    <!-- Aviso permanente -->
+    <div role="note" class="border-b-2 border-urgencia bg-superficie">
+      <div class="container-page flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:gap-4">
+        <p class="shrink-0 font-mono text-sm font-semibold tracking-wide text-urgencia">{t.badge}</p>
+        <p class="text-sm text-tinta-suave">{t.badgeNote}</p>
+      </div>
+    </div>
+
+    <section class="container-page py-10 sm:py-12">
+      <p class="font-mono text-xs tracking-wide text-senal uppercase">{t.kicker}</p>
+      <h1 class="mt-2 font-display text-3xl font-bold text-tinta sm:text-4xl">{t.title}</h1>
+      <p class="mt-3 max-w-3xl text-tinta-suave">{t.intro}</p>
+
+      <!-- Reloj y controles globales -->
+      <div class="mt-6 flex flex-wrap items-center gap-3 border border-borde bg-superficie p-3">
+        <p class="text-sm text-tinta-suave">
+          {t.clock.label}: <span id="demo-clock" class="font-mono text-tinta">—</span>
+        </p>
+        <div class="flex flex-wrap gap-2 sm:ml-auto">
+          <button id="demo-day" type="button" class="border border-borde bg-superficie px-3 py-1.5 text-sm font-medium text-tinta transition-colors hover:border-senal hover:text-senal">{t.clock.day}</button>
+          <button id="demo-week" type="button" class="border border-borde bg-superficie px-3 py-1.5 text-sm font-medium text-tinta transition-colors hover:border-senal hover:text-senal">{t.clock.week}</button>
+          <button id="demo-reset" type="button" class="border border-tinta-fija bg-tinta-fija px-3 py-1.5 text-sm font-medium text-blanco transition-colors hover:border-senal hover:bg-senal">{t.reset}</button>
+        </div>
+      </div>
+
+      <!-- Métricas -->
+      <h2 class="sr-only">{t.kpis.title}</h2>
+      <dl class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {
+          t.kpis.items.map((k) => (
+            <div class="border border-borde bg-superficie p-3">
+              <dt class={kpiLabel}>{k.label}</dt>
+              <dd id={`kpi-${k.key}`} class="mt-1 font-display text-2xl font-bold text-tinta">0</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="mt-2 text-xs text-tinta-suave">
+        {t.kpis.duplicates}: <span id="kpi-duplicados" class="font-mono text-tinta">0</span>. {t.kpis.note}
+      </p>
+
+      <!-- Lista + detalle -->
+      <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
+        <section id="demo-list-section" aria-labelledby="demo-list-title">
+          <h2 id="demo-list-title" class={sectionTitle}>{t.list.title}</h2>
+          <div class="mt-3 flex flex-col gap-3">
+            <div role="group" aria-label={t.filters.label} id="demo-filters" class="flex flex-wrap gap-2"></div>
+            <label class="block w-full text-sm text-tinta-suave sm:max-w-xs">
+              {t.filters.search}
+              <input id="demo-search" type="search" autocomplete="off" placeholder={t.filters.searchPlaceholder} class={inputClass} />
+            </label>
+          </div>
+          <ul id="demo-list" class="mt-3 space-y-2"></ul>
+        </section>
+
+        <section
+          id="demo-detail-section"
+          aria-label="Detalle del expediente"
+          class="self-start border border-borde bg-hueso p-4 lg:sticky lg:top-20 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto"
+          data-lenis-prevent
+        >
+          <div id="demo-detail"></div>
+        </section>
+      </div>
+
+      <!-- Historial -->
+      <section class="mt-10" aria-labelledby="demo-history-title">
+        <h2 id="demo-history-title" class={sectionTitle}>{t.history.title}</h2>
+        <ol id="demo-history" class="mt-3 max-h-80 overflow-y-auto border border-borde bg-superficie" data-lenis-prevent></ol>
+      </section>
+
+      <div id="demo-live" role="status" aria-live="polite" class="sr-only"></div>
+    </section>
+
+    <!-- Calculadora -->
+    <section class="border-t border-borde bg-superficie" aria-labelledby="demo-calc-title">
+      <div class="container-page py-12">
+        <p class="inline-flex border border-urgencia px-2 py-0.5 font-mono text-xs tracking-wide text-urgencia uppercase">{t.calculator.badge}</p>
+        <h2 id="demo-calc-title" class="mt-3 font-display text-2xl font-bold text-tinta">{t.calculator.title}</h2>
+        <p class="mt-2 max-w-3xl text-tinta-suave">{t.calculator.intro}</p>
+
+        <div class="mt-6 grid gap-8 lg:grid-cols-2">
+          <form id="demo-calc" novalidate class="grid gap-4 sm:grid-cols-2">
+            <label class="text-sm text-tinta">
+              {t.calculator.fields.expedientesMes}
+              <input name="expedientesMes" type="number" inputmode="numeric" min="1" max="5000" step="1" value="80" class={inputClass} />
+            </label>
+            <label class="text-sm text-tinta">
+              {t.calculator.fields.minutosManuales}
+              <input name="minutosManuales" type="number" inputmode="numeric" min="1" max="600" step="1" value="25" class={inputClass} />
+            </label>
+            <label class="text-sm text-tinta">
+              {t.calculator.fields.reduccionPct}
+              <input name="reduccionPct" type="number" inputmode="numeric" min="0" max="100" step="1" value="30" class={inputClass} />
+            </label>
+            <label class="text-sm text-tinta">
+              {t.calculator.fields.costeHora}
+              <input name="costeHora" type="number" inputmode="decimal" min="1" max="500" step="1" value="30" class={inputClass} />
+            </label>
+          </form>
+
+          <div aria-live="polite">
+            <div id="demo-calc-errors" role="alert" class="text-sm text-urgencia"></div>
+            <dl id="demo-calc-out" class="grid gap-3 sm:grid-cols-2">
+              <div class="border border-dashed border-borde p-3">
+                <dt class={kpiLabel}>{t.calculator.results.horasManualesMes}</dt>
+                <dd id="calc-horasManualesMes" class="mt-1 font-display text-xl font-bold text-tinta"></dd>
+              </div>
+              <div class="border border-dashed border-borde p-3">
+                <dt class={kpiLabel}>{t.calculator.results.horasAhorradasMes}</dt>
+                <dd id="calc-horasAhorradasMes" class="mt-1 font-display text-xl font-bold text-tinta"></dd>
+              </div>
+              <div class="border border-dashed border-borde p-3">
+                <dt class={kpiLabel}>{t.calculator.results.ahorroMes}</dt>
+                <dd id="calc-ahorroMes" class="mt-1 font-display text-xl font-bold text-tinta"></dd>
+              </div>
+              <div class="border border-dashed border-borde p-3">
+                <dt class={kpiLabel}>{t.calculator.results.ahorroAnio}</dt>
+                <dd id="calc-ahorroAnio" class="mt-1 font-display text-xl font-bold text-tinta"></dd>
+              </div>
+            </dl>
+            <p class="mt-3 text-xs text-tinta-suave"><strong>{t.calculator.results.title}.</strong> {t.calculator.disclaimer}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="border-t border-borde" aria-labelledby="demo-cta-title">
+      <div class="container-page py-14 text-center">
+        <h2 id="demo-cta-title" class="font-display text-2xl font-bold text-tinta sm:text-3xl">{t.cta.title}</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-tinta-suave">{t.cta.body}</p>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <a
+            href={t.cta.href}
+            data-track="cta_diagnostico_click"
+            data-track-label="demo-f03"
+            class="inline-flex items-center border border-tinta-fija bg-tinta-fija px-5 py-2.5 font-medium text-blanco transition-colors hover:border-senal hover:bg-senal"
+          >{t.cta.label}</a>
+          <a
+            href={t.cta.secondary.href}
+            class="inline-flex items-center border border-borde bg-superficie px-5 py-2.5 font-medium text-tinta transition-colors hover:border-senal hover:text-senal"
+          >{t.cta.secondary.label}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+
+  <script>
+    import { initDemoF03 } from "../../lib/demo/f03/ui";
+    initDemoF03();
+  </script>
+</Layout>
