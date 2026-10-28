@@ -59,6 +59,10 @@ from its process in some environments). There is no linter configured.
   or incomplete files, simulated clock, event log). Expediente status and all
   metrics are derived from that state (`rules.ts`, `metrics.ts`), never stored.
   `ui.ts` renders with `createElement`/`textContent` only (no `innerHTML`).
+  The "¿Y si el cliente no responde?" retry simulator (`#reintentos`) is independent
+  of that store: `reintentos.ts` (pure `generarPasos`, derived `resumir`) and
+  `reintentos-ui.ts`; every notice carries a new deadline and a doubtful or
+  unanswered file always ends with a person, never auto-closed.
   Calculator figures and manual-minutes-per-task are hypotheses and are labelled
   as such in the UI. Relative imports in `src/lib/demo/f03/` use `.ts` extensions
   so Node can run them in `scripts/test-demo-f03.mjs`.

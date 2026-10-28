@@ -4,6 +4,7 @@ import { crearEstadoInicial } from "../src/lib/demo/f03/seed.ts";
 import { reducir, crearAlmacen } from "../src/lib/demo/f03/store.ts";
 import { estadoDe } from "../src/lib/demo/f03/rules.ts";
 import { calcularMetricas, calcularAhorro } from "../src/lib/demo/f03/metrics.ts";
+import { generarPasos, resumir, ultimoCorreo, normalizarConfig, CONFIG_INICIAL } from "../src/lib/demo/f03/reintentos.ts";
 
 let n = 0;
 const test = (nombre, fn) => {
@@ -183,6 +184,80 @@ test("calculadora: cálculo y validación", () => {
     assert.equal(calcularAhorro({ expedientesMes: 10, minutosManuales: 10, reduccionPct: 10, costeHora: 10, ...mal }).valido, false);
   }
   assert.equal(calcularAhorro({ expedientesMes: 10, minutosManuales: 10, reduccionPct: 0, costeHora: 10 }).ahorroMes, 0);
+});
+
+/* ---------- Simulador de reintentos ---------- */
+const cfg = (comportamiento, intervalo = 3, maxReintentos = 3) => ({ comportamiento, intervalo, maxReintentos });
+const tipos = (c) => generarPasos(c).map((p) => p.tipo);
+const COMPORTAMIENTOS = ["primer_aviso", "tras_dos", "nunca", "dudoso"];
+
+test("reintentos: responde al primer aviso -> completo sin reintentos", () => {
+  const p = generarPasos(cfg("primer_aviso"));
+  assert.deepEqual(tipos(cfg("primer_aviso")), ["solicitud", "recepcion", "resultado"]);
+  assert.equal(p.at(-1).final, "completo");
+  assert.deepEqual(p.map((x) => x.dia), [0, 1, 3]);
+});
+
+test("reintentos: responde tras dos recordatorios", () => {
+  const p = generarPasos(cfg("tras_dos", 3, 3));
+  assert.deepEqual(tipos(cfg("tras_dos")), ["solicitud", "reintento", "reintento", "recepcion", "resultado"]);
+  assert.deepEqual(p.map((x) => x.dia), [0, 3, 6, 7, 9]);
+  assert.equal(p.at(-1).final, "completo");
+  assert.equal(p.filter((x) => x.ultimoAviso).length, 0, "con max 3 el segundo reintento no es el último");
+});
+
+test("reintentos: no responde nunca -> agota reintentos y pasa a una persona", () => {
+  for (const max of [2, 3, 4]) {
+    const p = generarPasos(cfg("nunca", 5, max));
+    assert.equal(p.filter((x) => x.tipo === "reintento").length, max);
+    assert.equal(p.filter((x) => x.ultimoAviso).length, 1);
+    assert.equal(p.filter((x) => x.ultimoAviso)[0].n, max + 1);
+    assert.equal(p.at(-1).final, "persona");
+    assert.equal(p.at(-1).dia, (max + 1) * 5);
+  }
+});
+
+test("reintentos: documento dudoso nunca se da por bueno", () => {
+  const p = generarPasos(cfg("dudoso"));
+  assert.deepEqual(tipos(cfg("dudoso")), ["solicitud", "recepcion", "resultado"]);
+  assert.equal(p.at(-1).final, "persona");
+});
+
+test("reintentos: solo termina completo si el cliente responde con documentos correctos", () => {
+  for (const c of COMPORTAMIENTOS)
+    for (const i of [2, 3, 5])
+      for (const m of [2, 3, 4]) {
+        const p = generarPasos(cfg(c, i, m));
+        assert.equal(p.at(-1).final === "completo", c === "primer_aviso" || c === "tras_dos", c);
+        assert.equal(p.filter((x) => x.final).length, 1);
+        p.forEach((x, k) => assert.equal(x.n, k + 1));
+        for (let k = 1; k < p.length; k++) assert.ok(p[k].dia >= p[k - 1].dia);
+      }
+});
+
+test("reintentos: cada aviso lleva un plazo nuevo (sin duplicados)", () => {
+  for (const c of COMPORTAMIENTOS)
+    for (const i of [2, 3, 5])
+      for (const m of [2, 3, 4]) {
+        const plazos = generarPasos(cfg(c, i, m)).filter((x) => x.correo).map((x) => x.plazo);
+        assert.equal(new Set(plazos).size, plazos.length);
+      }
+});
+
+test("reintentos: resumen derivado de los pasos revelados", () => {
+  const p = generarPasos(cfg("nunca", 3, 3));
+  assert.deepEqual(resumir(p, 0), { avisos: 0, dias: 0, minutosManuales: 0 });
+  assert.deepEqual(resumir(p, 1), { avisos: 1, dias: 0, minutosManuales: 8 });
+  assert.deepEqual(resumir(p, 3), { avisos: 3, dias: 6, minutosManuales: 8 + 5 + 5 });
+  assert.equal(ultimoCorreo(p, 0), null);
+  assert.equal(ultimoCorreo(p, 3).n, 3);
+  assert.ok(ultimoCorreo(p, 4).correo.asunto.includes("Último aviso"));
+  assert.ok(p.filter((x) => x.correo).every((x) => x.correo.cuerpo.includes("No se ha enviado ningún correo")));
+});
+
+test("reintentos: configuración fuera de rango vuelve a la inicial", () => {
+  assert.deepEqual(normalizarConfig({ comportamiento: "x", intervalo: 99, maxReintentos: 0 }), CONFIG_INICIAL);
+  assert.deepEqual(normalizarConfig({ comportamiento: "nunca", intervalo: 5, maxReintentos: 4 }), cfg("nunca", 5, 4));
 });
 
 console.log(`\n${n} pruebas pasadas`);

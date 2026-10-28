@@ -110,6 +110,59 @@ export const demoF03 = {
     },
   },
 
+  reintentos: {
+    title: "¿Y si el cliente no responde?",
+    intro:
+      "Elige cómo se comporta un cliente ficticio y avanza paso a paso. Verás cuándo se reclaman los documentos, con qué plazo nuevo y cuándo la automatización se detiene y avisa a una persona del despacho.",
+    client: "Cliente ficticio: Taller Norte Demo S.L. · Trámite: IVA 1T · 3 documentos",
+    fields: {
+      comportamiento: {
+        label: "El cliente…",
+        options: [
+          { value: "tras_dos", label: "responde tras dos recordatorios" },
+          { value: "primer_aviso", label: "responde al primer aviso" },
+          { value: "nunca", label: "no responde nunca" },
+          { value: "dudoso", label: "envía un documento dudoso" },
+        ],
+      },
+      intervalo: {
+        label: "Reintentar cada",
+        options: [
+          { value: "2", label: "2 días" },
+          { value: "3", label: "3 días" },
+          { value: "5", label: "5 días" },
+        ],
+      },
+      maxReintentos: {
+        label: "Máximo de reintentos",
+        options: [
+          { value: "2", label: "2" },
+          { value: "3", label: "3" },
+          { value: "4", label: "4" },
+        ],
+      },
+    },
+    buttons: { next: "Siguiente paso", play: "Reproducir", pause: "Pausar", reset: "Reiniciar" },
+    counters: { avisos: "Avisos enviados", dias: "Días transcurridos", minutos: "Tiempo manual equivalente" },
+    counterNote:
+      "El tiempo manual es una hipótesis (8 min por solicitud y 5 min por recordatorio hechos a mano), no un resultado medido.",
+    steps: { title: "Recorrido", day: "Día", pending: "Pendiente", lastDeadline: "Último plazo: día" },
+    email: {
+      title: "Correo del último aviso",
+      note: "Simulado: no se ha enviado ningún correo.",
+      view: "Ver correo simulado",
+      none: "Pulsa «Siguiente paso» para ver el primer correo.",
+      to: "Para",
+      subject: "Asunto",
+    },
+    finals: {
+      completo: "Resultado: expediente completo",
+      persona: "Resultado: pasa a una persona del despacho",
+    },
+    ruleNote:
+      "Un documento dudoso o sin respuesta nunca se da por bueno de forma automática: siempre lo revisa una persona.",
+  },
+
   calculator: {
     title: "Calculadora económica",
     badge: "HIPÓTESIS, NO RESULTADOS REALES",

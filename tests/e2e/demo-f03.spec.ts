@@ -119,3 +119,63 @@ test("accesibilidad (axe): sin violaciones graves ni críticas", async ({ page }
     graves.map((v) => `${v.id} (${v.impact}): ${v.nodes.length} nodo(s) · ${v.nodes[0]?.target.join(" ")}`),
   ).toEqual([]);
 });
+
+/* ---------- Simulador de reintentos ---------- */
+const sim = (page: Page, id: string) => page.locator(`#demo-retry-${id}`);
+
+test("reintentos: sin respuesta se agotan los reintentos y pasa a una persona", async ({ page }) => {
+  await page.getByLabel("El cliente…").selectOption("nunca");
+  await expect(sim(page, "avisos")).toHaveText("0");
+  const siguiente = page.getByRole("button", { name: "Siguiente paso" });
+  for (let i = 0; i < 5; i++) await siguiente.click();
+  await expect(sim(page, "avisos")).toHaveText("4");
+  await expect(sim(page, "dias")).toHaveText("12");
+  await expect(sim(page, "steps")).toContainText("Resultado: pasa a una persona del despacho");
+  await expect(sim(page, "steps")).toContainText("Último plazo: día");
+  await expect(siguiente).toBeDisabled();
+  await expect(sim(page, "mail")).toContainText("Último aviso");
+  await expect(sim(page, "mail")).toContainText("No se ha enviado ningún correo");
+});
+
+test("reintentos: documento dudoso nunca termina como completo", async ({ page }) => {
+  await page.getByLabel("El cliente…").selectOption("dudoso");
+  const siguiente = page.getByRole("button", { name: "Siguiente paso" });
+  for (let i = 0; i < 3; i++) await siguiente.click();
+  await expect(sim(page, "steps")).toContainText("Resultado: pasa a una persona del despacho");
+  await expect(sim(page, "steps")).not.toContainText("expediente completo");
+});
+
+test("reintentos: cambiar la configuración reinicia el recorrido", async ({ page }) => {
+  const siguiente = page.getByRole("button", { name: "Siguiente paso" });
+  await siguiente.click();
+  await siguiente.click();
+  await expect(sim(page, "avisos")).toHaveText("2");
+  await page.getByLabel("Reintentar cada").selectOption("5");
+  await expect(sim(page, "avisos")).toHaveText("0");
+  await expect(sim(page, "mail")).toContainText("Pulsa «Siguiente paso»");
+});
+
+test("reintentos: reproducir avanza solo hasta el resultado", async ({ page }) => {
+  await page.getByLabel("El cliente…").selectOption("primer_aviso");
+  await page.getByRole("button", { name: "Reproducir" }).click();
+  await expect(sim(page, "steps")).toContainText("Resultado: expediente completo", { timeout: 10_000 });
+  await expect(page.getByRole("button", { name: "Reproducir" })).toBeDisabled();
+  await page.getByRole("button", { name: "Reiniciar", exact: true }).last().click();
+  await expect(sim(page, "avisos")).toHaveText("0");
+});
+
+test("reintentos: el correo se ve junto al paso en móvil y en el panel en escritorio", async ({ page }, testInfo) => {
+  await page.getByRole("button", { name: "Siguiente paso" }).click();
+  const textoCorreo = "Para tramitar"; // frase única del cuerpo del primer correo
+  if (testInfo.project.name === "movil") {
+    await expect(sim(page, "steps").getByText(textoCorreo)).toBeVisible();
+    await expect(sim(page, "mail")).toBeHidden();
+    // Al avanzar, el correo del nuevo paso queda abierto y el anterior se pliega
+    await page.getByRole("button", { name: "Siguiente paso" }).click();
+    await expect(sim(page, "steps").locator("details[open]")).toHaveCount(1);
+    await expect(sim(page, "steps").locator("details")).toHaveCount(2);
+  } else {
+    await expect(sim(page, "mail").getByText(textoCorreo)).toBeVisible();
+    await expect(sim(page, "steps").locator("details").first()).toBeHidden();
+  }
+});
