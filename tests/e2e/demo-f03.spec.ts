@@ -179,3 +179,49 @@ test("reintentos: el correo se ve junto al paso en móvil y en el panel en escri
     await expect(sim(page, "steps").locator("details").first()).toBeHidden();
   }
 });
+
+/* ---------- Accesibilidad: teclado y modo oscuro ---------- */
+test("teclado: el primer Tab ofrece «Saltar al contenido» y lleva al main", async ({ page }) => {
+  await page.keyboard.press("Tab");
+  const salto = page.getByRole("link", { name: "Saltar al contenido" });
+  await expect(salto).toBeFocused();
+  await expect(salto).toBeVisible();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("main#contenido")).toBeFocused();
+});
+
+test("teclado: el foco en la cabecera la muestra aunque se haya ocultado al hacer scroll", async ({ page }) => {
+  await page.mouse.move(5, 300);
+  await page.mouse.wheel(0, 1600);
+  await expect.poll(() => page.evaluate(() => document.querySelector("#site-header")!.getBoundingClientRect().top)).toBeLessThan(0);
+  // Esperar a que Lenis termine de frenar: sus últimos eventos de scroll volverían a ocultar la cabecera
+  let previo = -1;
+  await expect
+    .poll(async () => {
+      const y = await page.evaluate(() => Math.round(scrollY));
+      const quieto = y === previo;
+      previo = y;
+      return quieto;
+    }, { intervals: [400] })
+    .toBe(true);
+  await page.evaluate(() => document.querySelector<HTMLElement>("#site-header a")!.focus());
+  await expect.poll(() => page.evaluate(() => document.querySelector("#site-header")!.getBoundingClientRect().top)).toBeGreaterThanOrEqual(0);
+});
+
+test.describe("modo oscuro", () => {
+  test.use({ colorScheme: "dark" });
+
+  test("axe (contraste incluido) con el simulador y el detalle abiertos, y botón en hover", async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem("flujoteca-theme", "dark"));
+    await page.goto(URL);
+    await expect(page.locator("html")).toHaveClass(/dark/);
+    await fila(page, "EXP-004").click();
+    await page.getByLabel("El cliente…").selectOption("nunca");
+    for (let i = 0; i < 4; i++) await page.getByRole("button", { name: "Siguiente paso" }).click();
+    await page.getByRole("button", { name: "Siguiente paso" }).hover();
+    await page.waitForTimeout(500); // fin de la transición de color
+    const r = await new AxeBuilder({ page }).analyze();
+    const fallos = r.violations.map((v) => `${v.id} (${v.impact}): ${v.nodes.map((n) => n.target.join(" ")).slice(0, 3).join(" | ")}`);
+    expect(fallos).toEqual([]);
+  });
+});

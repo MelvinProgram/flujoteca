@@ -20,6 +20,7 @@
   --color-tinta: #14273e;      /* azul tinta — principal */
   --color-senal: #0a5aa0;      /* azul señal — acentos y enlaces */
   --color-urgencia: #b3271e;   /* rojo — solo urgencias y plazos */
+  --color-urgencia-texto: #b3271e; /* mismo rojo para TEXTO sobre superficies; en oscuro, más claro para llegar a 4,5:1 */
   --color-hueso: #f1f3f5;      /* fondo */
   --color-confirma: #1e6b45;   /* verde — confirmaciones */
 
@@ -54,6 +55,7 @@
   --color-borde: #2a3a4f;
   --color-senal: #4c9fe0;
   --color-urgencia: #e0574c;
+  --color-urgencia-texto: #e8665b; /* 5,12:1 sobre superficie y 5,71:1 sobre hueso (oscuro) */
   --color-confirma: #3fae7c;
   --color-superficie: #141f2e;
 }

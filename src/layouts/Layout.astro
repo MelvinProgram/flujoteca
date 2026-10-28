@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { site, stack } from "../content/site";
+import { nav, site, stack } from "../content/site";
 import SmoothScroll from "../components/SmoothScroll.astro";
 
 interface Props {
@@ -102,6 +102,10 @@ const serviceSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   </head>
   <body class="bg-hueso text-tinta antialiased">
+    <a
+      href={nav.skip.href}
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:border focus:border-tinta-fija focus:bg-tinta-fija focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-blanco"
+    >{nav.skip.label}</a>
     <slot />
     <SmoothScroll />
     <script>

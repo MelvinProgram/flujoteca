@@ -45,7 +45,7 @@ const SEGMENTO: Record<EstadoDocumento, string> = {
 const BTN =
   "inline-flex min-h-11 items-center border border-borde bg-superficie px-3 py-1.5 text-sm font-medium text-tinta transition-colors hover:border-senal hover:text-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-borde disabled:hover:text-tinta sm:min-h-9";
 const BTN_PRIMARY =
-  "inline-flex min-h-11 items-center border border-tinta-fija bg-tinta-fija px-3 py-1.5 text-sm font-medium text-blanco transition-colors hover:border-senal hover:bg-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-tinta-fija disabled:hover:bg-tinta-fija sm:min-h-9";
+  "inline-flex min-h-11 items-center border border-tinta-fija bg-tinta-fija px-3 py-1.5 text-sm font-medium text-blanco transition-colors hover:border-senal hover:bg-senal disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-tinta-fija disabled:hover:bg-tinta-fija sm:min-h-9 dark:hover:text-tinta-fija";
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -269,7 +269,7 @@ export function initDemoF03(): void {
       const hayPlazo = d.estado === "pendiente" && exp.solicitado;
       info.append(
         el("p", "text-sm text-tinta", d.nombre),
-        el("p", `text-xs ${hayPlazo && dias <= 1 ? "font-medium text-urgencia" : "text-tinta-suave"}`, hayPlazo ? plazo : ""),
+        el("p", `text-xs ${hayPlazo && dias <= 1 ? "font-medium text-urgencia-texto" : "text-tinta-suave"}`, hayPlazo ? plazo : ""),
       );
       li.append(info, badge(t.docStates[d.estado], DOC_BADGE[d.estado]));
       if (puedeRecibir(exp, d).ok) {

@@ -70,7 +70,7 @@ import { site, nav } from "../content/site";
         href={nav.cta.href}
         data-track="cta_diagnostico_click"
         data-track-label="header"
-        class="inline-flex items-center border border-tinta-fija bg-tinta-fija px-4 py-2 font-sans text-sm font-medium text-blanco transition-colors hover:bg-senal hover:border-senal"
+        class="inline-flex items-center border border-tinta-fija bg-tinta-fija px-4 py-2 font-sans text-sm font-medium text-blanco transition-colors hover:bg-senal hover:border-senal dark:hover:text-tinta-fija"
       >
         {nav.cta.label}
       </a>
@@ -101,6 +101,9 @@ import { site, nav } from "../content/site";
     hidden = next;
     header?.classList.toggle("-translate-y-full", hidden);
   }
+
+  // Con teclado, el foco nunca debe quedar en una barra oculta: si algo de la cabecera lo recibe, se muestra.
+  header?.addEventListener("focusin", () => setHidden(false, window.scrollY));
 
   document.addEventListener("site:scroll", (e) => {
     const { scroll: y, velocity } = (e as CustomEvent<{ scroll: number; velocity: number }>).detail;

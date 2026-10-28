@@ -42,6 +42,8 @@ export const nav = {
     { label: "FAQ", href: "/#faq" },
   ],
   cta: { label: "Analizar mi despacho", href: "/#contacto" },
+  // Enlace para saltar la cabecera con teclado (visible solo al recibir el foco)
+  skip: { label: "Saltar al contenido", href: "#contenido" },
 } as const;
 
 // Tecnologías de automatización que usamos (JSON-LD y llms.txt). Quedan en segundo

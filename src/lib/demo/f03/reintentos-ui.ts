@@ -109,7 +109,7 @@ export function initReintentosF03(): void {
     if (hecho) {
       li.append(el("p", "mt-1 text-sm text-tinta-suave", p.detalle));
       if (p.ultimoAviso && p.plazo !== undefined) {
-        li.append(el("p", "mt-1 text-sm font-medium text-urgencia", `${t.reintentos.steps.lastDeadline} ${p.plazo}`));
+        li.append(el("p", "mt-1 text-sm font-medium text-urgencia-texto", `${t.reintentos.steps.lastDeadline} ${p.plazo}`));
       }
       if (p.correo) {
         // En pantallas pequeñas el panel lateral no cabe: el correo va dentro del paso,
