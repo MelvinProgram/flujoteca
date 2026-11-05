@@ -34,6 +34,7 @@ Flujoteca no es un software de facturación ni sustituye la adaptación de un de
 
 ## Enlaces
 
-- Web: https://flujoteca.es
-- Preguntas frecuentes: https://flujoteca.es/#faq
-- Contacto: hola@flujoteca.es
+- [Web](https://flujoteca.es): página principal con el catálogo de automatizaciones
+- [Demo de recogida documental (F-03)](https://flujoteca.es/demo/recogida-documental/): demo interactiva con datos ficticios
+- [Preguntas frecuentes](https://flujoteca.es/#faq)
+- [Contacto](mailto:hola@flujoteca.es): hola@flujoteca.es
