@@ -49,8 +49,8 @@ from its process in some environments). There is no linter configured.
   `plans/02-contacto-hubspot.md` for the full design. HubSpot setup is done;
   only deleting the legacy `PUBLIC_CONTACT_WEBHOOK_URL` env var in Netlify
   (if present) remains as a manual step.
-- **F-03 demo** (`src/pages/demo/recogida-documental.astro`, `noindex`, excluded
-  from the sitemap in `astro.config.mjs`). Fictitious data only: no network,
+- **F-03 demo** (`src/pages/demo/recogida-documental.astro`, indexable and listed
+  in the sitemap; link to it with the trailing slash, as in its canonical URL). Fictitious data only: no network,
   email, `localStorage` or personal data. Copy lives in `src/content/demo-f03.ts`;
   the F-03 card in `FlowCatalog.astro` links to it via `flows.demo` in `site.ts`.
   Logic is in `src/lib/demo/f03/`: `store.ts` holds the single source of truth

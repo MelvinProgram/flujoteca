@@ -95,7 +95,7 @@ export const flows = {
     code: "F-03",
     label: "Probar la demo interactiva",
     note: "Datos ficticios",
-    href: "/demo/recogida-documental",
+    href: "/demo/recogida-documental/",
   },
   items: [
     {
