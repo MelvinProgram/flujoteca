@@ -2,6 +2,15 @@
 import "../styles/global.css";
 import { nav, site, stack } from "../content/site";
 import SmoothScroll from "../components/SmoothScroll.astro";
+// Fuentes de la primera pantalla (subconjunto latin, el que usa el español): se precargan
+// para que lleguen antes del primer pintado y no haya salto de tipografía.
+// Vite deduplica por contenido, así que son los mismos archivos que referencia el CSS.
+import zillaSlab700 from "@fontsource/zilla-slab/files/zilla-slab-latin-700-normal.woff2?url";
+import publicSans from "@fontsource-variable/public-sans/files/public-sans-latin-wght-normal.woff2?url";
+import plexMono400 from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url";
+import plexMono500 from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2?url";
+
+const preloadFonts = [zillaSlab700, publicSans, plexMono400, plexMono500];
 
 interface Props {
   title?: string;
@@ -74,6 +83,7 @@ const serviceSchema = {
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {preloadFonts.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
